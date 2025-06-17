@@ -10,9 +10,7 @@ export default async function IndexPage(props: {
   resources: Resource[];
 }): PromiseElement {
   const previews: Preview[] = await ef.all<{}, Preview>({
-    opts: {},
-    input: {},
-    ks: props.resources.filterMap<ef.T<{}, Preview>>((res) => {
+    efs: props.resources.filterMap<ef.T<{}, Preview>>((res) => {
       switch (res.type) {
         case "post": {
           return ef.run({}, () => async (ctx) => ({
@@ -22,6 +20,7 @@ export default async function IndexPage(props: {
         }
       }
     }),
+    input: {},
   })(props.ctx);
 
   previews.sort((p1, p2) => {

@@ -1,43 +1,36 @@
 :root {
-    /* color-scheme: light dark; */
+    color-scheme: light dark;
+    /* color-scheme: dark; */
     /* color-scheme: light; */
 
     --main--width: 600px;
 
-    /* theme: https://coolors.co/945600-63a088-2a2f3c-8980f5-eadeda */
-    --primary--color: #945600;
-    --secondary--color: #63a088;
-    --darkest--color: #2a2f3c;
-    --highlight--color: #8980f5;
-    --neutral--color: #eadeda;
-    /* --html--background: transparent; */
-    --html--background: #666;
-    --body--foreground: black;
+    --dark--color: #000;
+    --light--color: #fff;
 
-    /* --link--background: var(--highlight--color); */
-    --link--background: var(--highlight--color);
+    --background--color: light-dark(var(--light--color), var(--dark--color));
+    --foreground--color: light-dark(var(--dark--color), var(--light--color));
+    --accent--color: red;
 
     --accent--background: color-mix(
         in hsl,
-        var(--primary--color),
-        transparent 40%
+        transparent,
+        var(--accent--color) 50%
     );
-    --accent--foreground: var(--body--foreground);
-    --accent--box-shadow: none;
 
-    --container-accent--background: color-mix(
-        in hsl,
-        var(--secondary--color),
-        transparent 50%
-    );
-    --container--border--color: var(--darkest--color);
     --container--background: color-mix(
         in hsl,
-        var(--darkest--color),
-        transparent 90%
+        var(--light--color),
+        var(--dark--color) 25%
     );
+    --container--border--color: var(--dark--color);
 
-    --panel--background: color-mix(in hsl, white, transparent 30%);
+    --panel--background: color-mix(
+        in hsl,
+        var(--dark--color),
+        var(--light--color) 75%
+    );
+    --panel--foreground: light-dark(var(--dark--color), var(--light--color));
     --panel--backdrop-filter: blur(4px);
 }
 

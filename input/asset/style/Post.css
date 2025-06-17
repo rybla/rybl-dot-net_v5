@@ -14,6 +14,7 @@ main {
 
         background: var(--panel--background);
         backdrop-filter: var(--panel--backdrop-filter);
+        color: var(--panel--foreground);
     }
 
     /* TODO: sticker-header */

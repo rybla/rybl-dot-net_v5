@@ -13,8 +13,8 @@ html {
         display: none;
     }
 
-    background: var(--html--background);
-    color: var(--body--foreground);
+    background: var(--background--color);
+    color: var(--foreground--color);
 }
 
 body {

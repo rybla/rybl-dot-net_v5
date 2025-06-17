@@ -7,9 +7,8 @@ export const generatePages: ef.T<{ website: Website }> = ef.run(
   { label: "generatePages" },
   (input) => async (ctx) => {
     await ef.all({
-      opts: {},
       input: { website: input.website },
-      ks: [generateIndexPage],
+      efs: [generateIndexPage],
     })(ctx);
   },
 );

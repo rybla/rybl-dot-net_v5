@@ -26,13 +26,12 @@ export const useAssets: ef.T = ef.run(
       void
     >({ label: (input) => input.label }, (input) => async (ctx) => {
       await ef.all({
-        opts: {},
-        input: {},
-        ks: (
+        efs: (
           await ef.getSubRoutes({
             route: input.route,
           })(ctx)
         ).map((route) => ef.run({}, () => ef.useLocalFile({ input: route }))),
+        input: {},
       })(ctx);
     });
 
@@ -72,9 +71,7 @@ const generateResources: ef.T<{ resources: Resource[] }> = ef.run(
   { label: "generateResources" },
   (input) => async (ctx) => {
     await ef.all({
-      opts: {},
-      input: {},
-      ks: input.resources.flatMap((resource) => {
+      efs: input.resources.flatMap((resource) => {
         switch (resource.type) {
           case "post": {
             return [ef.run({}, () => generatePost({ resource }))];
@@ -83,6 +80,7 @@ const generateResources: ef.T<{ resources: Resource[] }> = ef.run(
             return [];
         }
       }),
+      input: {},
     })(ctx);
   },
 );

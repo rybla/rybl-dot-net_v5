@@ -39,7 +39,7 @@ const parsePosts: ef.T<unknown, Resource[]> = ef.run(
     const resources: Resource[] = (
       await ef.all<{}, Resource[]>({
         opts: { batch_size: config.batchSize_of_postAnalysis },
-        ks: (
+        efs: (
           await ef.getSubRoutes({
             route: schemaRoute.parse("/post"),
           })(ctx)

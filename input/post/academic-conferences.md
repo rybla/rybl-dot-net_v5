@@ -14,12 +14,12 @@ nameImage: reflections_on_academic_conferences.png
 
 ## Introduction
 
-I recently attended POPL 2022 in Philadelphia, which is an academic conference
-on the _principles of programming languages_ -- in my field of research as a PhD
-student. This was the first academic conference I attended in person (I have
-attended several online conferences previously), and from my experience there I
-have refined many ideas I've been developing about the purpose and effectiveness
-of conferences.
+I recently attended [POPL 2022](https://popl22.sigplan.org/) in Philadelphia,
+which is an academic conference on the _principles of programming languages_ --
+in my field of research as a PhD student. This was the first academic conference
+I attended in person (I have attended several online conferences previously),
+and from my experience there I have refined many ideas I've been developing
+about the purpose and effectiveness of conferences.
 
 One reason this experience was unique was that it was a hybrid conference due to
 the COVID-19 pandemic -- that is, the conference was hosted with full online

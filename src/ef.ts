@@ -261,12 +261,19 @@ export const useRemoteFile: T<{
 );
 
 export const defined: <A>(
+  label: string,
   a: A | undefined | null,
-) => (ctx: Ctx.T) => Promise<A> = (a) => async (ctx) => {
-  if (a === undefined)
-    throw new EfError("expected to be defined, but was undefined");
-  if (a === null) throw new EfError("expected to be defined, but was null");
-  return a;
+  a_default?: A,
+) => (ctx: Ctx.T) => Promise<A> = (label, a, a_default) => async (ctx) => {
+  if (a_default === undefined) {
+    if (a === undefined)
+      throw new EfError(`${label}: expected to be defined, but was undefined`);
+    if (a === null) throw new EfError("expected to be defined, but was null");
+    return a;
+  } else {
+    if (a === undefined || a === null) return a_default;
+    return a;
+  }
 };
 
 export const safeParse =
@@ -287,15 +294,15 @@ export const pure =
 
 export const all =
   <Input, Output>(input: {
-    opts: { batch_size?: number };
-    ks: T<Input, Output>[];
+    opts?: { batch_size?: number };
+    efs: T<Input, Output>[];
     input: Input;
   }) =>
   async (ctx: Ctx.T): Promise<Output[]> => {
-    const batch_size = input.opts.batch_size ?? input.ks.length;
+    const batch_size = input.opts?.batch_size ?? input.efs.length;
     const batches: T<Input, Output>[][] = [];
-    for (let i = 0; i < input.ks.length; i += batch_size)
-      batches.push(input.ks.slice(i, i + batch_size));
+    for (let i = 0; i < input.efs.length; i += batch_size)
+      batches.push(input.efs.slice(i, i + batch_size));
 
     const tellss: { depth: number; content: string }[][] = [];
     const results: Output[] = [];
@@ -338,13 +345,12 @@ export const fetchExternalReferenceMetadata: T<
       initialize: () => async (ctx) => {
         const metadata: ExternalReferenceMetadata = {};
         await all({
-          opts: {},
-          input: {},
-          ks: [
+          efs: [
             run({}, () => async (ctx) => {
               metadata.name = await fetchTitle({ url: input.url })(ctx);
             }),
           ],
+          input: {},
         })(ctx);
         return metadata;
       },

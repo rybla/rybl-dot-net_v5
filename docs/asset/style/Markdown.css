@@ -1,15 +1,15 @@
 a {
     display: inline;
 
-    color: var(--body--foreground);
-    background: color-mix(in hsl, var(--link--background), transparent 90%);
+    color: inherit;
+    background: var(--accent--background);
     box-shadow: 0 -0.1em 0 0
         color-mix(in hsl, var(--body--foreground), transparent 80%) inset;
 
     text-decoration: none;
 
     &:hover {
-        background: color-mix(in hsl, var(--link--background), transparent 50%);
+        background: var(--accent--background);
         box-shadow: 0 -0.1em 0 0
             color-mix(in hsl, var(--body--foreground), transparent 0%) inset;
     }
@@ -110,7 +110,7 @@ table {
 
     th {
         padding: 0.5rem;
-        background: var(--container-accent--background);
+        background: var(--container--background);
     }
 
     td {
@@ -139,8 +139,7 @@ h6 {
     line-height: 1.5em;
     /* line-height: 1em; */
 
-    background: color-mix(in hsl, var(--accent--background), transparent 70%);
-    color: var(--accent--foreground);
+    background: var(--accent--background);
 
     & > a {
         background: none;
