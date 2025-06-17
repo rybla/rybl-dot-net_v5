@@ -1,0 +1,37 @@
+.PostPreview {
+    display: flex;
+    flex-direction: column;
+
+    .label {
+        font-style: italic;
+    }
+
+    & > .pubDate {
+        padding: 1em;
+        padding-bottom: 0;
+
+        display: flex;
+        flex-direction: row;
+        gap: 0.2em;
+    }
+
+    & > .tags {
+        padding: 1em;
+        padding-bottom: 0;
+
+        display: flex;
+        flex-direction: row;
+        gap: 0.2em;
+
+        & > .value {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0.5em;
+        }
+    }
+
+    & > .abstract {
+        padding: 1em;
+    }
+}

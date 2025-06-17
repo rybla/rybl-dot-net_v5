@@ -1,0 +1,37 @@
+main {
+    .tags_and_previews {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
+        & > .heading {
+            background: none;
+            backdrop-filter: invert(100%);
+
+            padding: 0.5em;
+            font-size: 1.5em;
+
+            & > .Tag {
+                padding: 0.2em;
+
+                background: none;
+                box-shadow: none;
+                backdrop-filter: unset;
+            }
+
+            &:target > .Tag,
+            .Tag:hover {
+                background: none;
+                box-shadow: 0 -0.1em 0 0
+                    color-mix(in hsl, var(--body--foreground), transparent 0%)
+                    inset;
+                backdrop-filter: unset;
+            }
+        }
+
+        & > .preview {
+            background: var(--panel--background);
+            backdrop-filter: var(--panel--backdrop-filter);
+        }
+    }
+}

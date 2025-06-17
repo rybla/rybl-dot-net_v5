@@ -1,0 +1,48 @@
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    margin: 0;
+    padding: 0;
+
+    /* disable scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    background: var(--html--background);
+    color: var(--body--foreground);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    font-family: Spectral, serif;
+    font-size: 14pt;
+
+    /* line-height: 2em; */
+    line-height: 1.75em;
+    /* line-height: 1.5em; */
+    /* line-height: 1em; */
+}
+
+main {
+    z-index: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    margin: auto;
+    width: calc(min(var(--main--width), 100vw));
+}
+
+code {
+    font-family: Iosevka, monospace;
+}
