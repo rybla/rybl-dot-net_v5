@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] reimplement transformation
+- [ ] reimplement transformations
 - [ ] reimplement doing the icons for URL
 - [ ] stylize with just black, white, and **one** accent color
   - [ ] can do dark mode by just reversing use of black/white -- this is the way
