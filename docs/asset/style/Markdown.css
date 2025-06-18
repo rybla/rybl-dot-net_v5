@@ -133,7 +133,9 @@ h4,
 h5,
 h6 {
     position: relative;
+    /* IDEA: cool styling around headings
     isolation: isolate;
+    */
 
     /* this was for sticky headings */
     /* top: 0; */
@@ -161,8 +163,8 @@ h6 {
     } */
 }
 
-/* TODO: cool styling around headings */
-/* h1::before,
+/* IDEA: cool styling around headings
+h1::before,
 h2::before,
 h3::before,
 h4::before,
@@ -177,7 +179,8 @@ h6::before {
     z-index: -1;
 
     filter: url(#warp);
-} */
+}
+*/
 
 .containerDirective_thumbnail {
     padding: 1em;

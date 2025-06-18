@@ -371,6 +371,8 @@ export const config = do_(() => {
     route_of_fonts: schemaRoute.parse("/asset/font"),
     route_of_scripts: schemaRoute.parse("/asset/script"),
 
+    route_of_favicon: schemaRoute.parse("/asset/icon/favicon.ico"),
+
     dateFormats_parse: ["yyyy-mm-dd", "yyyy/mm/dd", "MMM dd, yyyy"],
     dateFormat_print: "MMM dd, yyyy",
   };

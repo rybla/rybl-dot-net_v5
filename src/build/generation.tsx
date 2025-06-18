@@ -1,6 +1,7 @@
 import * as ef from "@/ef";
 import {
   config,
+  schemaRoute,
   type PostResource,
   type Resource,
   type Route,
@@ -34,6 +35,11 @@ export const useAssets: ef.T = ef.run(
         input: {},
       })(ctx);
     });
+
+    await ef.useLocalFile({
+      input: config.route_of_favicon,
+      output: schemaRoute.parse("/favicon.ico"),
+    })(ctx);
 
     await useLocalFilesUnderRoute({
       label: "useStyles",

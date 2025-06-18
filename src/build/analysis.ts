@@ -8,8 +8,10 @@ import {
   from_URL_to_iconRoute,
   isoHref,
   isoRoute,
+  joinRoutes,
   schemaHref,
   schemaResourceMetadata,
+  schemaRoute,
   type ExternalReference,
   type Reference,
   type Route,
@@ -24,6 +26,7 @@ import {
   addBacklinksSection,
   addReferencesSection,
   addTableOfContents,
+  setNameHeadingWrapperBackgroundToNameImage,
   wrapHeadings,
   type Backlink,
 } from "./analysis/heteromorphism";
@@ -250,6 +253,18 @@ export const analyzeWebsite: ef.T<{
                 })(ctx);
 
                 await wrapHeadings({ root: res.root })(ctx);
+
+                if (res.metadata.nameImage !== undefined) {
+                  const nameImage = joinRoutes(
+                    config.route_of_nameImages,
+                    schemaRoute.parse(`/${res.metadata.nameImage}`),
+                  );
+                  await setNameHeadingWrapperBackgroundToNameImage({
+                    root: res.root,
+                    name: res.metadata.name ?? "Untitled",
+                    nameImage,
+                  })(ctx);
+                }
 
                 break;
               }

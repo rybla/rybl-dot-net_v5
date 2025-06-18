@@ -196,15 +196,16 @@ export const addBacklinksSection: ef.T<
 /**
  * Splices nameImage right under name H1.
  */
-export const addNameImage: ef.T<{
+export const insertNameImage: ef.T<{
   root: mdast.Root;
   name: string;
   nameImage: string;
-}> = ef.run({ label: "addTitleImage" }, (input) => async (ctx) => {
+}> = ef.run({ label: "insertNameImage" }, (input) => async (ctx) => {
   const i_H1 = input.root.children.findIndex(
     (node) => node.type === "heading" && node.depth === 1,
   );
-  if (i_H1 === -1) throw new ef.EfError("in addTitleImage, did not find an H1");
+  if (i_H1 === -1)
+    throw new ef.EfError("in insertNameImage, did not find an H1");
 
   input.root.children.splice(i_H1 + 1, 0, {
     type: "image",
@@ -222,17 +223,58 @@ export const wrapHeadings: ef.T<{ root: mdast.Root }> = ef.run(
   { label: "wrapHeadings" },
   (input) => async (ctx) => {
     visit(input.root, (node, i, parent) => {
-      // TODO
-      // if (node.type === "heading") {
-      //   const kids = parent!.children;
-      //   const kid: typeof kids[number] = {
-      //     type: "containerDirective",
-      //     ''
-      //   };
-      //   // parent?.children[i] = {
-      //   //   type:
-      //   // }
-      // }
+      if (i === undefined) return;
+      if (parent === undefined) return;
+      if (node.type === "heading") {
+        const kids = parent!.children;
+        const kid: (typeof kids)[number] = {
+          type: "containerDirective",
+          name: "headingWrapper",
+          data: {
+            hProperties: {
+              className: ["headingWrapper"],
+            },
+          },
+          attributes: {
+            depth: `${node.depth}`,
+          },
+          children: [node],
+        };
+        parent.children[i] = kid;
+      }
+    });
+  },
+);
+
+export const setNameHeadingWrapperBackgroundToNameImage: ef.T<{
+  root: mdast.Root;
+  name: string;
+  nameImage: Route;
+}> = ef.run(
+  { label: "setNameHeadingWrapperBackgroundToNameImage" },
+  (input) => async (ctx) => {
+    visit(input.root, (node) => {
+      if (node.type === "containerDirective") {
+        if (node.attributes?.depth !== "1") return;
+
+        const data = node.data ?? (node.data = {});
+        const hProperties = data.hProperties ?? (data.hProperties = {});
+        (hProperties.className as string[]).push("name");
+        // const style = hProperties.style === undefined ? "" : hProperties.style;
+        // hProperties.style = `${style} background: url("${isoRoute.unwrap(input.nameImage)}")`;
+
+        node.children.splice(0, 0, {
+          type: "leafDirective",
+          name: "image",
+          data: {
+            hName: "img",
+            hProperties: {
+              src: isoRoute.unwrap(input.nameImage),
+            },
+          },
+          children: [],
+        });
+      }
     });
   },
 );

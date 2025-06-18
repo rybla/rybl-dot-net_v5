@@ -48,47 +48,42 @@ export const applyHomomorphisms =
 export const stylizeLink: Homomorphism<{}> = ef.run(
   {},
   (input) => async (ctx) => {
-    switch (input.node.type) {
-      case "link": {
-        const link = input.node as mdast.Link;
-        await ef.run(
-          { label: ef.label("stylizeLink", { href: link.url }) },
-          () => async (ctx) => {
-            const href = await ef.safeParse(schemaHref, link.url)(ctx);
+    if (input.node.type === "link") {
+      const link = input.node as mdast.Link;
+      await ef.run(
+        { label: ef.label("stylizeLink", { href: link.url }) },
+        () => async (ctx) => {
+          const href = await ef.safeParse(schemaHref, link.url)(ctx);
 
-            link.data = link.data ?? {};
-            link.data.hProperties = link.data.hProperties ?? {};
-            link.data.hProperties.class = "LinkWithIcon";
-            link.children = [
-              {
-                type: "image",
-                data: {
-                  hProperties: {
-                    class: "icon",
-                  },
+          link.data = link.data ?? {};
+          link.data.hProperties = link.data.hProperties ?? {};
+          link.data.hProperties.class = "LinkWithIcon";
+          link.children = [
+            {
+              type: "image",
+              data: {
+                hProperties: {
+                  class: "icon",
                 },
-                url: isoHref.unwrap(
-                  from_Route_to_Href(from_Href_to_iconRoute(href)),
-                ),
               },
-              {
-                type: "textDirective",
-                name: "span",
-                data: {
-                  hName: "span",
-                  hProperties: {
-                    class: "label",
-                  },
+              url: isoHref.unwrap(
+                from_Route_to_Href(from_Href_to_iconRoute(href)),
+              ),
+            },
+            {
+              type: "textDirective",
+              name: "span",
+              data: {
+                hName: "span",
+                hProperties: {
+                  class: "label",
                 },
-                children: link.children,
               },
-            ];
-          },
-        )({})(ctx);
-        break;
-      }
-      default:
-        break;
+              children: link.children,
+            },
+          ];
+        },
+      )({})(ctx);
     }
   },
 );
