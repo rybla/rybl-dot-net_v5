@@ -8,6 +8,7 @@ import {
 import Tag from "./Tag";
 import ParsedDate from "./ParsedDate";
 import Markdown from "./Markdown";
+import PostNameCard from "./PostNameCard";
 
 export default async function PostPreview(props: {
   ctx: ef.Ctx.T;
@@ -15,11 +16,16 @@ export default async function PostPreview(props: {
 }): PromiseElement {
   return (
     <div class="PostPreview">
-      <h1 class="name">
+      {/* <h1 class="name">
         <a href={isoRoute.unwrap(props.resource.route)} safe>
           {get_name_of_Resource(props.resource)}
         </a>
-      </h1>
+      </h1> */}
+      <PostNameCard
+        route={props.resource.route}
+        name={props.resource.metadata.name}
+        nameImage={props.resource.metadata.nameImage}
+      />
       {props.resource.metadata.tags !== undefined ? (
         <div class="tags">
           <div class="label">Tags.</div>

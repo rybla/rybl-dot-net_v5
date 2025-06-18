@@ -43,6 +43,7 @@ export default async function IndexPage(props: {
         <>
           <link rel="stylesheet" href="/asset/style/IndexPage.css" />
           <link rel="stylesheet" href="/asset/style/PostPreview.css" />
+          <link rel="stylesheet" href="/asset/style/PostNameCard.css" />
         </>
       }
     >

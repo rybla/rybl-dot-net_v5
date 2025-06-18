@@ -1,0 +1,30 @@
+.PostNameCard {
+    position: relative;
+
+    &.without_nameImage {
+    }
+
+    &.with_nameImage {
+        & > img {
+            display: block;
+            width: 100%;
+        }
+
+        & > h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+
+            white-space: wrap;
+            width: 80%;
+
+            color: white;
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: #777;
+
+            mix-blend-mode: difference;
+        }
+    }
+}

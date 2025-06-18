@@ -16,6 +16,7 @@ import {
 import { showNode } from "@/unified_util";
 import { do_, encodeURIComponent_better, type Tree } from "@/util";
 import * as mdast from "mdast";
+import type { ContainerDirective } from "mdast-util-directive";
 import { visit } from "unist-util-visit";
 
 export const addTableOfContents: ef.T<{ route: Route; root: mdast.Root }> =
@@ -246,6 +247,24 @@ export const wrapHeadings: ef.T<{ root: mdast.Root }> = ef.run(
   },
 );
 
+export const removeNameHeadingWrapper: ef.T<{ root: mdast.Root }> = ef.run(
+  { label: "removeNameHeadingWrapper" },
+  (input) => async (ctx) => {
+    const i_headingWrapper = input.root.children.findIndex(
+      (node) =>
+        node.type === "containerDirective" &&
+        node.name === "headingWrapper" &&
+        node.attributes?.depth === "1",
+    );
+    if (i_headingWrapper === -1) {
+      await ef.tell("No name headingWrapper found")(ctx);
+      return;
+    }
+
+    input.root.children.splice(i_headingWrapper, 1);
+  },
+);
+
 export const setNameHeadingWrapperBackgroundToNameImage: ef.T<{
   root: mdast.Root;
   name: string;
@@ -254,9 +273,7 @@ export const setNameHeadingWrapperBackgroundToNameImage: ef.T<{
   { label: "setNameHeadingWrapperBackgroundToNameImage" },
   (input) => async (ctx) => {
     visit(input.root, (node) => {
-      if (node.type === "containerDirective") {
-        if (node.attributes?.depth !== "1") return;
-
+      if (node.type === "containerDirective" && node.attributes?.depth == "1") {
         const data = node.data ?? (node.data = {});
         const hProperties = data.hProperties ?? (data.hProperties = {});
         (hProperties.className as string[]).push("name");

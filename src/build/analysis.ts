@@ -26,6 +26,7 @@ import {
   addBacklinksSection,
   addReferencesSection,
   addTableOfContents,
+  removeNameHeadingWrapper,
   setNameHeadingWrapperBackgroundToNameImage,
   wrapHeadings,
   type Backlink,
@@ -254,17 +255,19 @@ export const analyzeWebsite: ef.T<{
 
                 await wrapHeadings({ root: res.root })(ctx);
 
-                if (res.metadata.nameImage !== undefined) {
-                  const nameImage = joinRoutes(
-                    config.route_of_nameImages,
-                    schemaRoute.parse(`/${res.metadata.nameImage}`),
-                  );
-                  await setNameHeadingWrapperBackgroundToNameImage({
-                    root: res.root,
-                    name: res.metadata.name ?? "Untitled",
-                    nameImage,
-                  })(ctx);
-                }
+                // if (res.metadata.nameImage !== undefined) {
+                //   const nameImage = joinRoutes(
+                //     config.route_of_nameImages,
+                //     schemaRoute.parse(`/${res.metadata.nameImage}`),
+                //   );
+                //   await setNameHeadingWrapperBackgroundToNameImage({
+                //     root: res.root,
+                //     name: res.metadata.name ?? "Untitled",
+                //     nameImage,
+                //   })(ctx);
+                // }
+
+                await removeNameHeadingWrapper({ root: res.root })(ctx);
 
                 break;
               }

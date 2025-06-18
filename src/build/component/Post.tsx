@@ -7,6 +7,7 @@ import {
 } from "@/ontology";
 import Markdown from "./Markdown";
 import Top from "./Top";
+import PostNameCard from "./PostNameCard";
 
 export default async function Post(props: {
   ctx: ef.Ctx.T;
@@ -19,11 +20,17 @@ export default async function Post(props: {
       content_head={
         <>
           <link rel="stylesheet" href="/asset/style/Post.css" />
+          <link rel="stylesheet" href="/asset/style/PostNameCard.css" />
           <script src="/asset/script/Post.js" />
         </>
       }
     >
       <div class="content">
+        <PostNameCard
+          route={props.resource.route}
+          name={props.resource.metadata.name}
+          nameImage={props.resource.metadata.nameImage}
+        />
         <Markdown ctx={props.ctx} root={props.resource.root} />
       </div>
     </Top>

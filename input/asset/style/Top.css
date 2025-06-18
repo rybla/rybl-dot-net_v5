@@ -43,7 +43,10 @@ html {
     }
 
     @media (prefers-color-scheme: light) {
-        background: url("/asset/image/day_stars.png");
+        /* background: url("/asset/image/day_stars.png"); */
+        background: url("/asset/image/day_clouds.png");
+        /* background: url("/asset/image/day_clouds_v2.png"); */
+        /* background: url("/asset/image/day_clouds_v3.png"); */
     }
 }
 
