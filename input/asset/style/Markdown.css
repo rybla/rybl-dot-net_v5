@@ -9,9 +9,11 @@ a {
     text-decoration: none;
 
     &:hover {
-        background: var(--accent--background);
+        /* background: var(--accent--background);
         box-shadow: 0 -0.1em 0 0
-            color-mix(in hsl, var(--body--foreground), transparent 0%) inset;
+            color-mix(in hsl, var(--body--foreground), transparent 0%) inset; */
+
+        text-decoration: underline;
     }
 
     & > .icon {
@@ -35,9 +37,9 @@ a {
         box-shadow: none;
 
         &:hover {
-            background: none;
+            /* background: none;
             box-shadow: 0 -0.1em 0 0
-                color-mix(in hsl, var(--body--foreground), transparent 0%) inset;
+                color-mix(in hsl, var(--body--foreground), transparent 0%) inset; */
         }
     }
 }
@@ -97,6 +99,8 @@ blockquote {
 ul,
 ol {
     /* margin: 0 0.5em; */
+    margin: 0;
+    padding: 0 2rem;
 }
 
 table {
@@ -128,8 +132,11 @@ h3,
 h4,
 h5,
 h6 {
-    top: 0;
+    position: relative;
+    isolation: isolate;
+
     /* this was for sticky headings */
+    /* top: 0; */
     /* z-index: 1; */
 
     margin: 0;
@@ -139,20 +146,38 @@ h6 {
     line-height: 1.5em;
     /* line-height: 1em; */
 
-    background: var(--accent--background);
+    /* background: var(--accent--background); */
 
     & > a {
         background: none;
         box-shadow: none;
     }
 
-    & > a:hover,
+    /* & > a:hover,
     &:target > a {
         background: none;
         box-shadow: 0 -0.1em 0 0
             color-mix(in hsl, var(--body--foreground), transparent 0%) inset;
-    }
+    } */
 }
+
+/* TODO: cool styling around headings */
+/* h1::before,
+h2::before,
+h3::before,
+h4::before,
+h5::before,
+h6::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 10rem;
+
+    background: color-mix(in hsl, transparent, var(--dark--color) 50%);
+    z-index: -1;
+
+    filter: url(#warp);
+} */
 
 .containerDirective_thumbnail {
     padding: 1em;

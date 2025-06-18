@@ -7,7 +7,7 @@
 
     --dark--color: #000;
     --light--color: #fff;
-    --accent--color: red;
+    --accent--color: orange;
 
     --accent--background: color-mix(
         in hsl,
@@ -24,7 +24,7 @@
     --container--border--color: var(--dark--color);
 
     --panel--background: light-dark(
-        color-mix(in hsl, transparent, var(--dark--color) 10%),
+        color-mix(in hsl, transparent, var(--light--color) 30%),
         color-mix(in hsl, transparent, var(--light--color) 70%)
     );
     --panel--backdrop-filter: blur(4px);

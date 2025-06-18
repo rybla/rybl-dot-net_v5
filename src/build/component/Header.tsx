@@ -1,7 +1,7 @@
 import { config, isoRoute } from "@/ontology";
 import Icon from "@/build/component/Icon";
 
-export default function Header(props: { resource_name: string }) {
+export default function Header(props: { resource_shortname: string }) {
   return (
     <header>
       <div class="logo">
@@ -14,8 +14,8 @@ export default function Header(props: { resource_name: string }) {
           </a>
         </div>
         <div class="separator" />
-        <div class="resource_name">
-          <div safe>{props.resource_name}</div>
+        <div class="resource_shortname">
+          <div safe>{props.resource_shortname}</div>
         </div>
       </div>
       <div class="menu">

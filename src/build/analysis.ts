@@ -24,6 +24,7 @@ import {
   addBacklinksSection,
   addReferencesSection,
   addTableOfContents,
+  wrapHeadings,
   type Backlink,
 } from "./analysis/heteromorphism";
 
@@ -247,6 +248,8 @@ export const analyzeWebsite: ef.T<{
                   route: res.route,
                   root: res.root,
                 })(ctx);
+
+                await wrapHeadings({ root: res.root })(ctx);
 
                 break;
               }

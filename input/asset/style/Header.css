@@ -27,7 +27,7 @@ header {
         &:hover {
             background: none;
             /* box-shadow: 0 -0.1em 0 0 white inset; */
-            box-shadow: 0 -0.1em 0 0 black inset;
+            /* box-shadow: 0 -0.1em 0 0 black inset; */
         }
     }
 
@@ -77,18 +77,24 @@ header {
             background: black;
         }
 
-        & > .resource_name {
+        & > .resource_shortname {
             flex: 1 1 40%;
             padding: 0.5em;
-            /* box-shadow: 0 0 0 0.1em red; */
 
             display: flex;
             flex-direction: column;
             align-items: flex-start;
             justify-content: center;
 
-            /* color: white; */
             color: black;
+
+            & > div {
+                /* IDEA: make this a little more concise and fit neatly in the center of the screen
+                width: 100px;
+                word-wrap: break-word;
+                line-height: 1.2em;
+                */
+            }
         }
     }
 
@@ -108,6 +114,7 @@ header {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
 
             /* line-height: 0; */
 
@@ -116,6 +123,10 @@ header {
             svg {
                 margin: 0;
                 padding: 0;
+            }
+
+            &:hover {
+                box-shadow: 0 -0.1em 0 0 black inset;
             }
         }
     }

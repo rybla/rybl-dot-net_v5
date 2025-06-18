@@ -196,10 +196,11 @@ export const addBacklinksSection: ef.T<
 /**
  * Splices nameImage right under name H1.
  */
-export const addNameImage: ef.T<
-  { root: mdast.Root; name: string; nameImage: string },
-  void
-> = ef.run({ label: "addTitleImage" }, (input) => async (ctx) => {
+export const addNameImage: ef.T<{
+  root: mdast.Root;
+  name: string;
+  nameImage: string;
+}> = ef.run({ label: "addTitleImage" }, (input) => async (ctx) => {
   const i_H1 = input.root.children.findIndex(
     (node) => node.type === "heading" && node.depth === 1,
   );
@@ -216,3 +217,22 @@ export const addNameImage: ef.T<
     ),
   });
 });
+
+export const wrapHeadings: ef.T<{ root: mdast.Root }> = ef.run(
+  { label: "wrapHeadings" },
+  (input) => async (ctx) => {
+    visit(input.root, (node, i, parent) => {
+      // TODO
+      // if (node.type === "heading") {
+      //   const kids = parent!.children;
+      //   const kid: typeof kids[number] = {
+      //     type: "containerDirective",
+      //     ''
+      //   };
+      //   // parent?.children[i] = {
+      //   //   type:
+      //   // }
+      // }
+    });
+  },
+);

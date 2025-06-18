@@ -13,6 +13,14 @@ html {
         display: none;
     }
 
+    @media (prefers-color-scheme: dark) {
+        background: #002;
+    }
+
+    @media (prefers-color-scheme: light) {
+        background: lightskyblue;
+    }
+
     color: black;
 }
 
@@ -31,6 +39,7 @@ html {
 
     @media (prefers-color-scheme: dark) {
         background: url("/asset/image/night_stars_2.png");
+        /* filter: url(#nightsky); */
     }
 
     @media (prefers-color-scheme: light) {

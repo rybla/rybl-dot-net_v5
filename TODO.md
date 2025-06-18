@@ -1,9 +1,9 @@
 # TODO
 
-- [ ] reimplement transformations
-- [ ] reimplement doing the icons for URL
-- [ ] stylize with just black, white, and **one** accent color
-  - [ ] can do dark mode by just reversing use of black/white -- this is the way
+- [x] reimplement transformations
+- [x] reimplement doing the icons for URL
+- [x] stylize with just black, white, and **one** accent color
+  - [x] can do dark mode by just reversing use of black/white -- this is the way
   - [ ] use some SVG filters to do cool visual effects for logos and titles and such
     - [ ] perhaps can combine with images or something for thumbnails
   - [ ] do some cool distorted background that does the parallax when you scroll via javascript (turns) out CSS just can't do this quite well
