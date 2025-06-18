@@ -2,6 +2,10 @@
     position: relative;
 
     &.without_nameImage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     &.with_nameImage {
@@ -25,6 +29,8 @@
             -webkit-text-stroke-color: #777;
 
             mix-blend-mode: difference;
+
+            /* font-size: 4em; */
         }
     }
 }

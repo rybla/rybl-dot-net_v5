@@ -109,7 +109,7 @@ export default function Top(props: {
           <div id="background" />
           <Header resource_shortname={props.resource_shortname} />
           <main>{props.children}</main>
-          <Footer />
+          <Footer resource_shortname={props.resource_shortname} />
         </body>
       </html>
     </>

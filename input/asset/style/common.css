@@ -18,13 +18,16 @@
     /* TODO: this is wrong -- i dont want to _ever_ have to flip text color except against top-level background */
     --container--background: color-mix(
         in hsl,
-        var(--light--color),
-        var(--dark--color) 25%
+        transparent,
+        var(--dark--color) 10%
     );
-    --container--border--color: var(--dark--color);
+    --container--border--color: light-dark(
+        var(--dark--color),
+        var(--light--color)
+    );
 
     --panel--background: light-dark(
-        color-mix(in hsl, transparent, var(--light--color) 30%),
+        color-mix(in hsl, transparent, var(--light--color) 70%),
         color-mix(in hsl, transparent, var(--light--color) 70%)
     );
     --panel--backdrop-filter: blur(4px);

@@ -9,13 +9,14 @@
   - [ ] generate it
   - [ ] render it somewhee (should be a page)
 
-- [ ] Footer
 - [ ] css for making the heading of a section stay at the top of the section when you're scrolling
   - turns out this is harder than i thoguht
 - [ ] links to local posts using `[[NAME]]` syntax
 - [ ] BUG: for _only_ deepest node in table of contents tree, there's no paragraph wrapped around the link??
 - [ ] max height for code block (and perhaps other kinds of blocks as well)
 
+- [x] Footer
+  - just copy Header for now
 - [x] reimplement transformations
 - [x] reimplement doing the icons for URL
 - [x] stylize with just black, white, and **one** accent color

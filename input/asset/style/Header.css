@@ -1,12 +1,14 @@
 header {
-    padding: 1em 0;
+    font-size: 1rem;
+
+    padding: 1rem 0;
 
     margin: auto;
     width: calc(min(var(--main--width), 100vw));
 
     display: flex;
     flex-direction: column;
-    gap: 0.5em;
+    gap: 0.5rem;
     align-items: stretch;
     justify-content: stretch;
 
@@ -38,8 +40,8 @@ header {
         justify-content: center;
 
         & > img {
-            width: 1.8em;
-            height: 1.8em;
+            width: 1.8rem;
+            height: 1.8rem;
 
             /* filter: invert(1); */
         }
@@ -51,12 +53,12 @@ header {
         align-items: stretch;
         /* justify-content: center; */
         /* gap: 0.5em; */
-        min-height: 2em;
-        font-size: 1em;
+        min-height: 2rem;
+        font-size: 1rem;
 
         & > .website_name {
             flex: 1 1 40%;
-            padding: 0.5em;
+            padding: 0.5rem;
             /* box-shadow: 0 0 0 0.1em red; */
 
             display: flex;
@@ -71,8 +73,8 @@ header {
         }
 
         & > .separator {
-            flex: 0 0 0.1em;
-            /* width: 0.1em; */
+            flex: 0 0 0.1rem;
+            /* width: 0.1rem; */
             /* background: white; */
             background: black;
         }
@@ -92,7 +94,7 @@ header {
                 /* IDEA: make this a little more concise and fit neatly in the center of the screen
                 width: 100px;
                 word-wrap: break-word;
-                line-height: 1.2em;
+                line-height: 1.2rem;
                 */
             }
         }
@@ -104,12 +106,12 @@ header {
         flex-wrap: wrap;
         align-items: stretch;
         justify-content: center;
-        gap: 1em;
+        gap: 1rem;
 
         & > .item {
-            width: 1em;
+            width: 1rem;
             /* this is needed since there's no text in the row */
-            padding-bottom: 0.2em;
+            padding-bottom: 0.2rem;
 
             display: flex;
             flex-direction: column;
@@ -123,10 +125,12 @@ header {
             svg {
                 margin: 0;
                 padding: 0;
+
+                width: 1.2rem;
             }
 
             &:hover {
-                box-shadow: 0 -0.1em 0 0 black inset;
+                box-shadow: 0 -0.1rem 0 0 black inset;
             }
         }
     }

@@ -13,15 +13,16 @@ html {
         display: none;
     }
 
-    @media (prefers-color-scheme: dark) {
+    /* @media (prefers-color-scheme: dark) {
         background: #002;
     }
 
     @media (prefers-color-scheme: light) {
         background: lightskyblue;
-    }
+    } */
 
     color: black;
+    background-color: transparent;
 }
 
 #background {

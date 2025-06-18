@@ -10,6 +10,8 @@ a {
 
     text-decoration: none;
 
+    /* word-break: break-all; */
+
     &:hover {
         /* background: var(--accent--background);
         box-shadow: 0 -0.1em 0 0
