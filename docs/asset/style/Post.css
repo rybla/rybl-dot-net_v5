@@ -12,9 +12,8 @@ main {
         flex-direction: column;
         gap: 0.5rem;
 
-        background: var(--panel--background);
         backdrop-filter: var(--panel--backdrop-filter);
-        color: var(--panel--foreground);
+        background: var(--panel--background);
     }
 
     /* TODO: sticker-header */

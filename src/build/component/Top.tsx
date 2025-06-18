@@ -31,9 +31,11 @@ export default function Top(props: {
           <link rel="stylesheet" href="/asset/style/Footer.css" />
           <link rel="stylesheet" href="/asset/style/Raindrops.css" />
           <link rel="stylesheet" href="/asset/style/Markdown.css" />
+          <script src="/asset/script/Top.js" />
           {props.content_head as "safe"}
         </head>
         <body>
+          <div id="background" />
           <Header resource_name={props.resource_shortname} />
           <main>{props.children}</main>
           <Footer />

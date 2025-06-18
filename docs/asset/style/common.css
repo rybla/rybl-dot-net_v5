@@ -7,9 +7,6 @@
 
     --dark--color: #000;
     --light--color: #fff;
-
-    --background--color: light-dark(var(--light--color), var(--dark--color));
-    --foreground--color: light-dark(var(--dark--color), var(--light--color));
     --accent--color: red;
 
     --accent--background: color-mix(
@@ -18,6 +15,7 @@
         var(--accent--color) 50%
     );
 
+    /* TODO: this is wrong -- i dont want to _ever_ have to flip text color except against top-level background */
     --container--background: color-mix(
         in hsl,
         var(--light--color),
@@ -25,12 +23,10 @@
     );
     --container--border--color: var(--dark--color);
 
-    --panel--background: color-mix(
-        in hsl,
-        var(--dark--color),
-        var(--light--color) 75%
+    --panel--background: light-dark(
+        color-mix(in hsl, transparent, var(--dark--color) 10%),
+        color-mix(in hsl, transparent, var(--light--color) 70%)
     );
-    --panel--foreground: light-dark(var(--dark--color), var(--light--color));
     --panel--backdrop-filter: blur(4px);
 }
 

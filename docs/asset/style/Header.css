@@ -10,7 +10,13 @@ header {
     align-items: stretch;
     justify-content: stretch;
 
-    filter: invert(light-dark(0, 100%));
+    @media (prefers-color-scheme: light) {
+        filter: invert(0);
+    }
+
+    @media (prefers-color-scheme: dark) {
+        filter: invert(1);
+    }
 
     a {
         /* color: white; */
