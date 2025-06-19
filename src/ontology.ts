@@ -5,7 +5,7 @@ import { iso, type Newtype } from "newtype-ts";
 import path from "path";
 import { z } from "zod/v4";
 import * as date_fns from "date-fns";
-import { hash } from "bun";
+import * as crypto from "crypto";
 
 export type PromiseElement = Promise<string>;
 
@@ -165,14 +165,23 @@ export type Resource = PostResource | HtmlResource | RawResource;
 export const get_name_of_Resource = (res: Resource) =>
   res.metadata.name ?? isoRoute.unwrap(res.route);
 
-export const get_hash_of_Resource = (res: Resource) => {
+export const get_signature_of_Resource = (res: Resource) => {
   switch (res.type) {
-    case "post":
-      return hash(JSON.stringify(res.root));
-    case "html":
-      return hash(res.content);
-    case "raw":
-      return hash(res.content);
+    case "post": {
+      const messageBuffer = Buffer.from(JSON.stringify(res.root));
+      const signature = crypto.sign(null, messageBuffer, config.key_private);
+      return signature.toString("base64");
+    }
+    case "html": {
+      const messageBuffer = Buffer.from(JSON.stringify(res.content));
+      const signature = crypto.sign(null, messageBuffer, config.key_private);
+      return signature.toString("base64");
+    }
+    case "raw": {
+      const messageBuffer = Buffer.from(JSON.stringify(res.content));
+      const signature = crypto.sign(null, messageBuffer, config.key_private);
+      return signature.toString("base64");
+    }
   }
 };
 
@@ -347,6 +356,7 @@ export const config = do_(() => {
     route_of_TagsPage: schemaRoute.parse("/Tags.html"),
     route_of_AboutPage: schemaRoute.parse("/About.html"),
     route_of_ProfilesPage: schemaRoute.parse("/Profiles.html"),
+    route_of_SignaturePage: schemaRoute.parse("/Signature.html"),
 
     route_of_profileImage: schemaRoute.parse("/asset/image/profile.png"),
 
@@ -375,5 +385,8 @@ export const config = do_(() => {
 
     dateFormats_parse: ["yyyy-mm-dd", "yyyy/mm/dd", "MMM dd, yyyy"],
     dateFormat_print: "MMM dd, yyyy",
+
+    key_private: Bun.env.KEY_PRIVATE!,
+    key_public: Bun.env.KEY_PUBLIC!,
   };
 });

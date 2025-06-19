@@ -87,6 +87,8 @@ pre {
 
     overflow: auto;
     scrollbar-width: thin;
+
+    max-height: 400px;
 }
 
 code {
