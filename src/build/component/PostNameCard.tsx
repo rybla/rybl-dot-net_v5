@@ -13,11 +13,16 @@ export default async function PostNameCard(props: {
   nameImage: string | undefined;
 }): PromiseElement {
   const content = (
-    <h1>
-      <a href={isoRoute.unwrap(props.route)} safe>
+    <>
+      <h1 class="layer1" safe>
         {props.name ?? "Untitled"}
-      </a>
-    </h1>
+      </h1>
+      <h1 class="layer2">
+        <a href={isoRoute.unwrap(props.route)} safe>
+          {props.name ?? "Untitled"}
+        </a>
+      </h1>
+    </>
   );
 
   if (props.nameImage === undefined) {

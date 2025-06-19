@@ -24,16 +24,27 @@
             white-space: wrap;
             width: 80%;
 
+            /* font-size: 4em; */
+        }
+
+        & > h1.layer1 {
+            user-select: none;
+
+            /* text-shadow: 2px 2px #005aff; */
+
             color: white;
 
-            /* -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: #777; */
-
-            text-shadow: 2px 2px #005aff;
-
             mix-blend-mode: difference;
+        }
 
-            /* font-size: 4em; */
+        & > h1.layer2 {
+            -webkit-text-stroke-width: 1px;
+            -webkit-text-stroke-color: black;
+
+            /* text-shadow: 2px 2px
+                color-mix(in hsl, transparent, var(--accent--color) 50%); */
+            /* color: color-mix(in hsl, transparent, black 50%); */
+            color: transparent;
         }
     }
 }

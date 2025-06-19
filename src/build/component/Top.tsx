@@ -106,7 +106,9 @@ export default function Top(props: {
               <feBlend in="SourceGraphic" in2="goo" />
             </filter>
           </svg>
+
           <div id="background" />
+
           <Header resource_shortname={props.resource_shortname} />
           <main>{props.children}</main>
           <Footer resource_shortname={props.resource_shortname} />
