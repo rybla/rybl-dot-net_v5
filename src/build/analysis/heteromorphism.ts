@@ -9,6 +9,7 @@ import {
   join_Href_with_Route,
   joinRoutes,
   schemaRoute,
+  type Backlink,
   type Reference,
   type Resource,
   type Route,
@@ -90,7 +91,11 @@ export const addTableOfContents: ef.T<{ route: Route; root: mdast.Root }> =
   });
 
 export const addReferencesSection: ef.T<
-  { root: mdast.Root; resources: Resource[]; references: Reference[] },
+  {
+    root: mdast.Root;
+    resources: Map<Route, Resource>;
+    references: Reference[];
+  },
   void
 > = ef.run({ label: "addReferencesSection" }, (input) => async (ctx) => {
   if (input.references.length === 0) return;
@@ -127,8 +132,8 @@ export const addReferencesSection: ef.T<
                         return ref.metadata.name ?? ref.value.href;
                       case "internal":
                         return (
-                          input.resources.find((res) => res.route === ref.value)
-                            ?.metadata.name ?? isoRoute.unwrap(ref.value)
+                          input.resources.get(ref.value)?.metadata.name ??
+                          isoRoute.unwrap(ref.value)
                         );
                     }
                   }),
@@ -143,11 +148,6 @@ export const addReferencesSection: ef.T<
 
   input.root.children.splice(input.root.children.length, 0, heading, refs);
 });
-
-export type Backlink = {
-  name: string;
-  route: Route;
-};
 
 export const addBacklinksSection: ef.T<
   { root: mdast.Root; backlinks: Backlink[] },

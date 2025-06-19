@@ -73,19 +73,22 @@ export const useAssets: ef.T = ef.run(
   },
 );
 
-const generateResources: ef.T<{ resources: Resource[] }> = ef.run(
+const generateResources: ef.T<{ resources: Map<Route, Resource> }> = ef.run(
   { label: "generateResources" },
   (input) => async (ctx) => {
     await ef.all({
-      efs: input.resources.flatMap((resource) => {
-        switch (resource.type) {
-          case "post": {
-            return [ef.run({}, () => generatePost({ resource }))];
+      efs: input.resources
+        .values()
+        .toArray()
+        .flatMap((resource) => {
+          switch (resource.type) {
+            case "post": {
+              return [ef.run({}, () => generatePost({ resource }))];
+            }
+            default:
+              return [];
           }
-          default:
-            return [];
-        }
-      }),
+        }),
       input: {},
     })(ctx);
   },

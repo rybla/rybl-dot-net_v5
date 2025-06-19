@@ -1,6 +1,6 @@
 import Top from "@/build/component/Top";
 import * as ef from "@/ef";
-import type { PromiseElement, Resource } from "@/ontology";
+import type { PromiseElement, Resource, Route } from "@/ontology";
 import PostPreview from "./PostPreview";
 import Tag from "./Tag";
 
@@ -8,21 +8,24 @@ type Preview = { resource: Resource; element: JSX.Element };
 
 export default async function TagsPage(props: {
   ctx: ef.Ctx.T;
-  resources: Resource[];
+  resources: Map<Route, Resource>;
 }): PromiseElement {
   const previews: Preview[] = await ef.all<{}, Preview>({
     opts: {},
     input: {},
-    efs: props.resources.filterMap<ef.T<{}, Preview>>((res) => {
-      switch (res.type) {
-        case "post": {
-          return ef.run({}, () => async (ctx) => ({
-            resource: res,
-            element: <PostPreview ctx={ctx} resource={res} />,
-          }));
+    efs: props.resources
+      .values()
+      .toArray()
+      .filterMap<ef.T<{}, Preview>>((res) => {
+        switch (res.type) {
+          case "post": {
+            return ef.run({}, () => async (ctx) => ({
+              resource: res,
+              element: <PostPreview ctx={ctx} resource={res} />,
+            }));
+          }
         }
-      }
-    }),
+      }),
   })(props.ctx);
 
   const mapTagsToPreviews: Map<string, Preview[]> = new Map();

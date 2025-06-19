@@ -23,7 +23,9 @@ export const parseWebsite: ef.T<unknown, Website> = ef.run(
     const website: Website = {
       name: config.name_of_website,
       url: config.url_of_website,
-      resources: [],
+      resources: new Map(),
+      referencesGraph: new Map(),
+      backlinksGraph: new Map(),
     };
 
     const posts = await parsePosts({})(ctx);

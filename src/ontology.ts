@@ -131,7 +131,9 @@ export const schemaHref = z.union([
 export type Website = {
   url: URL;
   name: string;
-  resources: Resource[];
+  resources: Map<Route, Resource>;
+  referencesGraph: Map<Route, Map<Href, Reference>>;
+  backlinksGraph: Map<Route, Map<Href, Backlink>>;
 };
 
 /**
@@ -145,16 +147,12 @@ export const addResource: ef.T<
   { website: Website; resource: Resource },
   void
 > = (input) => async (ctx) => {
-  if (
-    input.website.resources.find(
-      (resource_old) => resource_old.route === input.resource.route,
-    ) !== undefined
-  ) {
+  if (input.website.resources.get(input.resource.route) !== undefined) {
     throw new ef.EfError(
       `attempted to add a new Resource to a Website that already has a Resource at that Route: ${input.resource.route}`,
     );
   }
-  input.website.resources.push(input.resource);
+  input.website.resources.set(input.resource.route, input.resource);
 };
 
 /**
@@ -278,6 +276,36 @@ export const from_Reference_to_IconRoute = (ref: Reference): Route => {
   }
 };
 
+export const get_name_of_Route = (
+  resources: Map<Route, Resource>,
+  route: Route,
+): string => {
+  const res = resources.get(route);
+  if (res === undefined) {
+    return `Unknown resource at route ${isoRoute.unwrap(route)}`;
+  } else {
+    return get_name_of_Resource(res);
+  }
+};
+
+export const get_name_of_Reference = (
+  resources: Map<Route, Resource>,
+  ref: Reference,
+): string => {
+  switch (ref.type) {
+    case "external": {
+      if (ref.metadata.name !== undefined) {
+        return ref.metadata.name;
+      } else {
+        return ref.value.toString();
+      }
+    }
+    case "internal": {
+      return get_name_of_Route(resources, ref.value);
+    }
+  }
+};
+
 // from_URL_*
 
 export const from_URL_to_Href = (url: URL): Href => isoHref.wrap(url.href);
@@ -333,6 +361,11 @@ export const from_Href_to_Reference = (href: Href): Reference => {
       };
     }
   }
+};
+
+export type Backlink = {
+  name: string;
+  route: Route;
 };
 
 export const config = do_(() => {

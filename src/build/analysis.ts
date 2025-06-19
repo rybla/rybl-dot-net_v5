@@ -4,14 +4,18 @@ import {
   from_Href_to_Reference,
   from_Reference_to_Href,
   from_Reference_to_IconRoute,
+  from_Route_to_Href,
   from_URL_to_iconHref,
   from_URL_to_iconRoute,
+  get_name_of_Resource,
+  get_name_of_Route,
   isoHref,
   isoRoute,
   joinRoutes,
   schemaHref,
   schemaResourceMetadata,
   schemaRoute,
+  type Backlink,
   type ExternalReference,
   type Href,
   type Reference,
@@ -30,34 +34,45 @@ import {
   removeNameHeadingWrapper,
   setNameHeadingWrapperBackgroundToNameImage,
   wrapHeadings,
-  type Backlink,
 } from "./analysis/heteromorphism";
 
 export const analyzeWebsite: ef.T<{
   website: Website;
 }> = ef.run({ label: "analyzeWebsite" }, (input) => async (ctx) => {
-  // TODO: instead of arrays, make these Map<Hrefs, Reference> to do dedup incrementally
-  const referencesGraph: Map<Route, Reference[]> = new Map();
   const references_global: Map<Href, Reference> = new Map();
-  // TODO: Backlink[] ~~> Map<Route, Reference>
-  const backlinksGraph: Map<Route, Backlink[]> = new Map();
 
   const registerReference_global = (src: Route, ref: Reference) => {
+    // references_global
     references_global.set(from_Reference_to_Href(ref), ref);
-    (
-      referencesGraph.get(src) ??
+    // referencesGraph
+    const refs =
+      input.website.referencesGraph.get(src) ??
       do_(() => {
-        const refs: Reference[] = [];
-        referencesGraph.set(src, refs);
+        const refs: Map<Href, Reference> = new Map();
+        input.website.referencesGraph.set(src, refs);
         return refs;
-      })
-    ).push(ref);
+      });
+    refs.set(from_Reference_to_Href(ref), ref);
+    // backlinksGraph
+    if (ref.type === "internal") {
+      const refs =
+        input.website.backlinksGraph.get(ref.value) ??
+        do_(() => {
+          const refs: Map<Href, Backlink> = new Map();
+          input.website.backlinksGraph.set(ref.value, refs);
+          return refs;
+        });
+      refs.set(from_Route_to_Href(src), {
+        route: src,
+        name: get_name_of_Route(input.website.resources, src),
+      });
+    }
   };
 
   await ef.run(
     { label: "populate metadata (sequential)" },
     () => async (ctx) => {
-      for (const res of input.website.resources) {
+      for (const res of input.website.resources.values()) {
         await ef.run({ label: `route: ${res.route}` }, () => async (ctx) => {
           switch (res.type) {
             case "post": {
@@ -108,67 +123,70 @@ export const analyzeWebsite: ef.T<{
   await ef.run(
     { label: "collect references (parallel)" },
     () => async (ctx) => {
-      const efs_website: ef.T[] = input.website.resources.map((res) =>
-        ef.run({ label: `route: ${res.route}` }, () => async (ctx) => {
-          const references_local: Map<Href, Reference> = new Map();
+      const efs_website: ef.T[] = input.website.resources
+        .values()
+        .map((res) =>
+          ef.run({ label: `route: ${res.route}` }, () => async (ctx) => {
+            const references_local: Map<Href, Reference> = new Map();
 
-          const registerReference_local = (ref: Reference) => {
-            registerReference_global(res.route, ref);
-            res.references.push(ref);
-            references_local.set(from_Reference_to_Href(ref), ref);
-          };
+            const registerReference_local = (ref: Reference) => {
+              registerReference_global(res.route, ref);
+              res.references.push(ref);
+              references_local.set(from_Reference_to_Href(ref), ref);
+            };
 
-          const efs_res: ef.T[] = [];
-          switch (res.type) {
-            case "post": {
-              visit(res.root, (node) => {
-                efs_res.push(
-                  ef.run({}, () => async () => {
-                    switch (node.type) {
-                      case "image": {
-                        const href = await ef.safeParse(
-                          schemaHref,
-                          node.url,
-                        )(ctx);
-                        const ref = from_Href_to_Reference(href);
-                        registerReference_local(ref);
-                        break;
-                      }
-                      case "link": {
-                        // convert all fragment hrefs to full hrefs
-                        if (node.url.startsWith("#")) {
-                          node.url = `${res.route}/${node.url}`;
+            const efs_res: ef.T[] = [];
+            switch (res.type) {
+              case "post": {
+                visit(res.root, (node) => {
+                  efs_res.push(
+                    ef.run({}, () => async () => {
+                      switch (node.type) {
+                        case "image": {
+                          const href = await ef.safeParse(
+                            schemaHref,
+                            node.url,
+                          )(ctx);
+                          const ref = from_Href_to_Reference(href);
+                          registerReference_local(ref);
+                          break;
                         }
+                        case "link": {
+                          // convert all fragment hrefs to full hrefs
+                          if (node.url.startsWith("#")) {
+                            node.url = `${res.route}/${node.url}`;
+                          }
 
-                        const href = await ef.safeParse(
-                          schemaHref,
-                          node.url,
-                        )(ctx);
-                        const ref = from_Href_to_Reference(href);
-                        registerReference_local(ref);
+                          const href = await ef.safeParse(
+                            schemaHref,
+                            node.url,
+                          )(ctx);
+                          const ref = from_Href_to_Reference(href);
+                          registerReference_local(ref);
 
-                        break;
+                          break;
+                        }
                       }
-                    }
-                  }),
-                );
-              });
-              break;
+                    }),
+                  );
+                });
+                break;
+              }
+              default: {
+                break;
+              }
             }
-            default: {
-              break;
-            }
-          }
 
-          await ef.all({ efs: efs_res, input: {} })(ctx);
+            await ef.all({ efs: efs_res, input: {} })(ctx);
 
-          // TODO: res.references = references_global.get(res.route)!.toArray()
+            // TODO: res.references = references_global.get(res.route)!.toArray()
 
-          dedupInPlace(res.references, (x) =>
-            isoHref.unwrap(from_Reference_to_Href(x)),
-          );
-        }),
-      );
+            dedupInPlace(res.references, (x) =>
+              isoHref.unwrap(from_Reference_to_Href(x)),
+            );
+          }),
+        )
+        .toArray();
 
       await ef.all({ efs: efs_website, input: {} })(ctx);
     },
@@ -194,7 +212,6 @@ export const analyzeWebsite: ef.T<{
   )({})(ctx);
 
   await ef.run({ label: "use icons of references" }, () => async (ctx) => {
-    // TODO: remove
     const refs = dedup(references_global.values(), (x) =>
       isoRoute.unwrap(from_Reference_to_IconRoute(x)),
     );
@@ -232,68 +249,71 @@ export const analyzeWebsite: ef.T<{
 
   await ef.run({ label: "apply transformations" }, () => async (ctx) => {
     await ef.all({
-      efs: input.website.resources.map((res) =>
-        ef.run(
-          {
-            label: `route: ${res.route}`,
-            catch: (err) => ef.tell(err.toString()),
-          },
-          () => async (ctx) => {
-            switch (res.type) {
-              case "post": {
-                await addReferencesSection({
-                  root: res.root,
-                  resources: input.website.resources,
-                  references: res.references,
-                })(ctx);
+      efs: input.website.resources
+        .values()
+        .map((res) =>
+          ef.run(
+            {
+              label: `route: ${res.route}`,
+              catch: (err) => ef.tell(err.toString()),
+            },
+            () => async (ctx) => {
+              switch (res.type) {
+                case "post": {
+                  await addReferencesSection({
+                    root: res.root,
+                    resources: input.website.resources,
+                    references: res.references,
+                  })(ctx);
 
-                const backlinks = await ef.defined(
-                  `map_Route_to_Backlinks.get("${res.route}")`,
-                  backlinksGraph.get(res.route),
-                  [],
-                )(ctx);
-                await addBacklinksSection({
-                  root: res.root,
-                  backlinks,
-                })(ctx);
+                  const backlinks = await ef.defined(
+                    `backlinksGraph.get("${res.route}")`,
+                    input.website.backlinksGraph.get(res.route),
+                    new Map<Href, Backlink>(),
+                  )(ctx);
+                  await addBacklinksSection({
+                    root: res.root,
+                    backlinks: backlinks.values().toArray(),
+                  })(ctx);
 
-                await applyHomomorphisms({
-                  root: res.root,
-                  params: {},
-                  homomorphisms: {
-                    stylizeLink,
-                  },
-                })(ctx);
+                  await applyHomomorphisms({
+                    root: res.root,
+                    params: {},
+                    homomorphisms: {
+                      stylizeLink,
+                    },
+                  })(ctx);
 
-                await addTableOfContents({
-                  route: res.route,
-                  root: res.root,
-                })(ctx);
+                  await addTableOfContents({
+                    route: res.route,
+                    root: res.root,
+                  })(ctx);
 
-                await wrapHeadings({ root: res.root })(ctx);
+                  await wrapHeadings({ root: res.root })(ctx);
 
-                // if (res.metadata.nameImage !== undefined) {
-                //   const nameImage = joinRoutes(
-                //     config.route_of_nameImages,
-                //     schemaRoute.parse(`/${res.metadata.nameImage}`),
-                //   );
-                //   await setNameHeadingWrapperBackgroundToNameImage({
-                //     root: res.root,
-                //     name: res.metadata.name ?? "Untitled",
-                //     nameImage,
-                //   })(ctx);
-                // }
+                  // if (res.metadata.nameImage !== undefined) {
+                  //   const nameImage = joinRoutes(
+                  //     config.route_of_nameImages,
+                  //     schemaRoute.parse(`/${res.metadata.nameImage}`),
+                  //   );
+                  //   await setNameHeadingWrapperBackgroundToNameImage({
+                  //     root: res.root,
+                  //     name: res.metadata.name ?? "Untitled",
+                  //     nameImage,
+                  //   })(ctx);
+                  // }
 
-                await removeNameHeadingWrapper({ root: res.root })(ctx);
+                  await removeNameHeadingWrapper({ root: res.root })(ctx);
 
-                break;
+                  break;
+                }
+                default:
+                  break;
               }
-              default:
-                break;
-            }
-          },
-        ),
-      ),
+            },
+          ),
+        )
+        .toArray(),
       input: undefined,
     })(ctx);
   })({})(ctx);
