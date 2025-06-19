@@ -23,8 +23,6 @@ ${config.key_public}
       content_head={
         <>
           <link rel="stylesheet" href="/asset/style/SignaturePage.css" />
-          <link rel="stylesheet" href="/asset/style/PostPreview.css" />
-          <link rel="stylesheet" href="/asset/style/PostNameCard.css" />
         </>
       }
     >

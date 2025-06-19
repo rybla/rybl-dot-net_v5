@@ -52,11 +52,14 @@ export function menu(props: Props) {
       <a href={isoRoute.unwrap(config.route_of_ProfilesPage)} class="item">
         <Icon.Globe />
       </a>
+      <a
+        href={isoRoute.unwrap(config.route_of_ReferencesGraphPage)}
+        class="item"
+      >
+        <Icon.Orbit />
+      </a>
       <a href={isoRoute.unwrap(config.route_of_SignaturePage)} class="item">
         <Icon.Fingerprint />
-      </a>
-      <a href="/" class="item">
-        <Icon.Orbit />
       </a>
     </div>
   );

@@ -357,6 +357,9 @@ export const config = do_(() => {
     route_of_AboutPage: schemaRoute.parse("/About.html"),
     route_of_ProfilesPage: schemaRoute.parse("/Profiles.html"),
     route_of_SignaturePage: schemaRoute.parse("/Signature.html"),
+    route_of_ReferencesGraphPage: schemaRoute.parse(
+      "/ReferencesGraphPage.html",
+    ),
 
     route_of_profileImage: schemaRoute.parse("/asset/image/profile.png"),
 

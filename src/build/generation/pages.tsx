@@ -6,6 +6,7 @@ import TagsPage from "../component/TagsPage";
 import AboutPage from "../component/AboutPage";
 import ProfilesPage from "../component/ProfilesPage";
 import SignaturePage from "../component/SignaturePage";
+import ReferencesGraphPage from "../component/ReferencesGraphPage";
 
 export const generatePages: ef.T<{ website: Website }> = ef.run(
   { label: "generatePages" },
@@ -50,6 +51,14 @@ export const generatePages: ef.T<{ website: Website }> = ef.run(
             route: config.route_of_SignaturePage,
             content: await render_jsx(
               <SignaturePage ctx={ctx} website={input.website} />,
+            ),
+          })(ctx);
+        }),
+        ef.run({ label: "generateReferencesGraphPage" }, () => async (ctx) => {
+          await ef.setRoute_textFile({
+            route: config.route_of_ReferencesGraphPage,
+            content: await render_jsx(
+              <ReferencesGraphPage ctx={ctx} website={input.website} />,
             ),
           })(ctx);
         }),

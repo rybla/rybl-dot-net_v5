@@ -13,12 +13,13 @@ import {
   schemaResourceMetadata,
   schemaRoute,
   type ExternalReference,
+  type Href,
   type Reference,
   type Route,
   type Website,
 } from "@/ontology";
 import { showNode } from "@/unified_util";
-import { dedup, dedupInPlace } from "@/util";
+import { dedup, dedupInPlace, do_ } from "@/util";
 import { visit } from "unist-util-visit";
 import * as YAML from "yaml";
 import { applyHomomorphisms, stylizeLink } from "@/build/analysis/homomorphism";
@@ -35,8 +36,23 @@ import {
 export const analyzeWebsite: ef.T<{
   website: Website;
 }> = ef.run({ label: "analyzeWebsite" }, (input) => async (ctx) => {
-  const references_global: Reference[] = [];
-  const map_Route_to_Backlinks: Map<Route, Backlink[]> = new Map();
+  // TODO: instead of arrays, make these Map<Hrefs, Reference> to do dedup incrementally
+  const referencesGraph: Map<Route, Reference[]> = new Map();
+  const references_global: Map<Href, Reference> = new Map();
+  // TODO: Backlink[] ~~> Map<Route, Reference>
+  const backlinksGraph: Map<Route, Backlink[]> = new Map();
+
+  const registerReference_global = (src: Route, ref: Reference) => {
+    references_global.set(from_Reference_to_Href(ref), ref);
+    (
+      referencesGraph.get(src) ??
+      do_(() => {
+        const refs: Reference[] = [];
+        referencesGraph.set(src, refs);
+        return refs;
+      })
+    ).push(ref);
+  };
 
   await ef.run(
     { label: "populate metadata (sequential)" },
@@ -94,6 +110,14 @@ export const analyzeWebsite: ef.T<{
     () => async (ctx) => {
       const efs_website: ef.T[] = input.website.resources.map((res) =>
         ef.run({ label: `route: ${res.route}` }, () => async (ctx) => {
+          const references_local: Map<Href, Reference> = new Map();
+
+          const registerReference_local = (ref: Reference) => {
+            registerReference_global(res.route, ref);
+            res.references.push(ref);
+            references_local.set(from_Reference_to_Href(ref), ref);
+          };
+
           const efs_res: ef.T[] = [];
           switch (res.type) {
             case "post": {
@@ -107,8 +131,7 @@ export const analyzeWebsite: ef.T<{
                           node.url,
                         )(ctx);
                         const ref = from_Href_to_Reference(href);
-                        res.references.push(ref);
-                        references_global.push(ref);
+                        registerReference_local(ref);
                         break;
                       }
                       case "link": {
@@ -122,8 +145,7 @@ export const analyzeWebsite: ef.T<{
                           node.url,
                         )(ctx);
                         const ref = from_Href_to_Reference(href);
-                        res.references.push(ref);
-                        references_global.push(ref);
+                        registerReference_local(ref);
 
                         break;
                       }
@@ -140,6 +162,8 @@ export const analyzeWebsite: ef.T<{
 
           await ef.all({ efs: efs_res, input: {} })(ctx);
 
+          // TODO: res.references = references_global.get(res.route)!.toArray()
+
           dedupInPlace(res.references, (x) =>
             isoHref.unwrap(from_Reference_to_Href(x)),
           );
@@ -147,17 +171,13 @@ export const analyzeWebsite: ef.T<{
       );
 
       await ef.all({ efs: efs_website, input: {} })(ctx);
-
-      dedupInPlace(references_global, (x) =>
-        isoHref.unwrap(from_Reference_to_Href(x)),
-      );
     },
   )({})(ctx);
 
   await ef.run(
     { label: "populate metadata of references" },
     () => async (ctx) => {
-      for (const ref of references_global) {
+      for (const ref of references_global.values()) {
         switch (ref.type) {
           case "external": {
             ref.metadata = await ef.fetchExternalReferenceMetadata({
@@ -174,16 +194,13 @@ export const analyzeWebsite: ef.T<{
   )({})(ctx);
 
   await ef.run({ label: "use icons of references" }, () => async (ctx) => {
-    await ef.tell(
-      `references_global = ${references_global.map((ref) => ref.value)}`,
-    )(ctx);
-
-    const references = dedup(references_global, (x) =>
+    // TODO: remove
+    const refs = dedup(references_global.values(), (x) =>
       isoRoute.unwrap(from_Reference_to_IconRoute(x)),
     );
 
     const references_external: ExternalReference[] = [];
-    for (const ref of references) {
+    for (const ref of refs) {
       switch (ref.type) {
         case "external": {
           references_external.push(ref);
@@ -232,7 +249,7 @@ export const analyzeWebsite: ef.T<{
 
                 const backlinks = await ef.defined(
                   `map_Route_to_Backlinks.get("${res.route}")`,
-                  map_Route_to_Backlinks.get(res.route),
+                  backlinksGraph.get(res.route),
                   [],
                 )(ctx);
                 await addBacklinksSection({
