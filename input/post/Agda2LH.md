@@ -15,7 +15,7 @@ abstract:
   program, which has specifications in terms of decidable relations, to a Liquid
   Haskell program that includes those specifications as Liquid Haskell
   refinements. Such a Liquid Haskell program exposes the Agda-originating
-  specifications to client Haskell code that also uses Liquid Haskell to
+  specifications to client Haskell code that also uses [Liquid Haskell](https://ucsd-progsys.github.io/liquidhaskell/) to
   variable degree.
 nameImage: Agda2LH.png
 ---

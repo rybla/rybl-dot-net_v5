@@ -1,0 +1,12 @@
+main {
+    .content {
+        padding: 1rem 0;
+
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        backdrop-filter: var(--panel--backdrop-filter);
+        background: var(--panel--background);
+    }
+}

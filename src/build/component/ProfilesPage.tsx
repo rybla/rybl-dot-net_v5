@@ -3,6 +3,7 @@ import type { PromiseElement, Website } from "@/ontology";
 import { parseMarkdown } from "@/build/parsing";
 import Top from "./Top";
 import Markdown from "./Markdown";
+import { applyHomomorphisms, stylizeLink } from "../analysis/homomorphism";
 
 export default async function ProfilesPage(props: {
   ctx: Ctx.T;
@@ -24,6 +25,14 @@ The following are my personal profiles on various websites.
 - [Programming Languages Lab (PLUM) at University of Maryland](https://plum-umd.github.io/people/#_people/henry_blanchette.md)
 - [Project Project at Reed College](https://blogs.reed.edu/projectproject/author/blancheh/)
 `,
+  })(props.ctx);
+
+  await applyHomomorphisms({
+    root,
+    params: {},
+    homomorphisms: {
+      stylizeLink,
+    },
   })(props.ctx);
 
   return (

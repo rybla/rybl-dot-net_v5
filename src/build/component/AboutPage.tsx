@@ -3,6 +3,7 @@ import type { PromiseElement, Website } from "@/ontology";
 import Top from "./Top";
 import Markdown from "./Markdown";
 import { parseMarkdown } from "@/build/parsing";
+import { applyHomomorphisms, stylizeLink } from "../analysis/homomorphism";
 
 export default async function AboutPage(props: {
   ctx: Ctx.T;
@@ -21,6 +22,14 @@ Here are few programs I especially like using for development:
 - [Bun](https://bun.sh/): a fast Typescript/Javascript runtime implemented in Zig.
 - [Zed](https://zed.dev/): a fast editor implemented in Rust.
 `,
+  })(props.ctx);
+
+  await applyHomomorphisms({
+    root,
+    params: {},
+    homomorphisms: {
+      stylizeLink,
+    },
   })(props.ctx);
 
   return (

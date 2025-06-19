@@ -1,4 +1,5 @@
 import * as ef from "@/ef";
+import * as mdast from "mdast";
 import {
   config,
   from_Href_to_Reference,
@@ -24,7 +25,7 @@ import {
 } from "@/ontology";
 import { showNode } from "@/unified_util";
 import { dedup, dedupInPlace, do_ } from "@/util";
-import { visit } from "unist-util-visit";
+import { visit, type BuildVisitor, type Test } from "unist-util-visit";
 import * as YAML from "yaml";
 import { applyHomomorphisms, stylizeLink } from "@/build/analysis/homomorphism";
 import {
@@ -35,6 +36,7 @@ import {
   setNameHeadingWrapperBackgroundToNameImage,
   wrapHeadings,
 } from "./analysis/heteromorphism";
+import { parseMarkdown } from "./parsing";
 
 export const analyzeWebsite: ef.T<{
   website: Website;
@@ -90,6 +92,12 @@ export const analyzeWebsite: ef.T<{
                     metadata_raw,
                   )(ctx);
                   res.metadata = metadata;
+
+                  if (res.metadata.abstract !== undefined) {
+                    res.metadata.abstract_markdown = await parseMarkdown({
+                      content: res.metadata.abstract,
+                    })(ctx);
+                  }
                 }
               }
 
@@ -138,7 +146,7 @@ export const analyzeWebsite: ef.T<{
             const efs_res: ef.T[] = [];
             switch (res.type) {
               case "post": {
-                visit(res.root, (node) => {
+                const visitor: BuildVisitor<mdast.Root> = (node) => {
                   efs_res.push(
                     ef.run({}, () => async () => {
                       switch (node.type) {
@@ -169,7 +177,13 @@ export const analyzeWebsite: ef.T<{
                       }
                     }),
                   );
-                });
+                };
+                visit(res.root, visitor);
+
+                if (res.metadata.abstract_markdown !== undefined) {
+                  visit(res.metadata.abstract_markdown, visitor);
+                }
+
                 break;
               }
               default: {
@@ -179,11 +193,11 @@ export const analyzeWebsite: ef.T<{
 
             await ef.all({ efs: efs_res, input: {} })(ctx);
 
-            // TODO: res.references = references_global.get(res.route)!.toArray()
-
-            dedupInPlace(res.references, (x) =>
-              isoHref.unwrap(from_Reference_to_Href(x)),
-            );
+            res.references =
+              input.website.referencesGraph
+                .get(res.route)
+                ?.values()
+                .toArray() ?? [];
           }),
         )
         .toArray();
@@ -304,6 +318,16 @@ export const analyzeWebsite: ef.T<{
                   // }
 
                   await removeNameHeadingWrapper({ root: res.root })(ctx);
+
+                  if (res.metadata.abstract !== undefined) {
+                    await applyHomomorphisms({
+                      root: res.metadata.abstract_markdown!,
+                      params: {},
+                      homomorphisms: {
+                        stylizeLink,
+                      },
+                    })(ctx);
+                  }
 
                   break;
                 }

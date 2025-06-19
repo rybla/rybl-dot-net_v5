@@ -82,6 +82,12 @@ export const addTableOfContents: ef.T<{ route: Route; root: mdast.Root }> =
     const tableOfContents = go_nodes(headings_forest);
     if (tableOfContents.children.length === 0) return;
 
+    tableOfContents.data = {
+      hProperties: {
+        class: "tableOfContents",
+      },
+    };
+
     const title_index = input.root.children.findIndex(
       (node) => node.type === "heading" && node.depth === 1,
     );

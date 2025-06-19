@@ -1,8 +1,10 @@
 # TODO
 
+- [ ] sort posts in index by pubDate
 - [ ] references graph
-  - [ ] generate it
-  - [ ] render it somewhere (should be a page)
+  - [ ] render in a more cool way
+  - [x] generate it
+  - [x] render it somewhere (should be a page)
 - [ ] every post should have a thumbnail (can generate via ai)
   - wide aspect ratio
 - [ ] links to local posts using `[[NAME]]` syntax
@@ -12,6 +14,7 @@
 - [ ] css for making the heading of a section stay at the top of the section when you're scrolling
   - turns out this is harder than i thoguht
 
+- [x] markdown and transformations for Post abstract
 - [x] About page
 - [x] Profiles page
 - [x] Footer
