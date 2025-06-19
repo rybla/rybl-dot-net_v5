@@ -7,7 +7,7 @@
 
     --dark--color: #000;
     --light--color: #fff;
-    --accent--color: orange;
+    --accent--color: #ffa500;
 
     --accent--background: color-mix(
         in hsl,

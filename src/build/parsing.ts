@@ -15,6 +15,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
+import * as mdast from "mdast";
 
 export const parseWebsite: ef.T<unknown, Website> = ef.run(
   { label: "parseWebsite" },
@@ -83,13 +84,7 @@ const parsePost: ef.T<{ route: Route }, Resource> = ef.run(
   { label: (input) => ef.label("parsePost", input.route) },
   (input) => async (ctx) => {
     const content = await ef.getRoute_textFile({ route: input.route })(ctx);
-    const root = unified()
-      .use(remarkParse)
-      .use(remarkFrontmatter, ["yaml"])
-      .use(remarkGfm)
-      .use(remarkDirective)
-      .use(remarkMath, { singleDollarTextMath: false })
-      .parse(content);
+    const root = await parseMarkdown({ content })(ctx);
     return {
       route: isoRoute.modify((r) => r.replace(".md", ".html"))(input.route),
       references: [],
@@ -97,5 +92,26 @@ const parsePost: ef.T<{ route: Route }, Resource> = ef.run(
       type: "post",
       root,
     };
+  },
+);
+
+export const parseMarkdown: ef.T<{ content: string }, mdast.Root> = ef.run(
+  {},
+  (input) => async (ctx) => {
+    try {
+      return unified()
+        .use(remarkParse)
+        .use(remarkFrontmatter, ["yaml"])
+        .use(remarkGfm)
+        .use(remarkDirective)
+        .use(remarkMath, { singleDollarTextMath: false })
+        .parse(input.content);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new ef.EfError(e.toString());
+      } else {
+        throw e;
+      }
+    }
   },
 );

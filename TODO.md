@@ -1,20 +1,19 @@
 # TODO
 
-- [ ] every post should have a thumbnail (can generate via ai)
-  - wide aspect ratio
-
-- [ ] About page
-- [ ] Profiles page
 - [ ] references graph
   - [ ] generate it
-  - [ ] render it somewhee (should be a page)
-
-- [ ] css for making the heading of a section stay at the top of the section when you're scrolling
-  - turns out this is harder than i thoguht
+  - [ ] render it somewhere (should be a page)
+- [ ] every post should have a thumbnail (can generate via ai)
+  - wide aspect ratio
 - [ ] links to local posts using `[[NAME]]` syntax
 - [ ] BUG: for _only_ deepest node in table of contents tree, there's no paragraph wrapped around the link??
+  - does this still happen?
 - [ ] max height for code block (and perhaps other kinds of blocks as well)
+- [ ] css for making the heading of a section stay at the top of the section when you're scrolling
+  - turns out this is harder than i thoguht
 
+- [x] About page
+- [x] Profiles page
 - [x] Footer
   - just copy Header for now
 - [x] reimplement transformations
