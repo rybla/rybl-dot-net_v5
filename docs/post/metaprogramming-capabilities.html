@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>rybl.net | Metaprogramming Capabilities</title><link rel="stylesheet" href="/asset/style/common.css"/><link rel="stylesheet" href="/asset/style/util.css"/><link rel="stylesheet" href="/asset/style/Top.css"/><link rel="stylesheet" href="/asset/style/Tag.css"/><link rel="stylesheet" href="/asset/style/ParsedDate.css"/><link rel="stylesheet" href="/asset/style/Header.css"/><link rel="stylesheet" href="/asset/style/Footer.css"/><link rel="stylesheet" href="/asset/style/Raindrops.css"/><link rel="stylesheet" href="/asset/style/Markdown.css"/><script src="/asset/script/Top.js"></script><script src="/asset/script/parallax_on_scroll.js"></script><link rel="stylesheet" href="/asset/style/Post.css"/><link rel="stylesheet" href="/asset/style/PostNameCard.css"/><script src="/asset/script/Post.js"></script></head><body><svg style="width:0;height:0;position:absolute;"><filter id="nightsky"><feTurbulence id="nightsky-turbulence" type="fractalNoise" baseFrequency="0.1" numOctaves="1" stitchTiles="stitch" result="noise"></feTurbulence><feTile in="noise" result="tiled_noise"></feTile><feOffset id="nightsky-turbulenceOffset" in="tiled_noise" dx="0" dy="0" result="offset_noise"></feOffset><feComponentTransfer in="offset_noise" result="stars_pattern"><feFuncA type="discrete" tableValues="0 0 0 1"></feFuncA></feComponentTransfer><feColorMatrix in="stars_pattern" type="matrix" values="1 0 0 0 0
+                          0 1 0 0 0
+                          0 0 1 0 0
+                          0.333 0.333 0.333 0 0"></feColorMatrix></filter><filter id="warp"><feTurbulence id="turbulence-generator" type="fractalNoise" baseFrequency="0.01 0.04" numOctaves="1" seed="2" result="turbulence"></feTurbulence><feDisplacementMap in="SourceGraphic" in2="turbulence" scale="100" xChannelSelector="R" yChannelSelector="G" result="displacement"></feDisplacementMap></filter><filter id="gooey"><feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur"></feGaussianBlur><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix><feBlend in="SourceGraphic" in2="goo"></feBlend></filter></svg><div id="background"></div><header><div class="logo"><img src="/asset/image/profile.png"/></div><div class="name"><div class="website_name"><a href="/">rybl.net</a></div><div class="separator"></div><div class="resource_shortname"><div>214jIQxk/MkG86BYM4IlAObG4Bt6+cgfypi6u0Eke1Jn7Q+pCH5rxdt204KUBd1UHZomYXIbswWt1gP7Oo4+CQ==</div></div></div><div class="menu"><a href="/index.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon lucide lucide-library-icon lucide-library"><path d="m16 6 4 14"></path><path d="M12 6v14"></path><path d="M8 8v12"></path><path d="M4 4v16"></path></svg></a><a href="/Tags.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></a><a href="/About.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></a><a href="/Profiles.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></a><a href="/ReferencesGraphPage.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-orbit-icon lucide-orbit"><path d="M20.341 6.484A10 10 0 0 1 10.266 21.85"></path><path d="M3.659 17.516A10 10 0 0 1 13.74 2.152"></path><circle cx="12" cy="12" r="3"></circle><circle cx="19" cy="5" r="2"></circle><circle cx="5" cy="19" r="2"></circle></svg></a><a href="/Signature.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fingerprint-icon lucide-fingerprint"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"></path><path d="M14 13.12c0 2.38 0 6.38-1 8.88"></path><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"></path><path d="M2 12a10 10 0 0 1 18-6"></path><path d="M2 16h.01"></path><path d="M21.8 16c.2-2 .131-5.354 0-6"></path><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"></path><path d="M8.65 22c.21-.66.45-1.32.57-2"></path><path d="M9 6.8a6 6 0 0 1 9 5.2v2"></path></svg></a></div></header><main><div class="content"><div class="PostNameCard without_nameImage"><h1 class="layer1">Metaprogramming Capabilities</h1><h1 class="layer2"><a href="/post/metaprogramming-capabilities.html">Metaprogramming Capabilities</a></h1></div><ol class="tableOfContents">
+<li><a href="#Overview" title="Overview">Overview</a></li>
+<li><a href="#Macros" title="Macros">Macros</a></li>
+</ol>
+<div class="headingWrapper"><h2 id="Overview"><a href="http://localhost:3000/post/metaprogramming-capabilities.html#Overview">Overview</a></h2></div>
+<p>A <em>metaprogram</em> is a program that operates on the syntax of a programming
+language as data. Many advanced programming languages provide some sort of
+metaprogramming capabilities, for example:</p>
+<ul>
+<li>Haskell
+<ul>
+<li><em>templates</em> (<em>TemplateHaskell</em>): splice syntax</li>
+<li><em>type classes</em>: splice function definitions</li>
+</ul>
+</li>
+<li>Agda
+<ul>
+<li><em>reflection</em>: inspect syntax</li>
+<li><em>macros</em>:  splice syntax - <em>syntax notations</em>: splice syntax</li>
+</ul>
+</li>
+<li>Coq
+<ul>
+<li><em>reflection</em> and  <em>templates</em> (<em>Template-Coq</em> via <em>MetaCoq</em>): inspect
+syntax, splice syntax</li>
+<li><em>notations</em>: splice syntax</li>
+<li><em>tactics</em>: splice terms, match on context</li>
+</ul>
+</li>
+<li>Lean
+<ul>
+<li><em>macros</em>: splice syntax</li>
+<li><em>notations</em>: splice syntax</li>
+<li><em>tactics</em>: splice terms, match on context</li>
+</ul>
+</li>
+<li>Rust
+<ul>
+<li><em>macros</em>: splice syntax</li>
+</ul>
+</li>
+<li>C++
+<ul>
+<li><em>templates</em>: splice function and class definitions (used for polymorphism)</li>
+<li><em>macros</em>: splice text</li>
+</ul>
+</li>
+<li>Python
+<ul>
+<li><em>meta classes</em>: splice classes</li>
+<li><em>eval</em>: interpret syntax</li>
+</ul>
+</li>
+<li>JavaScript
+<ul>
+<li><em>proxies</em>: intercept semantics</li>
+<li><em>reflection</em>: inspect syntax</li>
+<li><em>eval</em>: interpret syntax</li>
+</ul>
+</li>
+</ul>
+<p>Overall, I group these capabilities into the following categories:</p>
+<ul>
+<li><em>Reflection</em> — inspect syntax. Examples: reflection, eval.</li>
+<li><em>Reification</em> — splice syntax. Examples: macros, templates, Haskell type
+classes, Python meta classes.</li>
+<li><em>Dynamic semantics</em> — modify semantics. Examples: JavaScript proxies.</li>
+</ul>
+<div class="headingWrapper"><h2 id="Macros"><a href="http://localhost:3000/post/metaprogramming-capabilities.html#Macros">Macros</a></h2></div>
+<p>Macros are common style of reification — splicing syntax. Generally, a language
+with macros provides a special syntax for defining macro functions, which are
+functions that are run at compile time and output syntax that is spliced as the
+call cite before the rest of compilation. These functions are written using the
+same language that the macros expand to, with a few extra operations relevant to
+reification.</p>
+<p>So far, macros sound just like general reification. But, general reification is
+very difficult. With the freedom to work over your program as generally as just
+a string, you lose of lot of the safety features that many languages try to
+provide, such as well-typeness, well-scoped news, well-formedness, etc. If you
+wrote the program you intend to splice directly, the compiler/interpreter can
+immediately tell you where things went wrong: type errors, scoping errors,
+syntax errors, etc. But if you compiler your metaprogram, the system cannot
+statically predict if the metaprogram will certainly produce well-typed,
+well-scoped, well-formed text where it is spliced. Each use of the metaprogram
+has to be checked itself, and so in essence the user only has dynamic guarantees
+about the behavior of the metaprogram (since run-time for the metaprogram is
+compile-time for the base program).</p>
+<p>Macros and templates are different approaches to solving this problem — that is,
+the problem of checking static guarantees of reification metaprograms.</p>
+<p><em>Templates</em> use a deep embedding of the language (encoding the entire
+syntactical structure of the base language as data in the base language
+available to work over by the macro) to ensure that the generated text
+necessarily reifies as well-formed, well-scoped, or perhaps even well-typed
+syntax. This is a very restrictive form of metaprogramming, because it doesn’t
+allow for the generation of several textual components that can be combined in
+some way to refit as good syntax. For example:</p>
+<ul>
+<li>Template Haskell has typed template metaprogramming, where an expression of
+type <code>Q a</code> is able to be reified into a term of type <code>a</code>.</li>
+<li>C++ class/function templates require a specific form which ensures that the
+generated classes/functions are well-formed.</li>
+</ul>
+<p><em>Macros</em> use a partially-parsed version of the language’s syntax as an
+intermediate representation to work over. So, the macro is required to work over
+expressions in this partial-parsed syntax (as opposed to unstructured text or
+fully well-formed syntax) that doesn’t necessarily require all of the same
+checks as for the base language (such as well-typedness or well-scopedness). In
+this way, the macro can still have some basic statically-checked properties,
+such as producing matching delimiters, well-scoped names, etc.</p></div></main><header><div class="menu"><a href="/index.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon lucide lucide-library-icon lucide-library"><path d="m16 6 4 14"></path><path d="M12 6v14"></path><path d="M8 8v12"></path><path d="M4 4v16"></path></svg></a><a href="/Tags.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon lucide lucide-tag-icon lucide-tag"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></a><a href="/About.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon lucide lucide-info-icon lucide-info"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></a><a href="/Profiles.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></a><a href="/ReferencesGraphPage.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-orbit-icon lucide-orbit"><path d="M20.341 6.484A10 10 0 0 1 10.266 21.85"></path><path d="M3.659 17.516A10 10 0 0 1 13.74 2.152"></path><circle cx="12" cy="12" r="3"></circle><circle cx="19" cy="5" r="2"></circle><circle cx="5" cy="19" r="2"></circle></svg></a><a href="/Signature.html" class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fingerprint-icon lucide-fingerprint"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"></path><path d="M14 13.12c0 2.38 0 6.38-1 8.88"></path><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"></path><path d="M2 12a10 10 0 0 1 18-6"></path><path d="M2 16h.01"></path><path d="M21.8 16c.2-2 .131-5.354 0-6"></path><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"></path><path d="M8.65 22c.21-.66.45-1.32.57-2"></path><path d="M9 6.8a6 6 0 0 1 9 5.2v2"></path></svg></a></div><div class="name"><div class="website_name"><a href="/">rybl.net</a></div><div class="separator"></div><div class="resource_shortname"><div>214jIQxk/MkG86BYM4IlAObG4Bt6+cgfypi6u0Eke1Jn7Q+pCH5rxdt204KUBd1UHZomYXIbswWt1gP7Oo4+CQ==</div></div></div><div class="logo"><img src="/asset/image/profile.png"/></div></header></body></html>
