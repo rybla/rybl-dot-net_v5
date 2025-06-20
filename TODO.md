@@ -7,7 +7,8 @@
   - [x] render it somewhere (should be a page)
 - [ ] deal with problem where a link can be really long single word (when its a URL)
   - probably need to detect when a URL has no spaces in its name, and then to put a CSS class on it that styles it to word-break
-- [ ] maks sure math rendering still works
+- [ ] make sure math rendering still works
+- [ ] make sure links to local sections works
 - [ ] every post should have a thumbnail (can generate via ai)
   - wide aspect ratio
 - [ ] links to local posts using `[[NAME]]` syntax
