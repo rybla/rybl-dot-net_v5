@@ -23,6 +23,7 @@
 - [ ] css for making the heading of a section stay at the top of the section when you're scrolling
   - turns out this is harder than i thoguht
 
+- [x] fix rendering of PostNameCard that don't have image (yet)
 - [x] markdown and transformations for Post abstract
 - [x] About page
 - [x] Profiles page

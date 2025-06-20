@@ -12,21 +12,23 @@ export default async function PostNameCard(props: {
   name: string | undefined;
   nameImage: string | undefined;
 }): PromiseElement {
-  const content = (
-    <>
-      <h1 class="layer1" safe>
-        {props.name ?? "Untitled"}
-      </h1>
-      <h1 class="layer2">
-        <a href={isoRoute.unwrap(props.route)} safe>
-          {props.name ?? "Untitled"}
-        </a>
-      </h1>
-    </>
-  );
-
   if (props.nameImage === undefined) {
-    return <div class="PostNameCard without_nameImage">{content}</div>;
+    return (
+      <div class="PostNameCard without_nameImage">
+        {
+          <>
+            {/* <h1 class="layer1" safe>
+              {props.name ?? "Untitled"}
+            </h1> */}
+            <h1 class="layer2">
+              <a href={isoRoute.unwrap(props.route)} safe>
+                {props.name ?? "Untitled"}
+              </a>
+            </h1>
+          </>
+        }
+      </div>
+    );
   } else {
     const nameImage_src = joinRoutes(
       config.route_of_nameImages,
@@ -35,7 +37,18 @@ export default async function PostNameCard(props: {
     return (
       <div class="PostNameCard with_nameImage">
         <img src={isoRoute.unwrap(nameImage_src)} />
-        {content}
+        {
+          <>
+            <h1 class="layer1" safe>
+              {props.name ?? "Untitled"}
+            </h1>
+            <h1 class="layer2">
+              <a href={isoRoute.unwrap(props.route)} safe>
+                {props.name ?? "Untitled"}
+              </a>
+            </h1>
+          </>
+        }
       </div>
     );
   }
