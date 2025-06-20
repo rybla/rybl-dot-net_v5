@@ -1,5 +1,9 @@
 # TODO
 
+- [ ] reference summaries
+  - write (maybe with AI) summary of external references, which will be
+- [ ] reference Notes
+  - IDEA: every time you reference something, can add a note that that reference "edge". then all of these references can be aggregated and associated with that reference in the ReferenceGraphPage
 - [ ] sort posts in index by pubDate
 - [ ] references graph
   - [ ] render in a more cool way
