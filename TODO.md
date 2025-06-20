@@ -12,6 +12,7 @@
 - [ ] every post should have a thumbnail (can generate via ai)
   - wide aspect ratio
 - [ ] links to local posts using `[[NAME]]` syntax
+- [ ] store the raw markdown version of each post somewhere (safe url, but with .md instead of .html)
 - [ ] BUG: for _only_ deepest node in table of contents tree, there's no paragraph wrapped around the link??
   - does this still happen?
 - [ ] max height for code block (and perhaps other kinds of blocks as well)
