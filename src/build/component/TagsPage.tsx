@@ -54,6 +54,13 @@ export default async function TagsPage(props: {
         </>
       }
     >
+      <div class="tableOfContents">
+        {tags.map((tag) => (
+          <div class="item">
+            <Tag tag={tag} />
+          </div>
+        ))}
+      </div>
       <div class="tags_and_previews">
         {tags.map((tag) => {
           return (
