@@ -107,6 +107,7 @@ export default async function ReferencesGraphPage(props: {
     >
       <div class="content">
         <div id="graph-container"></div>
+        <div id="graph-status"></div>
         <script
           type="text/javascript"
           src="asset/script/references_graph.js"

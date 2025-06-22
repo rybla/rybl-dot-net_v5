@@ -1,5 +1,17 @@
 function createGraph(nodes_data, edges_data) {
+  const status = document.getElementById("graph-status");
+  if (status === null) {
+    throw new Error("[createGraph] #graph-status not found");
+  }
+
+  status.innerText = "rendering references graph ...";
+
   const container = document.getElementById("graph-container");
+  if (container === null) {
+    throw new Error("[createGraph] #graph-container not found");
+  }
+
+  container.classList.add("generating");
 
   // const nodes = new vis.DataSet([
   //   { id: 1, label: "Note A:\nIntroduction to AI", url: "#note-a" },
@@ -106,6 +118,9 @@ function createGraph(nodes_data, edges_data) {
 
   network.on("stabilizationIterationsDone", function () {
     network.setOptions({ physics: false });
+    container.classList.remove("generating");
+    container.classList.add("done");
+    status.remove();
   });
 
   network.on("click", function (params) {
