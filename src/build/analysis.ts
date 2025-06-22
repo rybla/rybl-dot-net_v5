@@ -1,4 +1,8 @@
-import { applyHomomorphisms, stylizeLink } from "@/build/analysis/homomorphism";
+import {
+  applyHomomorphisms,
+  classRawLink,
+  stylizeLink,
+} from "@/build/analysis/homomorphism";
 import * as ef from "@/ef";
 import {
   config,
@@ -128,11 +132,45 @@ export const analyzeWebsite: ef.T<{
   await ef.run(
     { label: "collect references (parallel)" },
     () => async (ctx) => {
+      const visitor: (config: {
+        route: Route;
+        efs: ef.T[];
+        registerReference: (ref: Reference) => void;
+      }) => BuildVisitor<mdast.Root> =
+        ({ route, efs, registerReference }) =>
+        (node) => {
+          efs.push(
+            ef.run({}, () => async () => {
+              switch (node.type) {
+                case "image": {
+                  const href = await ef.safeParse(schemaHref, node.url)(ctx);
+                  const ref = from_Href_to_Reference(href);
+                  registerReference(ref);
+                  break;
+                }
+                case "link": {
+                  // convert all fragment hrefs to full hrefs
+                  if (node.url.startsWith("#")) {
+                    node.url = `${isoRoute.unwrap(route)}/${node.url}`;
+                  }
+
+                  const href = await ef.safeParse(schemaHref, node.url)(ctx);
+                  const ref = from_Href_to_Reference(href);
+                  registerReference(ref);
+
+                  break;
+                }
+              }
+            }),
+          );
+        };
+
       const efs_website: ef.T[] = input.website.resources
         .values()
         .map((res) =>
           ef.run({ label: `route: ${res.route}` }, () => async (ctx) => {
             const references_local: Map<Href, Reference> = new Map();
+            const efs_res: ef.T[] = [];
 
             const registerReference_local = (ref: Reference) => {
               registerReference_global(res.route, ref);
@@ -140,47 +178,18 @@ export const analyzeWebsite: ef.T<{
               references_local.set(from_Reference_to_Href(ref), ref);
             };
 
-            const efs_res: ef.T[] = [];
-
-            const visitor: BuildVisitor<mdast.Root> = (node) => {
-              efs_res.push(
-                ef.run({}, () => async () => {
-                  switch (node.type) {
-                    case "image": {
-                      const href = await ef.safeParse(
-                        schemaHref,
-                        node.url,
-                      )(ctx);
-                      const ref = from_Href_to_Reference(href);
-                      registerReference_local(ref);
-                      break;
-                    }
-                    case "link": {
-                      // convert all fragment hrefs to full hrefs
-                      if (node.url.startsWith("#")) {
-                        node.url = `${res.route}/${node.url}`;
-                      }
-
-                      const href = await ef.safeParse(
-                        schemaHref,
-                        node.url,
-                      )(ctx);
-                      const ref = from_Href_to_Reference(href);
-                      registerReference_local(ref);
-
-                      break;
-                    }
-                  }
-                }),
-              );
-            };
+            const visitor_local = visitor({
+              route: res.route,
+              efs: efs_res,
+              registerReference: registerReference_local,
+            });
 
             switch (res.type) {
               case "post": {
-                visit(res.root, visitor);
+                visit(res.root, visitor_local);
 
                 if (res.metadata.abstract_markdown !== undefined) {
-                  visit(res.metadata.abstract_markdown, visitor);
+                  visit(res.metadata.abstract_markdown, visitor_local);
                 }
 
                 break;
@@ -190,20 +199,34 @@ export const analyzeWebsite: ef.T<{
               }
             }
 
-            // pages
-            visit(AboutPage.root, visitor);
-            visit(ProfilesPage.root, visitor);
-
             await ef.all({ efs: efs_res, input: {} })(ctx);
 
-            res.references =
-              input.website.referencesGraph
-                .get(res.route)
-                ?.values()
-                .toArray() ?? [];
+            // res.references =
+            //   input.website.referencesGraph
+            //     .get(res.route)
+            //     ?.values()
+            //     .toArray() ?? [];
           }),
         )
         .toArray();
+
+      // pages
+      visit(
+        AboutPage.root,
+        visitor({
+          route: config.route_of_AboutPage,
+          efs: efs_website,
+          registerReference: (ref) => {},
+        }),
+      );
+      visit(
+        ProfilesPage.root,
+        visitor({
+          route: config.route_of_ProfilesPage,
+          efs: efs_website,
+          registerReference: (ref) => {},
+        }),
+      );
 
       await ef.all({ efs: efs_website, input: {} })(ctx);
     },
@@ -298,6 +321,7 @@ export const analyzeWebsite: ef.T<{
                     params: {},
                     homomorphisms: {
                       stylizeLink,
+                      classRawLink,
                     },
                   })(ctx);
 
@@ -328,6 +352,7 @@ export const analyzeWebsite: ef.T<{
                       params: {},
                       homomorphisms: {
                         stylizeLink,
+                        classRawLink,
                       },
                     })(ctx);
                   }

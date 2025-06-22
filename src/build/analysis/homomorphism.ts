@@ -87,3 +87,19 @@ export const stylizeLink: Homomorphism<{}> = ef.run(
     }
   },
 );
+
+export const classRawLink: Homomorphism<{}> = ef.run(
+  {},
+  (input) => async (ctx) => {
+    if (input.node.type === "link") {
+      const link = input.node as mdast.Link;
+      await ef.run({}, () => async (ctx) => {
+        if (!link.title) {
+          link.data = link.data ?? {};
+          link.data.hProperties = link.data.hProperties ?? {};
+          link.data.hProperties.class = `${link.data.hProperties.class ?? ""} raw-link`;
+        }
+      })(undefined)(ctx);
+    }
+  },
+);

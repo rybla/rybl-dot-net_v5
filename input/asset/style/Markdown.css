@@ -192,3 +192,7 @@ h6::before {
     padding: 1em;
     background: color-mix(in hsl, var(--secondary--color), transparent 30%);
 }
+
+.raw-link {
+    word-break: break-all;
+}

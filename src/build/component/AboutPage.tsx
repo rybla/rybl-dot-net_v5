@@ -3,7 +3,11 @@ import type { PromiseElement, Website } from "@/ontology";
 import Top from "./Top";
 import Markdown from "./Markdown";
 import { parseMarkdown, parseMarkdown_static } from "@/build/parsing";
-import { applyHomomorphisms, stylizeLink } from "../analysis/homomorphism";
+import {
+  applyHomomorphisms,
+  classRawLink,
+  stylizeLink,
+} from "../analysis/homomorphism";
 
 export const root = parseMarkdown_static(`
 I'm Henry Blanchette.
@@ -27,6 +31,7 @@ export default async function AboutPage(props: {
     params: {},
     homomorphisms: {
       stylizeLink,
+      classRawLink,
     },
   })(props.ctx);
 

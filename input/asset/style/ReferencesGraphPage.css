@@ -8,5 +8,10 @@ main {
 
         backdrop-filter: var(--panel--backdrop-filter);
         background: var(--panel--background);
+
+        #graph-container {
+            width: 100%;
+            height: 600px;
+        }
     }
 }

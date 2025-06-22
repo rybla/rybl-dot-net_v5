@@ -3,7 +3,11 @@ import type { PromiseElement, Website } from "@/ontology";
 import { parseMarkdown, parseMarkdown_static } from "@/build/parsing";
 import Top from "./Top";
 import Markdown from "./Markdown";
-import { applyHomomorphisms, stylizeLink } from "../analysis/homomorphism";
+import {
+  applyHomomorphisms,
+  classRawLink,
+  stylizeLink,
+} from "../analysis/homomorphism";
 
 export const root = parseMarkdown_static(`
 This is the __profiles__ page.
@@ -30,6 +34,7 @@ export default async function ProfilesPage(props: {
     params: {},
     homomorphisms: {
       stylizeLink,
+      classRawLink,
     },
   })(props.ctx);
 
