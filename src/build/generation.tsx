@@ -1,6 +1,7 @@
 import * as ef from "@/ef";
 import {
   config,
+  isoRoute,
   schemaRoute,
   type PostResource,
   type Resource,
@@ -102,6 +103,13 @@ const generatePost: ef.T<{ resource: PostResource }> = ef.run(
     await ef.setRoute_textFile({
       route: input.resource.route,
       content: await render_jsx(<Post ctx={ctx} resource={input.resource} />),
+    })(ctx);
+
+    await ef.setRoute_textFile({
+      route: schemaRoute.parse(
+        isoRoute.unwrap(input.resource.route).replace(".html", ".md"),
+      ),
+      content: input.resource.content,
     })(ctx);
   },
 );

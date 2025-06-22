@@ -1,28 +1,30 @@
 # TODO
 
-- [ ] reference summaries
-  - write (maybe with AI) summary of external references, which will be
-- [ ] reference Notes
-  - IDEA: every time you reference something, can add a note that that reference "edge". then all of these references can be aggregated and associated with that reference in the ReferenceGraphPage
 - [ ] sort posts in index by pubDate
-- [ ] references graph
-  - [ ] render in a more cool way
-  - [x] generate it
-  - [x] render it somewhere (should be a page)
+- [x] reference summaries
+  - write (maybe with AI) summary of external references, which will be
+  - [ ] actually make the summaries viewable somewhere
 - [ ] deal with problem where a link can be really long single word (when its a URL)
   - probably need to detect when a URL has no spaces in its name, and then to put a CSS class on it that styles it to word-break
-- [ ] make sure math rendering still works
 - [ ] make sure links to local sections works
+
+- [ ] reference Notes
+  - IDEA: every time you reference something, can add a note that that reference "edge". then all of these references can be aggregated and associated with that reference in the ReferenceGraphPage
 - [ ] every post should have a thumbnail (can generate via ai)
   - wide aspect ratio
 - [ ] links to local posts using `[[NAME]]` syntax
-- [ ] store the raw markdown version of each post somewhere (safe url, but with .md instead of .html)
 - [ ] BUG: for _only_ deepest node in table of contents tree, there's no paragraph wrapped around the link??
   - does this still happen?
-- [ ] max height for code block (and perhaps other kinds of blocks as well)
 - [ ] css for making the heading of a section stay at the top of the section when you're scrolling
   - turns out this is harder than i thoguht
 
+- [x] max height for code block (and perhaps other kinds of blocks as well)
+- [x] store the raw markdown version of each post somewhere (safe url, but with .md instead of .html)
+- [x] make sure math rendering still works
+- [x] references graph
+  - x] render in a more cool way
+  - [x] generate it
+  - [x] render it somewhere (should be a page)
 - [x] fix rendering of PostNameCard that don't have image (yet)
 - [x] markdown and transformations for Post abstract
 - [x] About page
