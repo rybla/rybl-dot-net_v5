@@ -95,7 +95,6 @@ export const classRawLink: Homomorphism<{}> = ef.run(
     if (input.node.type === "link") {
       const link = input.node as mdast.Link;
       await ef.run({}, () => async (ctx) => {
-        console.log(link);
         const s = showNode(link);
         if (!s.includes(" ") && s.length > 21) {
           link.data = link.data ?? {};

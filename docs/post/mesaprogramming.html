@@ -11,10 +11,10 @@
 </ol>
 <p>Whenever I write "language" I implicitly mean "programming langauge".</p>
 <div class="headingWrapper">
-  <h2 id="Dependent%20Types"><a href="http://localhost:3000/post/mesaprogramming.html#Dependent%20Types">Dependent Types</a></h2>
+  <h2 id="Dependent%20Types"><a href="#Dependent%20Types">Dependent Types</a></h2>
 </div>
 <div class="headingWrapper">
-  <h2 id="Metaprogramming"><a href="http://localhost:3000/post/mesaprogramming.html#Metaprogramming">Metaprogramming</a></h2>
+  <h2 id="Metaprogramming"><a href="#Metaprogramming">Metaprogramming</a></h2>
 </div>
 <p>
   <em>Metaprogramming</em> is the design of programs that generate code meant to be used
@@ -63,7 +63,7 @@ n = $(addN 2) 1 2
 -- n == 3
 </code></pre>
 <div class="headingWrapper">
-  <h2 id="Embedded%20Languages"><a href="http://localhost:3000/post/mesaprogramming.html#Embedded%20Languages">Embedded Languages</a></h2>
+  <h2 id="Embedded%20Languages"><a href="#Embedded%20Languages">Embedded Languages</a></h2>
 </div>
 <p>
   The definition of a language consists of its syntax and semantics. The
@@ -165,7 +165,7 @@ example3 = eval (\_ -> Nothing) (App (Lam "x" (Var "y")) (Var "z"))
   which is a combination of these two use cases.
 </p>
 <div class="headingWrapper">
-  <h2 id="Mesaprogramming"><a href="http://localhost:3000/post/mesaprogramming.html#Mesaprogramming">Mesaprogramming</a></h2>
+  <h2 id="Mesaprogramming"><a href="#Mesaprogramming">Mesaprogramming</a></h2>
 </div>
 <p>
   The usual technique of metaprogramming ("above-programming") is to provide a
@@ -224,7 +224,7 @@ addN (SSuc (SSuc n)) = \x y -> addN (SSuc n) (x + y)
 <p>For example, TODO: example of metaprogramming in python</p>
 <pre><code class="language-python"></code></pre>
 <div class="headingWrapper">
-  <h2 id="References"><a href="http://localhost:3000/post/mesaprogramming.html#References">References</a></h2>
+  <h2 id="References"><a href="#References">References</a></h2>
 </div>
 <ul>
   <li><a href="https://wiki.haskell.org/Template_Haskell" class="LinkWithIcon"><img src="/asset/icon/wiki_haskell_org" class="icon"><span class="label">Template Haskell - HaskellWiki</span></a></li>

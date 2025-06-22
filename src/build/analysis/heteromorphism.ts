@@ -33,7 +33,7 @@ export const addTableOfContents: ef.T<{ route: Route; root: mdast.Root }> =
         node.children = [
           {
             type: "link",
-            url: `${join_Href_with_Route(from_URL_to_hostHref(config.url_of_website), input.route)}#${id}`,
+            url: `#${id}`,
             children: node.children,
           },
         ];

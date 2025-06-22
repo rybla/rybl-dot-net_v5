@@ -149,9 +149,9 @@ export const analyzeWebsite: ef.T<{
                   break;
                 }
                 case "link": {
-                  // convert all fragment hrefs to full hrefs
+                  // convert all fragment hrefs to full hrefs so can be parsed as URLs
                   if (node.url.startsWith("#")) {
-                    node.url = `${isoRoute.unwrap(route)}/${node.url}`;
+                    node.url = `${isoRoute.unwrap(route)}${node.url}`;
                   }
 
                   const href = await ef.safeParse(schemaHref, node.url)(ctx);

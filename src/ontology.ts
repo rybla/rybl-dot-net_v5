@@ -110,8 +110,13 @@ export const from_Href_to_Route = (href: Href): Route | undefined => {
 export const joinRoutes = (...rs: Route[]): Route =>
   schemaRoute.parse(rs.map(isoRoute.unwrap).join(""));
 
-export const at_id_of_Route = (r: Route, id: string): Route =>
-  schemaRoute.parse(`${isoRoute.unwrap(r)}#${id}`);
+// schemaRoute.parse(`${isoRoute.unwrap(r)}#${id}`);
+export const at_id_of_Route = (r: Route, id: string): Route => {
+  let s = isoRoute.unwrap(r);
+  if (s.endsWith("/")) s = s.slice(0, -1);
+  const output = schemaRoute.parse(`${s}#${id}`);
+  return output;
+};
 
 /**
  * An {@link Href} is a hyper-reference that can be either local ("/" followed by a filepath) or remote (a URL).

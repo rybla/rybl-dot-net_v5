@@ -11,7 +11,7 @@
   <li><a href="#Conclusions" title="Conclusions">Conclusions</a></li>
 </ol>
 <div class="headingWrapper">
-  <h2 id="Introduction"><a href="http://localhost:3000/post/overloading-in-haskell.html#Introduction">Introduction</a></h2>
+  <h2 id="Introduction"><a href="#Introduction">Introduction</a></h2>
 </div>
 <p>
   A common metaprogrammatic feature is overloading. A function is <em>overloaded</em> (by
@@ -31,7 +31,7 @@
   approaches, and some ideas about the generalization of my favored approach.
 </p>
 <div class="headingWrapper">
-  <h2 id="Overloading%20with%20Typeclasses"><a href="http://localhost:3000/post/overloading-in-haskell.html#Overloading%20with%20Typeclasses">Overloading with Typeclasses</a></h2>
+  <h2 id="Overloading%20with%20Typeclasses"><a href="#Overloading%20with%20Typeclasses">Overloading with Typeclasses</a></h2>
 </div>
 <p>
   Haskell provides a nice interface (with a complicated backend) for a restricted
@@ -103,7 +103,7 @@ instance Negatable (Bool -> Bool) where
   take different numbers of arguments).
 </p>
 <div class="headingWrapper">
-  <h2 id="Overloading%20with%20Templates"><a href="http://localhost:3000/post/overloading-in-haskell.html#Overloading%20with%20Templates">Overloading with Templates</a></h2>
+  <h2 id="Overloading%20with%20Templates"><a href="#Overloading%20with%20Templates">Overloading with Templates</a></h2>
 </div>
 <p>
   Templates (via Template Haskell) offer more general megaprogramming capabilities
@@ -190,7 +190,7 @@ $(negate NegateBool) True ==> False
   singletons approach -- see the next section.)
 </p>
 <div class="headingWrapper">
-  <h2 id="Overloading%20with%20Singletons"><a href="http://localhost:3000/post/overloading-in-haskell.html#Overloading%20with%20Singletons">Overloading with Singletons</a></h2>
+  <h2 id="Overloading%20with%20Singletons"><a href="#Overloading%20with%20Singletons">Overloading with Singletons</a></h2>
 </div>
 <p>
   Finally, this third approach is to take advantage of a restricted form of
@@ -315,7 +315,7 @@ negate True :: Bool ==> False
   GHC would try to solve <code>Int -> t ~ NegateType mode</code> which it cannot.
 </p>
 <div class="headingWrapper">
-  <h2 id="Overloading%20with%20%CE%A0"><a href="http://localhost:3000/post/overloading-in-haskell.html#Overloading%20with%20%CE%A0">Overloading with Π</a></h2>
+  <h2 id="Overloading%20with%20%CE%A0"><a href="#Overloading%20with%20%CE%A0">Overloading with Π</a></h2>
 </div>
 <p>
   As described before, singletons are an implementation in Haskell of a restricted
@@ -359,7 +359,7 @@ negate NegateBool true ==> false
   each overload mode.
 </p>
 <div class="headingWrapper">
-  <h2 id="Conclusions"><a href="http://localhost:3000/post/overloading-in-haskell.html#Conclusions">Conclusions</a></h2>
+  <h2 id="Conclusions"><a href="#Conclusions">Conclusions</a></h2>
 </div>
 <p>
   We have overviewed three approaches to implementing overloading in Haskell (or

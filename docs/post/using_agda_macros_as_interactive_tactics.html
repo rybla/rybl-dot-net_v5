@@ -32,16 +32,16 @@
   </li>
 </ol>
 <div class="headingWrapper">
-  <h2 id="Interactive%20Tactics%20(not%20in%20Agda)"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#Interactive%20Tactics%20(not%20in%20Agda)">Interactive Tactics (not in Agda)</a></h2>
+  <h2 id="Interactive%20Tactics%20(not%20in%20Agda)"><a href="#Interactive%20Tactics%20(not%20in%20Agda)">Interactive Tactics (not in Agda)</a></h2>
 </div>
 <p>Interactive tactics, such as <a href="https://rocq-prover.org/doc/v8.19/refman/proof-engine/ltac.html" class="LinkWithIcon"><img src="/asset/icon/rocq-prover_org" class="icon"><span class="label">LTac</span></a> in <a href="https://rocq-prover.org/" class="LinkWithIcon"><img src="/asset/icon/rocq-prover_org" class="icon"><span class="label">Coq/Rocq</span></a>, support an interesting and often useful workflow: to interactively run a tactic script (which can leverage metaprogramming), viewing the context and expected type of the rest of the tactic script (in a nested fashion) at each step. In this way, you as a programmer can view the intermediate states that are yielded by metaprogrammatic computations which would otherwise be inaccessible if you were only able to view the final output of the tactic script.</p>
 <div class="headingWrapper">
-  <h2 id="Agda&#x27;s%20Typed%20Holes%20and%20Macros"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#Agda&#x27;s%20Typed%20Holes%20and%20Macros">Agda's Typed Holes and Macros</a></h2>
+  <h2 id="Agda&#x27;s%20Typed%20Holes%20and%20Macros"><a href="#Agda&#x27;s%20Typed%20Holes%20and%20Macros">Agda's Typed Holes and Macros</a></h2>
 </div>
 <p><a href="https://agda.readthedocs.io/en/latest/index.html" class="LinkWithIcon"><img src="/asset/icon/agda_readthedocs_io" class="icon"><span class="label">Agda</span></a> has an interactive editing mode that provides some similar features to this workflow. In particular, <a href="https://agda.readthedocs.io/en/latest/language/lexical-structure.html#holes" class="LinkWithIcon"><img src="/asset/icon/agda_readthedocs_io" class="icon"><span class="label">typed holes</span></a> let you as a programmer view the intermediate state (context and expected type) of the typechecker at any point in your program. This is a very interesting and useful feature for many of the same reasons as is interactively running a tactic script.</p>
 <p>Agda <em>also</em> has a <a href="https://agda.readthedocs.io/en/stable/language/reflection.html" class="LinkWithIcon"><img src="/asset/icon/agda_readthedocs_io" class="icon"><span class="label">macro system</span></a>. These macros allow for all the same computations that can be performed in tactic languages such as LTac, in particular because it allows the macro programmer to inspect that current context and expected type of the macro expansion's result. However, the macro system <em>does not</em> provide the same interactive experience as interactive tactic scripts because of the way that holes and macros interact: when a hole is given as an argument to a macro, that hole is evaluated (where the evaluation immediately gets stuck, since its a hole after all) <em>before</em> the macro starts expanding (just like any other argument to the macro), and so that hole's expected type and context can only be considered in the context and expected type <em>at the macro's invocation</em>. Interactivity would require the hole's evaluation to be delayed until <em>after</em> the macro is expanded, since this would allow the macro to splice the hole into a different context and expected type.</p>
 <div class="headingWrapper">
-  <h3 id="Example%20of%20Macro-Hole%20Interaction"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#Example%20of%20Macro-Hole%20Interaction">Example of Macro-Hole Interaction</a></h3>
+  <h3 id="Example%20of%20Macro-Hole%20Interaction"><a href="#Example%20of%20Macro-Hole%20Interaction">Example of Macro-Hole Interaction</a></h3>
 </div>
 <p>Imports:</p>
 <pre><code class="language-agda">open import Reflection using (_>>=_)
@@ -86,7 +86,7 @@ Failed to solve the following constraints:
 </code></pre>
 <p>This is because <code>unquote</code> is blocked when trying to evaluate the hole, and so macro expansion doesn't even get started. Because of this, we <em>can't</em> inspect that intermediate state in the same way we could if this was a function application rather than a macro invocation.</p>
 <div class="headingWrapper">
-  <h2 id="Proposal_%20Quoted%20Holes"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#Proposal_%20Quoted%20Holes">Proposal: Quoted Holes</a></h2>
+  <h2 id="Proposal_%20Quoted%20Holes"><a href="#Proposal_%20Quoted%20Holes">Proposal: Quoted Holes</a></h2>
 </div>
 <p>What would be desirable in this instance,</p>
 <pre><code class="language-agda">_ : ℕ → ℕ → ℕ
@@ -106,7 +106,7 @@ _ = intros ?
 </ul>
 <p>Note that quoted holes do not require any new features of Agda's type theory -- they are purely a UI phenomenon.</p>
 <div class="headingWrapper">
-  <h3 id="Example%20Usage"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#Example%20Usage">Example Usage</a></h3>
+  <h3 id="Example%20Usage"><a href="#Example%20Usage">Example Usage</a></h3>
 </div>
 <p>This feature will allow you to write something like</p>
 <pre><code class="language-agda">_ : ℕ → ℕ → ℕ
@@ -120,22 +120,22 @@ x0 : ℕ
 </code></pre>
 <p>Ultimately, this gives you exactly the kind of interactivity as interactively running tactic scripts in Coq. Most of the feature is already implemented in how Agda's typed holes work -- it just needs this one extra feature to to be able to quote and splice holes!</p>
 <div class="headingWrapper">
-  <h3 id="More%20about%20Quoted%20Holes"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#More%20about%20Quoted%20Holes">More about Quoted Holes</a></h3>
+  <h3 id="More%20about%20Quoted%20Holes"><a href="#More%20about%20Quoted%20Holes">More about Quoted Holes</a></h3>
 </div>
 <div class="headingWrapper">
-  <h4 id="Desugaring"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#Desugaring">Desugaring</a></h4>
+  <h4 id="Desugaring"><a href="#Desugaring">Desugaring</a></h4>
 </div>
 <p>In the example, the idea is that the macro invocation <code>intros ?</code> to <a href="https://agda.readthedocs.io/en/v2.8.0-rc1/language/reflection.html#macros" class="LinkWithIcon"><img src="/asset/icon/agda_readthedocs_io" class="icon"><span class="label">desugars</span></a> to</p>
 <pre><code class="language-agda">unquote (intros (quoteTerm ?))
 </code></pre>
 <p>So, <code>quoteTerm</code> needs to handle quoting holes properly.</p>
 <div class="headingWrapper">
-  <h4 id="Multiply-spliced%20Quoted%20Holes%3F%3F"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#Multiply-spliced%20Quoted%20Holes%3F%3F">Multiply-spliced Quoted Holes??</a></h4>
+  <h4 id="Multiply-spliced%20Quoted%20Holes%3F%3F"><a href="#Multiply-spliced%20Quoted%20Holes%3F%3F">Multiply-spliced Quoted Holes??</a></h4>
 </div>
 <p>A quoted hole is more special than other quoted terms, since it must remember its original source. A quoted term is spliced as a completely new copy of the term that was quoted. In contrast, all splices of the same quoted hole (identified by their shared id) share a metavariable as their types. This is critical because the user will only interact with one instance of the quoted hole, so all ways that it can be spliced must be satisfied by the same context and type, which the user will see when they inspect that information at the quoted hole.</p>
 <p>However, note that this requirement <em>only</em> holds for quote holes, not other quoted terms which are copied when they are spliced. So, this proposal for quoted holes doesn't allow you to put a quoted hole <em>anywhere</em> when using a macro. Since sometimes, a quoted term will be able to be spliced into different contexts with different expected types, which is not allowed for a spliced quoted hole (in particular, think of splicing a macro that will expand). But I think that's mostly ok. An alternative would be to make a special kind of metavariable for quoted holes that can accumulate multiple contexts and expected types and not try to unify.</p>
 <div class="headingWrapper">
-  <h2 id="References"><a href="http://localhost:3000/post/using_agda_macros_as_interactive_tactics.html#References">References</a></h2>
+  <h2 id="References"><a href="#References">References</a></h2>
 </div>
 <ul>
   <li><a href="https://rocq-prover.org/doc/v8.19/refman/proof-engine/ltac.html" class="LinkWithIcon raw-link"><img src="/asset/icon/rocq-prover_org" class="icon"><span class="label">https://rocq-prover.org/doc/v8.19/refman/proof-engine/ltac.html</span></a></li>
