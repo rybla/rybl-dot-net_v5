@@ -1,0 +1,3 @@
+{
+    "value": "`markdown-it-container` is a plugin for the `markdown-it` parser that allows users to create block-level custom containers using a fenced syntax, similar to code blocks (e.g., `::: warning`). These containers are rendered into HTML, defaulting to a `<div>` with a class matching the container name, but offer extensive customization. Users can define `validate` functions to process the opening marker's parameters and `render` functions to generate completely custom HTML output, providing a flexible way to extend Markdown with structured, custom content blocks whose internal content is still parsed as standard Markdown."
+}

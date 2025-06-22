@@ -1,0 +1,3 @@
+{
+    "value": "This article introduces LiquidHaskell (LH), a powerful extension that refines Haskell's types with logical predicates to enforce crucial code properties at compile time. LH enables developers to guarantee function totality, prevent out-of-bounds errors, ensure program termination, and enforce various correctness invariants on data. Furthermore, it allows for the formal verification of algebraic laws by expressing proofs directly as Haskell functions. By making illegal values unrepresentable and automatically identifying logic bugs, LH significantly enhances the reliability and robustness of Haskell applications."
+}

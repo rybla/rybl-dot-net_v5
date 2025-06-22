@@ -1,0 +1,3 @@
+{
+    "value": "This article introduces Semantic Versioning (SemVer), a standardized system for assigning and incrementing software version numbers to mitigate \"dependency hell\" in complex projects. SemVer defines a MAJOR.MINOR.PATCH format: major version increments denote incompatible API changes, minor increments signify backward-compatible new functionality or deprecations, and patch increments are reserved for backward-compatible bug fixes. By requiring a declared public API and adhering to these precise rules, SemVer facilitates predictable dependency management, prevents version conflicts, and enables safer, more reliable software upgrades for developers and users alike."
+}

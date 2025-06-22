@@ -1,0 +1,3 @@
+{
+    "value": "This article introduces globular theories as an extension of algebraic theories (Lawvere theories) to the realm of higher categories, where \"objects\" are labeled by pasting diagrams of globes. It formally defines globular theories, the associated globular site, and the concept of homogeneous globular theories. A key result establishes a precise correspondence between homogeneous globular theories and the categories of operators for globular operads. As a primary example, the article demonstrates how the Theta category serves as the globular theory for strict $\\infty$-categories, thereby providing a foundational framework for their definition and study."
+}

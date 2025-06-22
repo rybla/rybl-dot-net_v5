@@ -1,0 +1,3 @@
+{
+    "value": "This article introduces \"stability-badges,\" a set of SVG badges designed to visually communicate the Node.js stability index of modules. These badges provide a clear, standardized way to indicate a module's development status, ranging from \"Deprecated\" (0) through \"Experimental,\" \"Unstable,\" \"Stable,\" and \"Frozen,\" up to \"Locked\" (5), allowing users to quickly assess a project's maturity and reliability."
+}

@@ -1,0 +1,3 @@
+{
+    "value": "This article introduces `markdown-it-emoji`, a plugin designed for the `markdown-it` markdown parser. It extends `markdown-it`'s capabilities by adding support for standard emoji syntax (e.g., `:satellite:`) and common emoticon shortcuts (e.g., `:)`, `:-(`). The plugin is easily installed via npm and integrated, offering configurable options such as different emoji sets (full, light) and the ability to customize emoji definitions, enabled lists, and shortcuts. Developers can also modify the default rendering behavior to output emojis as Unicode characters, custom HTML spans for iconic fonts, or integrate with libraries like `twemoji` for enhanced visual presentation."
+}

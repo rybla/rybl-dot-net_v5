@@ -1,0 +1,3 @@
+{
+    "value": "This article provides a comprehensive overview of dependent types, tracing their theoretical foundations in type theory, the Curry-Howard isomorphism, and illative combinatory logic. It then examines their practical implementation in dedicated programming languages like Epigram, Agda, Idris, and Cayenne, which leverage dependent types for enhanced program verification, enabling strong static guarantees such as compile-time array bound checks, and robust theorem proving. The article further discusses their adoption and simulation in mainstream functional languages, particularly Haskell, through lightweight approaches and formal proposals, highlighting their utility for improved code safety and expressiveness."
+}

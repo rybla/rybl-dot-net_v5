@@ -1,0 +1,3 @@
+{
+    "value": "`markdown-it-ins` is a plugin for the `markdown-it` markdown parser that introduces support for the HTML `<ins>` (inserted text) tag. It allows users to mark content for insertion using `++text++` syntax, which is then rendered as `<ins>text</ins>`. This plugin applies the same parsing conditions as CommonMark emphasis and requires `markdown-it` version 10 or higher for compatibility."
+}

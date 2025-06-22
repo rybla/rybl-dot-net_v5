@@ -1,0 +1,3 @@
+{
+    "value": "This article introduces `impe`, an imperative, simple, and extendible interpreted programming language. Its interpretation pipeline consists of parsing, static typing, and execution stages. `impe` supports fundamental programming constructs including mutable variables, conditional branching, looping, and functions with nested definitions and lexical scope capturing. The project showcases the practical application of several Haskell libraries, such as Polysemy, Lens, MTL, Parsec, and Optparse-Applicative, in developing such a language."
+}

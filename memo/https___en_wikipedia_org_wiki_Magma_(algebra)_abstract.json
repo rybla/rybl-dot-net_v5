@@ -1,0 +1,3 @@
+{
+    "value": "This article defines a magma as the most fundamental algebraic structure, comprising a set and a single, closed binary operation, without imposing any further axioms. It clarifies the historical ambiguity surrounding the term 'groupoid' and examines foundational aspects such as magma morphisms, the combinatorics of non-associative operations (including free magmas and Catalan numbers), and its position within the hierarchy of algebraic structures. The text details how additional properties (e.g., associativity, identity, commutativity, cancellativity) transform a magma into more complex structures like semigroups, monoids, and groups, and discusses other specific classifications and its categorical properties."
+}

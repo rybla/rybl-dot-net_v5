@@ -253,6 +253,7 @@ export type ExternalReferenceMetadata = z.infer<
 >;
 export const schemaExternalReferenceMetadata = z.object({
   name: z.optional(z.string()),
+  abstract: z.optional(z.string()),
 });
 
 export type InternalReference = { value: Route };

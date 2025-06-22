@@ -1,0 +1,3 @@
+{
+    "value": "`markdown-it-sup` is a plugin for the `markdown-it` markdown parser that extends its functionality to include superscript (`<sup>`) tag support. It uses a Pandoc-based `^...^` syntax, where text like `29^th^` renders as `29<sup>th</sup>`. The plugin requires `markdown-it` v4+ and does not currently support nested superscript markup."
+}

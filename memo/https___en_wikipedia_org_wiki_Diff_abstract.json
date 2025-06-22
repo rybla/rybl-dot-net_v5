@@ -1,0 +1,3 @@
+{
+    "value": "The `diff` utility is a foundational data comparison tool, developed at Bell Labs in 1974, that computes and displays line-oriented differences between file contents. It functions by identifying the minimal set of insertions and deletions required to transform one file into another, leveraging algorithms like the longest common subsequence. The output, known as a \"diff\" or \"patch,\" is parsable by both humans and machines, facilitating uses such as source code version control and automated patching. The article covers `diff`'s historical development, its various standard output formats (e.g., context, unified), and its enduring significance, having become a generic term for file comparison results and a cornerstone for numerous related tools."
+}

@@ -1,0 +1,3 @@
+{
+    "value": "The provided raw PDF content includes metadata indicating the article's title is \"Reasonable Agda Is Correct Haskell: Writing Verified Haskell using agda2hs.\" This paper explores a method for formally verifying Haskell programs, utilizing the capabilities of dependent types as expressed in Agda. It specifically focuses on program extraction techniques, likely enabled by the `agda2hs` tool, to generate certified Haskell code from formally proven Agda specifications. This work contributes to the fields of source code generation, functional languages, and formal software verification by promoting correctness and reliability in Haskell development."
+}

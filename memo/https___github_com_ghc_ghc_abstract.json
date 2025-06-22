@@ -1,0 +1,3 @@
+{
+    "value": "This document details the source tree for the Glasgow Haskell Compiler (GHC), an advanced compiler and interactive environment for the Haskell functional programming language. It provides instructions for obtaining the source code via tarball downloads or Git cloning, along with a comprehensive guide for building GHC, notably highlighting its self-hosting nature and reliance on the Hadrian build system. Furthermore, the document outlines pathways for user engagement, including reporting bugs and proposing features, and contributing to GHC's development through code contributions, emphasizing its status as a community-driven open-source project."
+}

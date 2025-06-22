@@ -1,0 +1,3 @@
+{
+    "value": "This paper addresses the long-standing problem of dependent elimination with lambda encodings by introducing a novel type construct called a 'self type' (ιx.T). Building upon a type-assignment form of the Calculus of Constructions, restricted recursive definitions, and Miquel’s implicit product, the resulting System S leverages self types to enable robust dependent elimination and induction principles for lambda encodings. The authors establish the strong normalization of System S by an erasure to a variant of Fω and prove its type preservation."
+}

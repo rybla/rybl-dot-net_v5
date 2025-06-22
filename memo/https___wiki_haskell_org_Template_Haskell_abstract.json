@@ -1,0 +1,3 @@
+{
+    "value": "This article provides a centralized, comprehensive overview of Template Haskell (TH), a GHC extension enabling type-safe, compile-time metaprogramming in Haskell. TH allows developers to convert Haskell concrete syntax into abstract syntax trees (ASTs), manipulate them programmatically, and splice the modified or newly generated code back into the compilation process. Beyond defining TH and its specifications, the article compiles essential resources including tutorials, academic papers, practical examples, diverse project applications, and useful utilities, alongside discussions of known bugs, tips, and future development aspirations, serving as a primary reference for the extension."
+}

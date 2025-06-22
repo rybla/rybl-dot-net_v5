@@ -124,10 +124,10 @@ export const analyzeWebsite: ef.T<{
               break;
             }
           }
-        })({})(ctx);
+        })(undefined)(ctx);
       }
     },
-  )({})(ctx);
+  )(undefined)(ctx);
 
   await ef.run(
     { label: "collect references (parallel)" },
@@ -199,7 +199,7 @@ export const analyzeWebsite: ef.T<{
               }
             }
 
-            await ef.all({ efs: efs_res, input: {} })(ctx);
+            await ef.all({ efs: efs_res, input: undefined })(ctx);
 
             // res.references =
             //   input.website.referencesGraph
@@ -228,28 +228,39 @@ export const analyzeWebsite: ef.T<{
         }),
       );
 
-      await ef.all({ efs: efs_website, input: {} })(ctx);
+      await ef.all({ efs: efs_website, input: undefined })(ctx);
     },
-  )({})(ctx);
+  )(undefined)(ctx);
 
   await ef.run(
     { label: "populate metadata of references" },
     () => async (ctx) => {
-      for (const ref of references_global.values()) {
-        switch (ref.type) {
-          case "external": {
-            ref.metadata = await ef.fetchExternalReferenceMetadata({
-              url: ref.value,
-            })(ctx);
-            break;
-          }
-          default: {
-            break;
-          }
-        }
-      }
+      await ef.all({
+        efs: references_global
+          .values()
+          .map((ref) =>
+            ef.run({}, () => async (ctx) => {
+              switch (ref.type) {
+                case "external": {
+                  ref.metadata = await ef.fetchExternalReferenceMetadata({
+                    url: ref.value,
+                  })(ctx);
+                  break;
+                }
+                default: {
+                  break;
+                }
+              }
+            }),
+          )
+          .toArray(),
+        input: undefined,
+        opts: {
+          batch_size: 5,
+        },
+      })(ctx);
     },
-  )({})(ctx);
+  )(undefined)(ctx);
 
   await ef.run({ label: "use icons of references" }, () => async (ctx) => {
     const refs = dedup(references_global.values(), (x) =>
@@ -281,11 +292,11 @@ export const analyzeWebsite: ef.T<{
       ),
       input: {},
     })(ctx);
-  })({})(ctx);
+  })(undefined)(ctx);
 
   await ef.run({ label: "create reference graph" }, () => async (ctx) => {
     await ef.tell("TODO")(ctx);
-  })({})(ctx);
+  })(undefined)(ctx);
 
   await ef.run({ label: "apply transformations" }, () => async (ctx) => {
     await ef.all({
@@ -295,7 +306,7 @@ export const analyzeWebsite: ef.T<{
           ef.run(
             {
               label: `route: ${res.route}`,
-              catch: (err) => ef.tell(err.toString()),
+              catch: (error) => ef.tell(error.toString().substring(0, 100)),
             },
             () => async (ctx) => {
               switch (res.type) {
@@ -368,5 +379,5 @@ export const analyzeWebsite: ef.T<{
         .toArray(),
       input: undefined,
     })(ctx);
-  })({})(ctx);
+  })(undefined)(ctx);
 });

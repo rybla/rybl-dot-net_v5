@@ -1,0 +1,3 @@
+{
+    "value": "`markdown-it-sub` is a plugin designed for the `markdown-it` parser, enabling users to render subscript text (HTML `<sub>` tags). It implements a Pandoc-inspired syntax where text enclosed by tildes (e.g., `H~2~O`) is converted to its subscript equivalent. While offering simple and direct subscript functionality, the plugin currently does not support nested markup. It is easily installed via npm or bower and integrated into `markdown-it` instances through a straightforward `use` method."
+}

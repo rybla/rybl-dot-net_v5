@@ -1,0 +1,3 @@
+{
+    "value": "Coq's inductive types advance conventional type definitions, sharing similarities with recursive types found in functional programming languages. Their distinct power, precision, and expressiveness stem from the ability to combine recursive types with dependent products. This enables them to describe highly sophisticated structures, including the fundamental elements of pure logic programming, such as the primitive kernel of Prolog."
+}

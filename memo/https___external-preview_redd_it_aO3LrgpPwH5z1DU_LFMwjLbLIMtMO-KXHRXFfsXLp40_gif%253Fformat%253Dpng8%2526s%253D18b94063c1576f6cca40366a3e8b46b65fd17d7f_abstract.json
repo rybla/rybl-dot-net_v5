@@ -1,0 +1,3 @@
+{
+    "value": "The provided input is raw PNG image data, identifiable by the `�PNG` header and subsequent binary streams (`IHDR`, `PLTE`, `IDAT`). As such, it contains no discernible textual content from which an abstract can be generated. To create a meaningful abstract, the actual textual content of an article would be required."
+}

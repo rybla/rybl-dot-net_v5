@@ -1,0 +1,3 @@
+{
+    "value": "This article defines polymorphism in programming language theory as the use of one symbol or interface to represent multiple different types. It details three primary forms: ad hoc polymorphism, which allows functions or operators to behave differently based on argument types (e.g., overloading); parametric polymorphism, enabling generic code to operate uniformly on values without specific type dependencies; and subtyping (or inclusion polymorphism), where a name denotes instances of various classes related by a common superclass, often through inheritance. The discussion also covers the historical development of these concepts and distinguishes between their static (compile-time) and dynamic (run-time) implementation approaches."
+}

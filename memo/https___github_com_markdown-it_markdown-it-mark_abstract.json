@@ -1,0 +1,3 @@
+{
+    "value": "The `markdown-it-mark` plugin extends the `markdown-it` markdown parser by adding support for the HTML `<mark>` tag. It allows users to highlight text using double equals signs (e.g., `==highlighted text==`), which renders as `<mark>highlighted text</mark>`. The plugin's markup adheres to the same conditions as CommonMark emphasis and requires `markdown-it` version 10.0 or higher. It is easily installable via npm or Bower and integrated into `markdown-it` instances through a simple `.use()` method call."
+}

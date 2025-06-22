@@ -1,0 +1,3 @@
+{
+    "value": "This abstract describes `markdown-it-emoji`, a plugin that extends the `markdown-it` parser with comprehensive emoji and emoticon support. It enables the rendering of standard emoji syntax (e.g., `:smile:`) and common emoticons (e.g., `:), :-(`). The plugin offers flexible configuration options, including various emoji sets (full, light, bare), and allows for customization of emoji definitions, enabled emojis, and shortcuts. While emojis are rendered as Unicode characters by default, users can customize the renderer function to output them as `<span>` elements for custom fonts or integrate with external libraries like `twemoji` for image-based display."
+}

@@ -1,0 +1,3 @@
+{
+    "value": "Parsec is an industrial-strength monadic parser combinator library for Haskell, designed as a monad transformer that is parametric in its input stream type. It offers a robust solution for parsing, known for its simplicity, safety, speed, good error messages, and extensive accompanying libraries, with the `Text.Parsec` module providing defaults for character data parsing."
+}

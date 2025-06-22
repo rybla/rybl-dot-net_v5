@@ -1,0 +1,3 @@
+{
+    "value": "This article details Agda's built-in types and internal representations crucial for reflection and metaprogramming. It defines the structure of quoted names, metavariables, literals, argument information, and core language constructs such as terms, sorts, patterns, clauses, and definitions. The central component is the `TC` monad, which provides a comprehensive set of primitive operations to programmatically interact with the Agda type checker, including type inference, normalization, quoting/unquoting, and managing declarations. This robust foundation enables advanced metaprogramming techniques, such as defining type-level macros, generating top-level declarations through unquoting, and integrating external tools via system calls."
+}

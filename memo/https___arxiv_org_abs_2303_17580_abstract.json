@@ -1,0 +1,3 @@
+{
+    "value": "Solving complex AI tasks across diverse domains and modalities is crucial for artificial general intelligence, yet current models lack autonomous capabilities. This article proposes that large language models (LLMs) can act as a controller, using language as a generic interface, to manage existing AI models. Based on this, we present HuggingGPT, an LLM-powered agent that leverages LLMs like ChatGPT to connect with and orchestrate various AI models from communities such as Hugging Face. HuggingGPT conducts task planning, selects appropriate models, executes subtasks, and synthesizes the results, enabling it to effectively address sophisticated AI challenges spanning language, vision, and speech, thereby advancing the path toward AGI."
+}

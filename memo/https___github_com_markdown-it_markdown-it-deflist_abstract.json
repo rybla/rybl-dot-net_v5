@@ -1,0 +1,3 @@
+{
+    "value": "This document details `markdown-it-deflist`, a plugin designed to extend the `markdown-it` markdown parser by adding support for definition lists (`<dl>` tags). It specifies that the syntax for these lists adheres to Pandoc standards and provides comprehensive instructions for installation via npm, alongside clear usage examples for integrating the plugin into a `markdown-it` instance. Additionally, it addresses the plugin's behavior and global availability when loaded directly within a browser environment."
+}

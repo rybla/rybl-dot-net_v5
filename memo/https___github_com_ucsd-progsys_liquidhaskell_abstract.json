@@ -1,0 +1,3 @@
+{
+    "value": "This document serves as the primary development and contribution guide for LiquidHaskell, a formal verification tool for Haskell. It provides essential information for developers, covering setup instructions (via Hackage or GitHub), avenues for support and collaboration, and detailed guidelines for reporting bugs and submitting pull requests. Beyond practical development workflows, such as faster recompilation, regression testing, and performance analysis, the guide offers an in-depth look at LiquidHaskell's GHC plugin architecture, including its module verification process, the strategic use of the GHC.API for compiler compatibility, and the project's GHC support policy."
+}

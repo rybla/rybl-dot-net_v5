@@ -1,0 +1,3 @@
+{
+    "value": "The Mendeley Web Importer browser extension allows users to easily add article metadata and PDF full texts from viewed web pages directly to their Mendeley library, simplifying reading and citation and offering 2GB of free storage. To function, the importer collects specific browser information, including cookies, URLs, and IP addresses, which is used for sign-in, identifying compatible sites, determining institutional benefits, and guiding product development and problem analysis. It requires browser permissions to access all website data for PDF retrieval, browser tabs for UI and metadata search, and display notifications for error alerts, all under the governance of the Elsevier Privacy Policy."
+}

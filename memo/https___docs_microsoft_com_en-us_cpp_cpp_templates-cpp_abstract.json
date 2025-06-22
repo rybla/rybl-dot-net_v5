@@ -1,0 +1,3 @@
+{
+    "value": "This article explains C++ templates, a core feature enabling generic programming in a strongly-typed language by allowing the definition of classes and functions that operate on various data types without explicit redefinition. It details how templates facilitate compile-time code generation through the use of type, non-type, and even template parameters, illustrating their functionality with examples. The discussion covers essential concepts like type deduction, default template arguments, and the ability to define template specializations for tailored behavior with specific types, ultimately promoting code reusability and type safety."
+}

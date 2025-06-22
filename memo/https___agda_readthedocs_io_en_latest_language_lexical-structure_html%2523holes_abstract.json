@@ -1,0 +1,3 @@
+{
+    "value": "This article details the fundamental structural elements of Agda code, beginning with its UTF-8 plain text file format which supports Unicode identifiers and specific extensions for literate programming. It outlines the various tokens including keywords and special symbols, and explains the flexible naming conventions that allow Unicode characters, mixfix operators via underscores, and qualified names for module references. The text further describes the syntax for integer, float, character, and string literals. Key to Agda's structure is its mandatory layout sensitivity, relying on indentation for block structuring, alongside features like interactive \"holes\" for development and \"pragmas\" for system directives."
+}

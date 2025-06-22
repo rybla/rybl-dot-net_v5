@@ -1,0 +1,3 @@
+{
+    "value": "This article summarizes recent Emacs releases, focusing on the significant feature additions in versions 30.1 and 29.1. These updates introduce major enhancements such as native compilation enabled by default, a port to the Android operating system, new Tree-Sitter major modes for various languages, the inclusion of an LSP client (Eglot), and general performance and user experience improvements, including enhanced touchscreen support and updated Unicode compatibility. The document also notes several intervening minor releases (29.2, 29.3, and 29.4) primarily focused on maintenance and stability."
+}

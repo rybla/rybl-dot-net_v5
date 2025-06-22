@@ -1,0 +1,3 @@
+{
+    "value": "This article explores the application of Dominant Assurance Contracts (DACs) on the Amoveo platform for decentralized crowdfunding. DACs, which address the free-rider problem inherent in traditional crowdfunding, ensure contributors are rewarded even if the funding goal is not met, making participation a dominant strategy. The article details two Amoveo-based DAC implementations: one for an Arabic whitepaper translation using a prediction market, and another for a light node front-end UX, leveraging p2p derivatives. These examples demonstrate Amoveo's flexibility and its potential for fostering self-funded, decentralized community development."
+}

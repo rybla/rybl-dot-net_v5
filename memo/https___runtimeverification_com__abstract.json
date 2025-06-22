@@ -1,0 +1,3 @@
+{
+    "value": "This article introduces a leading Web3 security provider specializing in rigorous audits, leveraging formal methods and mathematical verification to go beyond traditional code reviews. By meticulously verifying underlying logic and mathematically proving security properties, they eliminate entire classes of vulnerabilities often missed, providing unparalleled confidence to top Web3 organizations like Arbitrum and the Ethereum Foundation. Complementing their audit services, they also develop cutting-edge, open-source security tools—including Kontrol, Simbolik, Kaas, and Komet—that offer advanced formal verification, fuzzing, and debugging capabilities for Solidity and Rust development."
+}

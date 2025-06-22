@@ -18,6 +18,8 @@ import {
   type Href,
   type Route,
 } from "@/ontology";
+import { Readability } from "@mozilla/readability";
+import { ai } from "./ai";
 
 const from_Route_to_Filepath = (r: Route): Filepath =>
   schemaFilepath.parse(isoRoute.unwrap(r).slice(1));
@@ -37,7 +39,9 @@ const from_Route_to_memoFilepath = (r: Route): Filepath =>
     joinFilepaths(config.dirpath_of_memo, from_Route_to_Filepath(r)),
   );
 
-export type T<A = unknown, B = void> = (input: A) => (ctx: Ctx.T) => Promise<B>;
+export type T<A = undefined, B = void> = (
+  input: A,
+) => (ctx: Ctx.T) => Promise<B>;
 
 export namespace Ctx {
   export type T = {
@@ -117,7 +121,7 @@ export const run: <A, B>(
  */
 export const useMemo: <A>(input: {
   key: string;
-  initialize: T<unknown, A>;
+  initialize: T<undefined, A>;
 }) => (ctx: Ctx.T) => Promise<A> = run(
   { label: (input) => label("useMemo", input.key) },
   (input) => async (ctx) => {
@@ -127,7 +131,7 @@ export const useMemo: <A>(input: {
     );
     if (!fsSync.existsSync(isoFilepath.unwrap(filepath))) {
       await tell("initializing memo")(ctx);
-      const val = await input.initialize({})(ctx);
+      const val = await input.initialize(undefined)(ctx);
       if (!fsSync.existsSync(isoFilepath.unwrap(config.dirpath_of_memo)))
         fs.mkdir(isoFilepath.unwrap(config.dirpath_of_memo), {
           recursive: true,
@@ -340,21 +344,55 @@ export const fetchExternalReferenceMetadata: T<
 > = run(
   { label: (input) => label("fetchExternalReferenceMetadata", input) },
   (input) => async (ctx) => {
-    return await useMemo({
-      key: encodeURIComponent_better(input.url.href),
-      initialize: () => async (ctx) => {
-        const metadata: ExternalReferenceMetadata = {};
-        await all({
-          efs: [
-            run({}, () => async (ctx) => {
-              metadata.name = await fetchTitle({ url: input.url })(ctx);
-            }),
-          ],
-          input: {},
-        })(ctx);
-        return metadata;
-      },
-    })(ctx);
+    const prefix = encodeURIComponent_better(input.url.href);
+
+    const metadata: ExternalReferenceMetadata = {};
+
+    metadata.name = (
+      await useMemo({
+        key: `${prefix}_name`,
+        initialize: () => async (ctx) => {
+          return { value: await fetchTitle({ url: input.url })(ctx) };
+        },
+      })(ctx)
+    ).value;
+
+    metadata.abstract = (
+      await useMemo({
+        key: `${prefix}_abstract`,
+        initialize: () => async (ctx) => {
+          const body = await fetchArticleBody({ url: input.url.href })(ctx);
+          if (body === undefined) return { value: undefined };
+          const response = await ai.generate(
+            `
+Write a concise 1-paragraph abstract for the following article:
+
+${body}
+          `.trim(),
+          );
+          if (response.message === undefined) return { value: undefined };
+          return { value: response.message.text };
+        },
+      })(ctx)
+    ).value;
+
+    return metadata;
+  },
+);
+
+export const fetchAbstract: T<{ url: URL }, string | undefined> = run(
+  { label: (input) => label("fetchAbstract", input) },
+  (input) => async (ctx) => {
+    try {
+      return "TODO";
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        await tell(error.toString().substring(0, 100))(ctx);
+        return undefined;
+      } else {
+        throw error;
+      }
+    }
   },
 );
 
@@ -422,9 +460,49 @@ export const fetchTitle: T<{ url: URL }, string | undefined> = run(
       } else {
         return title;
       }
-    } catch (e: any) {
-      await tell(e.toString())(ctx);
-      return undefined;
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        await tell(error.toString().substring(0, 100))(ctx);
+        return undefined;
+      } else {
+        throw error;
+      }
     }
   },
 );
+
+/**
+ * Fetches the article body from a URL, which is expected to link to an HTML article in some form. This function handles many different standard forms.
+ *
+ * First, fetch the content from {@link url}.
+ * Then, parse it as HTML content.
+ * Then, extracts the main article body as a string from the HTML content.
+ *
+ * If any step fails, then return `undefined`.
+ */
+export const fetchArticleBody: T<{ url: string }, string | undefined> =
+  (input) => async (ctx) => {
+    try {
+      const response = await fetch(input.url);
+      if (!response.ok) {
+        await tell(`Failed to fetch ${input.url}: ${response.statusText}`)(ctx);
+        return undefined;
+      }
+
+      const html = await response.text();
+      const dom = new JSDOM(html, {
+        url: input.url,
+      });
+      const reader = new Readability(dom.window.document);
+      const article = reader.parse();
+      if (!article) return undefined;
+      if (!article.textContent) return undefined;
+
+      return article.textContent;
+    } catch (error) {
+      await tell(`An error occurred while fetching the article body: ${error}`)(
+        ctx,
+      );
+      return undefined;
+    }
+  };

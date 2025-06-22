@@ -1,0 +1,3 @@
+{
+    "value": "This article details the `Output` effect, an extensible mechanism for sending messages or data streams, primarily useful for logging and real-time output. It offers diverse interpretations to handle generated data, including collecting it into lists or aggregating it into monoids, with non-lazy variants (`runOutputList`, `runOutputMonoid`) recommended to avoid `WriterT`-like space leaks inherent in their lazy counterparts. Additional interpretations support efficient accumulation via mutable references (IORef, TVar), output batching, or simply discarding messages, providing a flexible framework for managing emitted data within an effect system."
+}

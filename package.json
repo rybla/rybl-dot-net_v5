@@ -3,9 +3,12 @@
   "author": "Henry Blanchette",
   "type": "module",
   "dependencies": {
+    "@genkit-ai/googleai": "^1.13.0",
     "@kitajs/html": "^4.2.9",
+    "@mozilla/readability": "^0.6.0",
     "date-fns": "^4.1.0",
     "express": "^5.1.0",
+    "genkit": "^1.13.0",
     "highlight.js": "^11.11.1",
     "http-server": "^14.1.1",
     "jsdom": "^26.1.0",

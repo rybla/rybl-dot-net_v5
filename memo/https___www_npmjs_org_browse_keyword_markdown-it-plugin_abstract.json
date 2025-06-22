@@ -1,0 +1,3 @@
+{
+    "value": "This document outlines `markdown-it`, a modern and highly extensible Markdown parser, along with a diverse collection of its specialized plugins. These plugins demonstrate `markdown-it`'s modularity by extending its core functionality to support a wide array of features, including header anchors, emoji, footnotes, task lists, custom block containers, various HTML tags (e.g., `<ins>`, `<sup>`, `<sub>`), dynamic attributes, table of contents generation, and integration with technologies like KaTeX for mathematical notation and Highlight.js for code syntax, thereby providing robust customization options for Markdown rendering."
+}

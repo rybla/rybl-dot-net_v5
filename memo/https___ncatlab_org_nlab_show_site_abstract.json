@@ -1,0 +1,3 @@
+{
+    "value": "This article defines a \"site\" as a fundamental structure in topos theory, specifically a small category equipped with a Grothendieck topology (or coverage). A site serves as a \"presentation\" for a sheaf topos, meaning the category of sheaves over a given site is a sheaf topos, for which the site acts as its \"site of definition.\" The concept generalizes topological spaces and locales, providing a versatile framework for constructing and studying various \"geometries\" (e.g., differential, algebraic). The discussion covers different classes and specific examples of sites, explores properties like Morita equivalence (where distinct sites can define equivalent toposes), and touches upon their role in higher category theory."
+}

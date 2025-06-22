@@ -1,0 +1,3 @@
+{
+    "value": "This article defines and explores algebras over a monad, a central concept in categorical algebra that generalizes classical algebraic theories. An algebra for a monad (T,η,μ) on a category 𝒞 consists of an object A of 𝒞 and a structure map a:T(A)→A satisfying specific unit and action properties. This framework provides a powerful generalization, enabling a unified treatment of diverse mathematical structures such as monoids, groups, and modules as algebras for specific monads. The article details homomorphisms between algebras, the construction of free algebras, and the resulting Eilenberg-Moore category, while also discussing connections to universal algebra, categorical semantics, and generalizations within bicategories."
+}

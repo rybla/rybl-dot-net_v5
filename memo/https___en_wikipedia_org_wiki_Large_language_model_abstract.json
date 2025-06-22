@@ -1,0 +1,3 @@
+{
+    "value": "This article provides a comprehensive overview of Large Language Models (LLMs), defining them as self-supervised models trained on vast text data primarily for natural language generation. It traces their rapid evolution from early statistical approaches to the transformative impact of the 2017 transformer architecture, leading to sophisticated models like the GPT series that now exhibit emergent abilities, including advanced reasoning and multimodal capacities. The text details their foundational training processes and architectural components, while also addressing significant challenges such as inherent biases, the phenomenon of \"hallucination,\" security concerns, and environmental impact, all evaluated through various performance benchmarks."
+}

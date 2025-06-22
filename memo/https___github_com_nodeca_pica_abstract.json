@@ -1,0 +1,3 @@
+{
+    "value": "Pica is a high-quality, fast JavaScript library for resizing images directly in the browser, producing pixelation-free results. It automatically optimizes performance by leveraging available technologies like Web Workers, WebAssembly, createImageBitmap, or pure JavaScript. This empowers client-side operations such as reducing upload sizes, saving server resources, and generating thumbnails. While suitable for general image processing and offering features like unsharp masking, pica notes its limitations for professional-grade imaging due to browser canvas constraints and recommends the companion `image-blob-reduce` library for comprehensive file/blob handling, including EXIF metadata and orientation."
+}

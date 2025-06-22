@@ -1,0 +1,3 @@
+{
+    "value": "This document describes a demo application for \"Pica,\" a JavaScript library designed for high-quality, client-side image resizing directly within the browser. The interactive demonstration allows users to upload images and manipulate various resize filters and unsharp mask parameters, while showcasing performance optimizations achieved through the optional use of WebWorker, `createImageBitmap`, and WebAssembly technologies. It also provides a direct visual comparison between Pica's advanced resizing capabilities and standard canvas-based resizing methods."
+}

@@ -1,0 +1,3 @@
+{
+    "value": "This article defines commutative diagrams, a fundamental concept in category theory, as free diagrams where all parallel paths of composed morphisms between any two given objects result in the same composite morphism. It presents both an elementary definition based on path equality and a more abstract \"slick\" definition involving the factorization of the diagram's functor through a poset or preorder. The discussion also addresses edge cases, such as cycles, which imply specific identity conditions, and forks, highlighting that commutativity can sometimes require stronger equalities than initially expected or necessitate a weaker interpretation of commutativity."
+}

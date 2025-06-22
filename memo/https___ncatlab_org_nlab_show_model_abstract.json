@@ -1,0 +1,3 @@
+{
+    "value": "In logic and model theory, a model of a theory represents a concrete realization where all the theory's types, operations, relations, and axioms are satisfied. This concept is distinguished from a 'structure,' which does not necessarily satisfy any axioms. The article elaborates on models for first-order theories, defining them as L-structures where all theory sentences hold, and for Lawvere theories, where they are product-preserving functors. Additionally, it discusses related concepts such as theory consistency, equivalence, elementary equivalence, and axiomatization."
+}
