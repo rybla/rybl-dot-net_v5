@@ -1,6 +1,5 @@
 # TODO
 
-- [ ] sort posts in index by pubDate
 - [x] reference summaries
   - write (maybe with AI) summary of external references, which will be
   - [ ] actually make the summaries viewable somewhere
@@ -8,6 +7,7 @@
   - probably need to detect when a URL has no spaces in its name, and then to put a CSS class on it that styles it to word-break
 - [ ] make sure links to local sections works
 
+- [x] sort posts in index by pubDate
 - [ ] reference Notes
   - IDEA: every time you reference something, can add a note that that reference "edge". then all of these references can be aggregated and associated with that reference in the ReferenceGraphPage
 - [ ] every post should have a thumbnail (can generate via ai)
