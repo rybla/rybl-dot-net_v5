@@ -131,20 +131,20 @@ export const useMemo: <A>(input: {
     );
     if (!fsSync.existsSync(isoFilepath.unwrap(filepath))) {
       await tell("initializing memo")(ctx);
-      const val = await input.initialize(undefined)(ctx);
+      const value = await input.initialize(undefined)(ctx);
       if (!fsSync.existsSync(isoFilepath.unwrap(config.dirpath_of_memo)))
         fs.mkdir(isoFilepath.unwrap(config.dirpath_of_memo), {
           recursive: true,
         });
       await fs.writeFile(
         isoFilepath.unwrap(filepath),
-        JSON.stringify(val, null, 4),
+        JSON.stringify({ value }, null, 4),
       );
-      return val;
+      return value;
     }
     return JSON.parse(
       await fs.readFile(isoFilepath.unwrap(filepath), { encoding: "utf8" }),
-    );
+    ).value;
   },
 );
 
@@ -348,33 +348,27 @@ export const fetchExternalReferenceMetadata: T<
 
     const metadata: ExternalReferenceMetadata = {};
 
-    metadata.name = (
-      await useMemo({
-        key: `${prefix}_name`,
-        initialize: () => async (ctx) => {
-          return { value: await fetchTitle({ url: input.url })(ctx) };
-        },
-      })(ctx)
-    ).value;
+    metadata.name = await useMemo({
+      key: `${prefix}_name`,
+      initialize: () => fetchTitle({ url: input.url }),
+    })(ctx);
 
-    metadata.abstract = (
-      await useMemo({
-        key: `${prefix}_abstract`,
-        initialize: () => async (ctx) => {
-          const body = await fetchArticleBody({ url: input.url.href })(ctx);
-          if (body === undefined) return { value: undefined };
-          const response = await ai.generate(
-            `
+    metadata.abstract = await useMemo({
+      key: `${prefix}_abstract`,
+      initialize: () => async (ctx) => {
+        const body = await fetchArticleBody({ url: input.url.href })(ctx);
+        if (body === undefined) return undefined;
+        const response = await ai.generate(
+          `
 Write a concise 1-paragraph abstract for the following article:
 
 ${body}
           `.trim(),
-          );
-          if (response.message === undefined) return { value: undefined };
-          return { value: response.message.text };
-        },
-      })(ctx)
-    ).value;
+        );
+        if (response.message === undefined) return undefined;
+        return response.message.text;
+      },
+    })(ctx);
 
     return metadata;
   },
