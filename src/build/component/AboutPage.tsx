@@ -2,15 +2,10 @@ import type { Ctx } from "@/ef";
 import type { PromiseElement, Website } from "@/ontology";
 import Top from "./Top";
 import Markdown from "./Markdown";
-import { parseMarkdown } from "@/build/parsing";
+import { parseMarkdown, parseMarkdown_static } from "@/build/parsing";
 import { applyHomomorphisms, stylizeLink } from "../analysis/homomorphism";
 
-export default async function AboutPage(props: {
-  ctx: Ctx.T;
-  website: Website;
-}): PromiseElement {
-  const root = await parseMarkdown({
-    content: `
+export const root = parseMarkdown_static(`
 I'm Henry Blanchette.
 
 I spend most of my time programming.
@@ -21,9 +16,12 @@ Here are few programs I especially like using for development:
 - [Zig](https://ziglang.org/): a systems programming language with a minimalist design and advanced metaprogramming capabilities.
 - [Bun](https://bun.sh/): a fast Typescript/Javascript runtime implemented in Zig.
 - [Zed](https://zed.dev/): a fast editor implemented in Rust.
-`,
-  })(props.ctx);
+`);
 
+export default async function AboutPage(props: {
+  ctx: Ctx.T;
+  website: Website;
+}): PromiseElement {
   await applyHomomorphisms({
     root,
     params: {},

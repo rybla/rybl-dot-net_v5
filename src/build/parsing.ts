@@ -103,13 +103,7 @@ export const parseMarkdown: ef.T<{ content: string }, mdast.Root> = ef.run(
   {},
   (input) => async (ctx) => {
     try {
-      return unified()
-        .use(remarkParse)
-        .use(remarkFrontmatter, ["yaml"])
-        .use(remarkGfm)
-        .use(remarkDirective)
-        .use(remarkMath, { singleDollarTextMath: false })
-        .parse(input.content);
+      return parseMarkdown_static(input.content);
     } catch (e: unknown) {
       if (e instanceof Error) {
         throw new ef.EfError(e.toString());
@@ -119,3 +113,12 @@ export const parseMarkdown: ef.T<{ content: string }, mdast.Root> = ef.run(
     }
   },
 );
+
+export const parseMarkdown_static = (content: string) =>
+  unified()
+    .use(remarkParse)
+    .use(remarkFrontmatter, ["yaml"])
+    .use(remarkGfm)
+    .use(remarkDirective)
+    .use(remarkMath, { singleDollarTextMath: false })
+    .parse(content);

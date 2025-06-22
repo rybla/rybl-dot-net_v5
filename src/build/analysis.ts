@@ -1,5 +1,5 @@
+import { applyHomomorphisms, stylizeLink } from "@/build/analysis/homomorphism";
 import * as ef from "@/ef";
-import * as mdast from "mdast";
 import {
   config,
   from_Href_to_Reference,
@@ -8,14 +8,10 @@ import {
   from_Route_to_Href,
   from_URL_to_iconHref,
   from_URL_to_iconRoute,
-  get_name_of_Resource,
   get_name_of_Route,
-  isoHref,
   isoRoute,
-  joinRoutes,
   schemaHref,
   schemaResourceMetadata,
-  schemaRoute,
   type Backlink,
   type ExternalReference,
   type Href,
@@ -24,18 +20,19 @@ import {
   type Website,
 } from "@/ontology";
 import { showNode } from "@/unified_util";
-import { dedup, dedupInPlace, do_ } from "@/util";
-import { visit, type BuildVisitor, type Test } from "unist-util-visit";
+import { dedup, do_ } from "@/util";
+import * as mdast from "mdast";
+import { visit, type BuildVisitor } from "unist-util-visit";
 import * as YAML from "yaml";
-import { applyHomomorphisms, stylizeLink } from "@/build/analysis/homomorphism";
 import {
   addBacklinksSection,
   addReferencesSection,
   addTableOfContents,
   removeNameHeadingWrapper,
-  setNameHeadingWrapperBackgroundToNameImage,
   wrapHeadings,
 } from "./analysis/heteromorphism";
+import * as AboutPage from "./component/AboutPage";
+import * as ProfilesPage from "./component/ProfilesPage";
 import { parseMarkdown } from "./parsing";
 
 export const analyzeWebsite: ef.T<{
@@ -144,40 +141,42 @@ export const analyzeWebsite: ef.T<{
             };
 
             const efs_res: ef.T[] = [];
+
+            const visitor: BuildVisitor<mdast.Root> = (node) => {
+              efs_res.push(
+                ef.run({}, () => async () => {
+                  switch (node.type) {
+                    case "image": {
+                      const href = await ef.safeParse(
+                        schemaHref,
+                        node.url,
+                      )(ctx);
+                      const ref = from_Href_to_Reference(href);
+                      registerReference_local(ref);
+                      break;
+                    }
+                    case "link": {
+                      // convert all fragment hrefs to full hrefs
+                      if (node.url.startsWith("#")) {
+                        node.url = `${res.route}/${node.url}`;
+                      }
+
+                      const href = await ef.safeParse(
+                        schemaHref,
+                        node.url,
+                      )(ctx);
+                      const ref = from_Href_to_Reference(href);
+                      registerReference_local(ref);
+
+                      break;
+                    }
+                  }
+                }),
+              );
+            };
+
             switch (res.type) {
               case "post": {
-                const visitor: BuildVisitor<mdast.Root> = (node) => {
-                  efs_res.push(
-                    ef.run({}, () => async () => {
-                      switch (node.type) {
-                        case "image": {
-                          const href = await ef.safeParse(
-                            schemaHref,
-                            node.url,
-                          )(ctx);
-                          const ref = from_Href_to_Reference(href);
-                          registerReference_local(ref);
-                          break;
-                        }
-                        case "link": {
-                          // convert all fragment hrefs to full hrefs
-                          if (node.url.startsWith("#")) {
-                            node.url = `${res.route}/${node.url}`;
-                          }
-
-                          const href = await ef.safeParse(
-                            schemaHref,
-                            node.url,
-                          )(ctx);
-                          const ref = from_Href_to_Reference(href);
-                          registerReference_local(ref);
-
-                          break;
-                        }
-                      }
-                    }),
-                  );
-                };
                 visit(res.root, visitor);
 
                 if (res.metadata.abstract_markdown !== undefined) {
@@ -190,6 +189,10 @@ export const analyzeWebsite: ef.T<{
                 break;
               }
             }
+
+            // pages
+            visit(AboutPage.root, visitor);
+            visit(ProfilesPage.root, visitor);
 
             await ef.all({ efs: efs_res, input: {} })(ctx);
 
