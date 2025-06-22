@@ -166,7 +166,7 @@ export const get_name_of_Resource = (res: Resource) =>
 export const get_signature_of_Resource = (res: Resource) => {
   switch (res.type) {
     case "post": {
-      const messageBuffer = Buffer.from(JSON.stringify(res.root));
+      const messageBuffer = Buffer.from(res.content);
       const signature = crypto.sign(null, messageBuffer, config.key_private);
       return signature.toString("base64");
     }
