@@ -111,8 +111,7 @@ removes the incentive for Jo to not contribute if Jo believes that the other
 residents will contribute. Additionally, the mayor wants to avoid wasting
 resources. So, they write up the following **assurance contract**:
 
-> I promise to donate $$ D $$ utility if and only if every other resident also
-> signs this contract. Otherwise, I refraine from donating.
+> I promise to donate $$ D $$ utility if and only if every other resident also signs this contract. Otherwise, I refraine from donating.
 
 The mayor consults Jo again, asking what they would do with this proposal. Jo
 has the same two possible situations to expect:
@@ -164,9 +163,7 @@ donate, not just indifferent about it, and even if they are pessimistic about
 the others. In other words, that donating is a dominant strategy. The mayor
 thinks for a while, and finally writes the following contract:
 
-> I promise to donate $$ D $$ utility if and only if every other resident also
-> signs this contract. Otherwise, I donate $$ 0 $$ and the mayor pays me $$ F
-> $$ utility.
+> I promise to donate $$ D $$ utility if and only if every other resident also signs this contract. Otherwise, I donate $$ 0 $$ and the mayor pays me $$ F $$ utility.
 
 Where $$ D \leq C/n $$ i.e. the garden is still constructed if just one
 resident decides not to sign.
@@ -288,11 +285,7 @@ and no communication between agents is allowed. (Note that a free rider problem
 without communication is a prisoner' dillema.) The name is inspired by the
 following story:
 
-> Two prisoners, A and B, are on trial for a bank robbery they comitted as
-> partners. They are put into seperate rooms and each offered the same options:
-> (cooperate) recieve the standard sentence of 2 years, or (defect) reveal
-> evidence incriminating your partner to increase their sentence by 3 years, and
-> decrease your sentence by 1 year
+> Two prisoners, A and B, are on trial for a bank robbery they comitted as partners. They are put into seperate rooms and each offered the same options: (cooperate) recieve the standard sentence of 2 years, or (defect) reveal evidence incriminating your partner to increase their sentence by 3 years, and decrease your sentence by 1 year
 
 For each scenario, the sentences (in years) are arranged below. The entry "x, y"
 represents that prisoner A gets a sentnce

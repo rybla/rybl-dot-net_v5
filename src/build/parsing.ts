@@ -6,6 +6,7 @@ import {
   schemaRoute,
   type PostResource,
   type Resource,
+  type ResourceMetadata,
   type Route,
   type Website,
 } from "@/ontology";
@@ -51,6 +52,12 @@ const parsePosts: ef.T<unknown, Resource[]> = ef.run(
             {
               catch: (e) => async (ctx) => {
                 await ef.tell(`${e}`)(ctx);
+                const content = `
+\`\`\`
+${e.toString()}
+\`\`\`
+                  `;
+                const root = await parseMarkdown({ content })(ctx);
                 return [
                   {
                     route: isoRoute.modify((r) => r.replace(".md", ".html"))(
@@ -59,15 +66,8 @@ const parsePosts: ef.T<unknown, Resource[]> = ef.run(
                     references: [],
                     metadata: {},
                     type: "post",
-                    root: {
-                      type: "root",
-                      children: [
-                        {
-                          type: "code",
-                          value: e.toString(),
-                        },
-                      ],
-                    },
+                    root,
+                    content,
                   } as PostResource,
                 ];
               },
@@ -87,12 +87,14 @@ const parsePost: ef.T<{ route: Route }, Resource> = ef.run(
   (input) => async (ctx) => {
     const content = await ef.getRoute_textFile({ route: input.route })(ctx);
     const root = await parseMarkdown({ content })(ctx);
+    const metadata: ResourceMetadata = {};
     return {
       route: isoRoute.modify((r) => r.replace(".md", ".html"))(input.route),
       references: [],
-      metadata: {},
+      metadata,
       type: "post",
       root,
+      content,
     };
   },
 );

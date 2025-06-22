@@ -195,6 +195,7 @@ export type ResourceBase = {
 export type PostResource = ResourceBase & {
   type: "post";
   root: mdast.Root;
+  content: string;
 };
 
 export type HtmlResource = ResourceBase & {
