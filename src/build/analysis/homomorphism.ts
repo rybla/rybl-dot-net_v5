@@ -5,6 +5,7 @@ import {
   isoHref,
   schemaHref,
 } from "@/ontology";
+import { showNode } from "@/unified_util";
 import { type UnionToIntersection } from "@/util";
 import * as mdast from "mdast";
 import { visit } from "unist-util-visit";
@@ -42,7 +43,7 @@ export const applyHomomorphisms =
         }),
       );
     });
-    await ef.all({ efs, input: {} })(ctx);
+    await ef.all({ efs, input: undefined })(ctx);
   };
 
 export const stylizeLink: Homomorphism<{}> = ef.run(
@@ -94,7 +95,9 @@ export const classRawLink: Homomorphism<{}> = ef.run(
     if (input.node.type === "link") {
       const link = input.node as mdast.Link;
       await ef.run({}, () => async (ctx) => {
-        if (link.title === undefined || link.title === null) {
+        console.log(link);
+        const s = showNode(link);
+        if (!s.includes(" ") && s.length > 21) {
           link.data = link.data ?? {};
           link.data.hProperties = link.data.hProperties ?? {};
           link.data.hProperties.class = `${link.data.hProperties.class ?? ""} raw-link`;
