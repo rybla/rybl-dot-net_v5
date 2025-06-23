@@ -4,6 +4,7 @@ tags:
   - biography
 abstract:
   I recently contracted SARS-CoV-2. Here's my story.
+nameImage: covid19-experience.png
 ---
 
 # My Experience with the Great SARS-CoV-2 Virus

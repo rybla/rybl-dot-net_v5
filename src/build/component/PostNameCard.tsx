@@ -36,13 +36,18 @@ export default async function PostNameCard(props: {
     );
     return (
       <div class="PostNameCard with_nameImage">
-        <img src={isoRoute.unwrap(nameImage_src)} />
+        <img src={isoRoute.unwrap(nameImage_src)} class="nameImage" />
         {
           <>
-            <h1 class="layer1" safe>
+            {/* <h1 class="layer1" safe>
               {props.name ?? "Untitled"}
             </h1>
             <h1 class="layer2">
+              <a href={isoRoute.unwrap(props.route)} safe>
+                {props.name ?? "Untitled"}
+              </a>
+            </h1> */}
+            <h1 class="layer1">
               <a href={isoRoute.unwrap(props.route)} safe>
                 {props.name ?? "Untitled"}
               </a>

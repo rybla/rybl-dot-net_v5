@@ -3,6 +3,7 @@ type: post
 tags:
   - ai
 abstract: My thoughts on the dangers of AI technology.
+nameImage: ai-danger.png
 ---
 
 # AI Danger
@@ -173,7 +174,7 @@ Seems very hard.
 
 I haven't given this question _as_ much thought; I believe that imminent AI Doomsday is unlikely, so I think we still have plenty of time to consider it. Additionally, I expect that the details of AI technology will change significantly in ways relevant to this question before AI Doomsday _does_ become imminent, so there's probably not much progress we can make on answering this question until we have much more advanced and understood AI technology.
 
-## References
+## More Resource
 
 Below are some media on this topic that I recommend. One of the main reasons why I wanted to write this post is because much of the discussion of this topic I've seen seems very confused (or -- confusing to me perhaps), and so I want to put down my own thoughts so that I can get other people's pointed feedback and clearly track how my opinions change.
 

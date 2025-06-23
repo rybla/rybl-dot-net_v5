@@ -1,6 +1,11 @@
 .PostNameCard {
     position: relative;
 
+    img.nameImage {
+        display: block;
+        width: 100%;
+    }
+
     &.without_nameImage {
         display: flex;
         flex-direction: column;
@@ -13,20 +18,16 @@
     }
 
     &.with_nameImage {
-        & > img {
-            display: block;
-            width: 100%;
-        }
-
         & > h1 {
             position: absolute;
-            top: 50%;
+            top: 0.5em;
+            /* top: 30%; */
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, 0);
             text-align: center;
 
             white-space: wrap;
-            width: 80%;
+            width: 95%;
 
             /* font-size: 4em; */
         }

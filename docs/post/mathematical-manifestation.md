@@ -7,6 +7,7 @@ tags:
   - mathematics
   - philosophy
   - science
+nameImage: mathematical-manifestation.png
 ---
 
 # Mathematical Manifestation

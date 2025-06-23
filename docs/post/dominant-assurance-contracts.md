@@ -4,6 +4,7 @@ tags:
   - economics
 status: updated 2020/11/13
 abstract: Dominant assurance contracts are an interesting solution to many collective action problems. A DAC asks an agent to pledge a donation towards a collective action to be paid if any only if enough other agents also pledge, and promises to pay the agent if not enough other agents pledge. Such a contract can yield opting-in as a dominant strategy even when an agent expects other agents not to opt-in; free-rider incentives are removed by the assurance that no one benefits if any agent opts-out, and payment incentivizes pessimistic agents to opt-in anyway.
+nameImage: dominant-assurance-contracts.png
 ---
 
 # Dominant Assurance Contracts

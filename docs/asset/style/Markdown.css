@@ -3,8 +3,8 @@ a {
 
     color: inherit;
     background: var(--accent--background);
-    box-shadow: 0 -0.1em 0 0
-        color-mix(in hsl, var(--body--foreground), transparent 80%) inset;
+    /* box-shadow: 0 -0.1em 0 0
+        color-mix(in hsl, var(--body--foreground), transparent 80%) inset; */
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
 
@@ -195,4 +195,8 @@ h6::before {
 
 .raw-link {
     word-break: break-all;
+}
+
+.LinkWithIcon {
+    padding: 0 0.2em;
 }

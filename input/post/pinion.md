@@ -4,8 +4,9 @@ tags:
   - software
   - ai
 abstract: TODO
+nameImage: pinion.png
 ---
 
-# Pinion: A Short-Story Writer
+# Pinion: An LLM-powered Short-Story Writer
 
 TODO

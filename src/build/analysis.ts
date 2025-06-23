@@ -287,15 +287,23 @@ export const analyzeWebsite: ef.T<{
           {
             catch: (error) => async (ctx) => {
               await ef.tell(error.toString())(ctx);
+              await ef.useLocalFile({
+                input: config.iconRoute_placeholder,
+                output: from_URL_to_iconRoute(ref.value),
+              })(ctx);
             },
           },
           () => async (ctx) => {
-            const icon_url = await ef.fetchFaviconURL({ url: ref.value })(ctx);
-            const icon_href = from_URL_to_Href(icon_url);
             await ef.useRemoteFile({
-              href: icon_href,
+              label: ref.value.href,
+              input: ef.run({}, () => async (ctx) => {
+                const icon_url = await ef.fetchFaviconURL({ url: ref.value })(
+                  ctx,
+                );
+                const icon_href = from_URL_to_Href(icon_url);
+                return icon_href;
+              }),
               output: from_URL_to_iconRoute(ref.value),
-              input_default: config.iconRoute_placeholder,
             })(ctx);
           },
         ),

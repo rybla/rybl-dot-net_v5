@@ -4,6 +4,7 @@ abstract: Some observations on the situations of academic and industrial compute
 tags:
   - computics
   - academia
+nameImage: the-situations-of-academic-and-industrial-computer-science.png
 ---
 
 # The Situations of Academic and Industrial Computer Science

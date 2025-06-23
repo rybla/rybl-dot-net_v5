@@ -216,7 +216,8 @@ export const useLocalFile: T<{ input: Route; output?: Route }> = run(
 
 // TODO: write another version of this that lets you analyze the result of the output to get the content to write to the output route
 export const useRemoteFile: T<{
-  href: Href;
+  label: string;
+  input: T<undefined, Href>;
   output: Route;
   /**
    * If {@link href} cannot be downloaded, then copy the input
@@ -224,7 +225,7 @@ export const useRemoteFile: T<{
    */
   input_default?: Route;
 }> = run(
-  { label: (input) => label("useRemoteFile", { href: input.href }) },
+  { label: (input) => label("useRemoteFile", { href: input.label }) },
   (input) => async (ctx) => {
     const filepath_output = from_Route_to_outputFilepath(input.output);
     try {
@@ -233,12 +234,13 @@ export const useRemoteFile: T<{
         await tell(`Already downloaded to ${input.output}`)(ctx);
         return;
       } else {
-        const response = await fetch(isoHref.unwrap(input.href), {
+        const href = await input.input(undefined)(ctx);
+        const response = await fetch(isoHref.unwrap(href), {
           redirect: "follow",
           signal: AbortSignal.timeout(config.timeout_of_fetch),
         });
         if (!response.ok)
-          throw new EfError(`Failed to download file from ${input.href}`);
+          throw new EfError(`Failed to download file from ${input.input}`);
         const blob = await response.blob();
         const arrayBuffer = await blob.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
