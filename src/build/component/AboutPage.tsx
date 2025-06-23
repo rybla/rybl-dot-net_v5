@@ -64,7 +64,7 @@ My employment has been in software engineering, theoretical computer science res
 | **2022** | worked as summer intern at [Galois](https://galois.com/), developing the [Cryptol langauge](https://cryptol.net/) and verifying cyber-physical systems using [Coq](https://coq.inria.fr/) |
 | **2021** | worked as summer intern at [Runtime Verification](https://runtimeverification.com/), verifying [Ethereum smart contracts](https://ethereum.org/en/developers/docs/smart-contracts/) using the [K Framework](https://kframework.org/) |
 | **2020** | began PhD program in computer science at [University of Maryland](https://umd.edu) |
-| **2020** | graduated undergraduate program at [Reed College](https://www.reed.edu) with BA in computer science. <a href="{{ "/projects/purity-and-effect/" | relative_url }}">Thesis: Purity and Effect</a> |
+| **2020** | graduated undergraduate program at [Reed College](https://www.reed.edu) with BA in computer science. Thesis: [Thesis: Purity and Effect](https://github.com/rybla/Thesis-Purity-and-Effect) |
 | **2016** | began undergraduate program at [Reed College](https://www.reed.edu) |
 
 [jacob_prinz]: https://github.com/jeprinz
