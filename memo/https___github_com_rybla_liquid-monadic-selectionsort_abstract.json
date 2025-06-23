@@ -1,0 +1,3 @@
+{
+    "value": "This document presents a pure implementation of the selection sort algorithm, with a primary focus on its formal correctness. It details the algorithm's code, accompanied by rigorous specifications and proofs demonstrating that the sorted output is both ordered and a permutation of the original input, utilizing custom predicates for verification. Additionally, the repository includes performance data related to the build process."
+}

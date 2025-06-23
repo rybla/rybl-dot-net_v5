@@ -44,13 +44,13 @@ My research interests have centered around programming languages, simulation, ma
 | **2022-2023** | Liquid Flex -- extension of the [Flex](https://tangramflex.com/flex) language with refinement types | with [Tangram](https://www.tangramflex.com) |
 | **2022** | [Zypr](https://github.com/rybla/zypr) -- a zipper-interfaced structure editor | with [Jacob Prinz][jacob_prinz]; at [University of Maryland][umd] |
 | **2022** | [Liquid Proof Macros](https://github.com/rybla/lh-tactics-test) ([acm](https://dl.acm.org/doi/abs/10.1145/3546189.3549921)) -- tactical metaprogramming for Liquid Haskell proofs | with [Leonidas Lampropoulos][leo_lamp] and [Niki Vazou][niki_vazou]; at [University of Maryland][umd] |
-| **2021** | <a href="https://github.com/rybla/liquid-monadic-selectionsort">Extensional Equality in Liquid Haskell</a> | with [Leo Lampropolous][leo_lamp], [Niki Vazou][niki_vazou], and [Michael Greenberg](https://mgree.github.io); at [University of Maryland][umd] |
-| **2020** | <a href="{{ "/projects/generalized-price-equation/" | relative_url }}">Generalized Price Equation</a> | with [Mark Bedau](http://people.reed.edu/~mab/); for the Artificial Life Lab at Reed College |
+| **2021** | [Extensional Equality in Liquid Haskell](https://github.com/rybla/liquid-monadic-selectionsort) | with [Leo Lampropolous][leo_lamp], [Niki Vazou][niki_vazou], and [Michael Greenberg](https://mgree.github.io); at [University of Maryland][umd] |
+| **2020** | Generalized Price Equation | with [Mark Bedau](http://people.reed.edu/~mab/); for the Artificial Life Lab at Reed College |
 | **2020** | Separation Logic in Agda | with [Jim Fix](https://jimfix.github.io); at [Reed College](https://www.reed.edu) |
 | **2019** | Gradual Verification | with [Jonathan Aldrich](http://www.cs.cmu.edu/~aldrich/); for REUSE at [CMU](https://www.cs.cmu.edu) |
-| **2018** | <a href="{{ "/projects/reputation-in-academic-citation-networks/" | relative_url }}">Reputation in Academic Citation Networks</a> | with Eitan Frachtenburg; at [Reed College](https://www.reed.edu) |
-| **2018** | <a href="http://people.reed.edu/~ormsbyk/projectproject/posts/milnor-fibrations.html">Vector Calculus Vizualizations</a> | with Kyle Ormsby for [Project Project](http://people.reed.edu/~ormsbyk/projectproject/posts/milnor-fibrations.html); at [Reed College](https://www.reed.edu) |
-| **2017** | <a href="http://people.reed.edu/~ormsbyk/projectproject/posts/vector-calculus-demos.html">Milnor Fibration Vizualizations</a> | with Kyle Ormsby; for [Project Project](https://people.reed.edu/~ormsbyk/projectproject/) at [Reed College](https://www.reed.edu) |
+| **2018** | [Reputation in Academic Citation Networks](https://arxiv.org/abs/2001.02293) | with Eitan Frachtenburg; at [Reed College](https://www.reed.edu) |
+| **2018** | [Vector Calculus Vizualizations](http://people.reed.edu/~ormsbyk/projectproject/posts/milnor-fibrations.html) | with Kyle Ormsby for [Project Project](http://people.reed.edu/~ormsbyk/projectproject/posts/milnor-fibrations.html); at [Reed College](https://www.reed.edu) |
+| **2017** | [Milnor Fibration Vizualizations](http://people.reed.edu/~ormsbyk/projectproject/posts/vector-calculus-demos.html) | with Kyle Ormsby; for [Project Project](https://people.reed.edu/~ormsbyk/projectproject/) at [Reed College](https://www.reed.edu) |
 
 ## Education and Employment
 
