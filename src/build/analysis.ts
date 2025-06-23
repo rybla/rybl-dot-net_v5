@@ -217,7 +217,8 @@ export const analyzeWebsite: ef.T<{
         visitor({
           route: config.route_of_AboutPage,
           efs: efs_website,
-          registerReference: (ref) => {},
+          registerReference: (ref) =>
+            registerReference_global(config.route_of_AboutPage, ref),
         }),
       );
       visit(
@@ -225,7 +226,8 @@ export const analyzeWebsite: ef.T<{
         visitor({
           route: config.route_of_ProfilesPage,
           efs: efs_website,
-          registerReference: (ref) => {},
+          registerReference: (ref) =>
+            registerReference_global(config.route_of_ProfilesPage, ref),
         }),
       );
 

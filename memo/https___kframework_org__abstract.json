@@ -1,0 +1,3 @@
+{
+    "value": "K is a rewrite-based executable semantic framework designed for defining programming languages, type systems, and formal analysis tools. It employs configurations with nested cells and rewrite rules that explicitly mark read/write access to term parts, making it suitable for defining truly concurrent languages, even with shared state. Furthermore, computations are represented as first-class, rewriteable terms, enabling flexible manipulation and the definition of complex, control-intensive features such as abrupt termination, exceptions, or `call/cc`."
+}

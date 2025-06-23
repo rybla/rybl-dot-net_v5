@@ -1,0 +1,3 @@
+{
+    "value": "A smart contract is a self-executing program residing on the Ethereum blockchain, comprising code and data at a specific address. Functioning as an Ethereum account, it runs autonomously as programmed, automatically enforcing defined rules and facilitating irreversible interactions initiated by user transactions. Comparable to a digital vending machine, smart contracts replace intermediaries by guaranteeing specific outputs for given inputs. They are permissionless to deploy, highly composable like open APIs, but have limitations such as not directly accessing off-chain data—a challenge addressed by oracles—and a maximum size limit."
+}

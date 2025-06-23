@@ -1,0 +1,3 @@
+{
+    "value": "This Coq code formalizes the concept of equivalences within Homotopy Type Theory (HoTT), operating in a universe-polymorphic setting. It defines the `IsEquiv` class, requiring a function to have an inverse, satisfy the standard section and retraction laws, and crucially, an \"adjoint\" coherence condition (`e_adj`). A core contribution of the code is the `is_adjoint'` lemma, which demonstrates that this seemingly complex adjoint coherence property can be derived axiomatically from the simpler section and retraction laws alone, leveraging the rich path calculus of HoTT. This simplification is then used in `isequiv_adjointify` to provide a practical method for constructing `IsEquiv` proofs solely from two-sided inverse properties."
+}

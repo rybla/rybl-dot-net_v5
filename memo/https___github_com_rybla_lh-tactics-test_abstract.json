@@ -1,0 +1,3 @@
+{
+    "value": "This document describes `lh-tactics-test`, the replication package for the Haskell'22 paper \"Liquid Proof Macros\". It provides instructions for installing and using `lh-tactics`, a tool that automates the generation of Liquid Haskell proof terms from user-defined tactics expressed via proof macros. The package enables users to replicate the paper's evaluation by running included examples, and details how to integrate `lh-tactics` into custom Haskell projects to generate verifiable proofs. It also includes the data used in the paper's original evaluation."
+}

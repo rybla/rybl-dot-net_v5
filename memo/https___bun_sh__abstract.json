@@ -1,0 +1,3 @@
+{
+    "value": "Bun is a high-performance, all-in-one JavaScript and TypeScript runtime and toolkit designed for speed and developer productivity. Built on JavaScriptCore, it functions as a drop-in replacement for Node.js, offering a comprehensive suite of integrated tools including a bundler, test runner, and a Node.js-compatible package manager. Bun boasts significantly faster execution for common tasks like HTTP requests and database queries, further enhanced by extensive built-in APIs for areas such as Postgres, SQLite, S3, Redis, WebSocket servers, and cross-platform shell scripting, aiming to simplify the modern JavaScript development workflow."
+}

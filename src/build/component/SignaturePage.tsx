@@ -13,7 +13,7 @@ export default async function SignaturePage(props: {
 \`\`\`
 ${config.key_public}
 \`\`\`
-`,
+`.trim(),
   })(props.ctx);
 
   return (
