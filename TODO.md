@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] fix how in ReferencesGraph it's not able to find the static pages since they are not included into the website resources
+  - perhaps add a new kind of resource for static pages that are generated from components?
 - [ ] paginate index since it could get big and there are many images involved
 - [ ] style header images to stay the same height when the width shrinks (and the background image stays centered any everything)
 - [ ] search

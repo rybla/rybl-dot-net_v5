@@ -40,11 +40,11 @@ My research interests have centered around programming languages, simulation, ma
 
 | time | topic | association |
 | --- | --- | --- |
-| **2022-2024** | [Pantograph](https://pantographeditor.github.io/Pantograph/) ([acm](https://dl.acm.org/doi/10.1145/3704864)) -- a fluid and well-typed structure editor | with [Jacob Prinz][jacob_prinz]; at [University of Maryland][umd] |
+| **2022-2024** | [Pantograph](https://pantographeditor.github.io/Pantograph/) ([acm](https://dl.acm.org/doi/10.1145/3704864)) -- a fluid and well-typed structure editor | with [Jacob Prinz](https://github.com/jeprinz); at [University of Maryland](https://www.umd.edu) |
 | **2022-2023** | Liquid Flex -- extension of the [Flex](https://tangramflex.com/flex) language with refinement types | with [Tangram](https://www.tangramflex.com) |
-| **2022** | [Zypr](https://github.com/rybla/zypr) -- a zipper-interfaced structure editor | with [Jacob Prinz][jacob_prinz]; at [University of Maryland][umd] |
-| **2022** | [Liquid Proof Macros](https://github.com/rybla/lh-tactics-test) ([acm](https://dl.acm.org/doi/abs/10.1145/3546189.3549921)) -- tactical metaprogramming for Liquid Haskell proofs | with [Leonidas Lampropoulos][leo_lamp] and [Niki Vazou][niki_vazou]; at [University of Maryland][umd] |
-| **2021** | [Extensional Equality in Liquid Haskell](https://github.com/rybla/liquid-monadic-selectionsort) | with [Leo Lampropolous][leo_lamp], [Niki Vazou][niki_vazou], and [Michael Greenberg](https://mgree.github.io); at [University of Maryland][umd] |
+| **2022** | [Zypr](https://github.com/rybla/zypr) -- a zipper-interfaced structure editor | with [Jacob Prinz](https://github.com/jeprinz); at [University of Maryland](https://www.umd.edu) |
+| **2022** | [Liquid Proof Macros](https://github.com/rybla/lh-tactics-test) ([acm](https://dl.acm.org/doi/abs/10.1145/3546189.3549921)) -- tactical metaprogramming for Liquid Haskell proofs | with [Leonidas Lampropoulos](https://github.com/lemonidas) and [Niki Vazou](https://github.com/nikivazou); at [University of Maryland](https://www.umd.edu) |
+| **2021** | [Extensional Equality in Liquid Haskell](https://github.com/rybla/liquid-monadic-selectionsort) | with [Leo Lampropolous](https://github.com/lemonidas), [Niki Vazou](https://github.com/nikivazou), and [Michael Greenberg](https://mgree.github.io); at [University of Maryland](https://www.umd.edu) |
 | **2020** | Generalized Price Equation | with [Mark Bedau](http://people.reed.edu/~mab/); for the Artificial Life Lab at Reed College |
 | **2020** | Separation Logic in Agda | with [Jim Fix](https://jimfix.github.io); at [Reed College](https://www.reed.edu) |
 | **2019** | Gradual Verification | with [Jonathan Aldrich](http://www.cs.cmu.edu/~aldrich/); for REUSE at [CMU](https://www.cs.cmu.edu) |
@@ -66,12 +66,6 @@ My employment has been in software engineering, theoretical computer science res
 | **2020** | began PhD program in computer science at [University of Maryland](https://umd.edu) |
 | **2020** | graduated undergraduate program at [Reed College](https://www.reed.edu) with BA in computer science. Thesis: [Thesis: Purity and Effect](https://github.com/rybla/Thesis-Purity-and-Effect) |
 | **2016** | began undergraduate program at [Reed College](https://www.reed.edu) |
-
-[jacob_prinz]: https://github.com/jeprinz
-[leo_lamp]: https://github.com/lemonidas
-[niki_vazou]: https://github.com/nikivazou
-[umd]: https://www.umd.edu
-
 `);
 
 export default async function AboutPage(props: {
