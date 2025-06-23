@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] flush out About page
+  - more of my history
 - [x] reference summaries
   - write (maybe with AI) summary of external references, which will be
   - [ ] actually make the summaries viewable somewhere
