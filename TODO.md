@@ -1,8 +1,9 @@
 # TODO
 
-- [ ] flush out About page
-  - more of my history
-- [x] reference summaries
+- [ ] paginate index since it could get big and there are many images involved
+- [ ] style header images to stay the same height when the width shrinks (and the background image stays centered any everything)
+- [ ] search
+- [x] summaries of reference
   - write (maybe with AI) summary of external references, which will be
   - [ ] actually make the summaries viewable somewhere
 - [ ] deal with problem where a link can be really long single word (when its a URL)
@@ -20,6 +21,8 @@
 - [ ] css for making the heading of a section stay at the top of the section when you're scrolling
   - turns out this is harder than i thoguht
 
+- [x] flush out About page
+  - more of my history
 - [x] max height for code block (and perhaps other kinds of blocks as well)
 - [x] store the raw markdown version of each post somewhere (safe url, but with .md instead of .html)
 - [x] make sure math rendering still works
