@@ -384,7 +384,7 @@ export const config = do_(() => {
   const route_of_images = schemaRoute.parse("/asset/image");
 
   return {
-    dirpath_of_server: schemaFilepath.parse("docs"),
+    dirpath_of_server: schemaFilepath.parse("output"),
     port_of_server,
 
     url_of_website: process.env.PRODUCTION
@@ -412,7 +412,7 @@ export const config = do_(() => {
 
     dirpaths_of_watchers: ["src", "input"].map((x) => schemaFilepath.parse(x)),
 
-    dirpath_of_output: schemaFilepath.parse("docs"),
+    dirpath_of_output: schemaFilepath.parse("output"),
     dirpath_of_input: schemaFilepath.parse("input"),
     dirpath_of_memo: schemaFilepath.parse("memo"),
 
