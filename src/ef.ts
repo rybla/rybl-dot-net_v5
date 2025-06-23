@@ -238,7 +238,7 @@ export const useRemoteFile: T<{
           signal: AbortSignal.timeout(config.timeout_of_fetch),
         });
         if (!response.ok)
-          throw new Error(`Failed to download file from ${input.href}`);
+          throw new EfError(`Failed to download file from ${input.href}`);
         const blob = await response.blob();
         const arrayBuffer = await blob.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
@@ -350,47 +350,53 @@ export const fetchExternalReferenceMetadata: T<
 
     metadata.name = await useMemo({
       key: `${prefix}_name`,
-      initialize: () => fetchTitle({ url: input.url }),
+      initialize: run(
+        {
+          catch: (error) => async (ctx) => {
+            await tell(error.toString())(ctx);
+            return undefined;
+          },
+        },
+        () => fetchTitle({ url: input.url }),
+      ),
     })(ctx);
 
     metadata.abstract = await useMemo({
       key: `${prefix}_abstract`,
-      initialize: () => async (ctx) => {
-        const body = await fetchArticleBody({ url: input.url.href })(ctx);
-        if (body === undefined) return undefined;
-        const response = await ai.generate(
-          `
-Write a concise 1-paragraph abstract for the following article:
-
-${body}
-          `.trim(),
-        );
-        if (response.message === undefined) return undefined;
-        return response.message.text;
-      },
+      initialize: run(
+        {
+          catch: (error) => async (ctx) => {
+            await tell(error.toString())(ctx);
+            return undefined;
+          },
+        },
+        () => fetchAbstract({ url: input.url }),
+      ),
     })(ctx);
 
     return metadata;
   },
 );
 
-export const fetchAbstract: T<{ url: URL }, string | undefined> = run(
+export const fetchAbstract: T<{ url: URL }, string> = run(
   { label: (input) => label("fetchAbstract", input) },
   (input) => async (ctx) => {
-    try {
-      return "TODO";
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        await tell(error.toString().substring(0, 100))(ctx);
-        return undefined;
-      } else {
-        throw error;
-      }
-    }
+    const body = await fetchArticleBody({ url: input.url.href })(ctx);
+    if (body === undefined) throw new EfError("Failed to fetch article body");
+    const response = await ai.generate(
+      `
+Write a concise 1-paragraph abstract for the following article:
+
+${body}
+    `.trim(),
+    );
+    if (response.message === undefined)
+      throw new EfError("Failed to generate abstract");
+    return response.message.text;
   },
 );
 
-export const fetchTitle: T<{ url: URL }, string | undefined> = run(
+export const fetchTitle: T<{ url: URL }, string> = run(
   { label: (input) => label("fetchTitle", input) },
   (input) => async (ctx) => {
     try {
@@ -400,16 +406,14 @@ export const fetchTitle: T<{ url: URL }, string | undefined> = run(
       });
 
       if (!response.ok) {
-        await tell(
+        throw new EfError(
           `Failed to fetch article: ${response.status} ${response.statusText}`,
-        )(ctx);
-        return undefined;
+        );
       }
 
       const contentType = response.headers.get("content-type");
       if (!contentType || !contentType.includes("text/html")) {
-        await tell(`Expected HTML content, but got ${contentType}`)(ctx);
-        return undefined;
+        throw new EfError(`Expected HTML content, but got ${contentType}`);
       }
 
       const htmlContent = await response.text();
@@ -443,7 +447,7 @@ export const fetchTitle: T<{ url: URL }, string | undefined> = run(
           if (title) return title;
         }
       });
-      if (title === undefined) return undefined;
+      if (title === undefined) throw new EfError("No title found");
 
       if (input.url.hash !== "") {
         const e = document.getElementById(input.url.hash);
@@ -455,12 +459,7 @@ export const fetchTitle: T<{ url: URL }, string | undefined> = run(
         return title;
       }
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        await tell(error.toString().substring(0, 100))(ctx);
-        return undefined;
-      } else {
-        throw error;
-      }
+      throw error instanceof Error ? new EfError(error.message) : error;
     }
   },
 );
@@ -474,14 +473,14 @@ export const fetchTitle: T<{ url: URL }, string | undefined> = run(
  *
  * If any step fails, then return `undefined`.
  */
-export const fetchArticleBody: T<{ url: string }, string | undefined> =
+export const fetchArticleBody: T<{ url: string }, string> =
   (input) => async (ctx) => {
     try {
       const response = await fetch(input.url);
-      if (!response.ok) {
-        await tell(`Failed to fetch ${input.url}: ${response.statusText}`)(ctx);
-        return undefined;
-      }
+      if (!response.ok)
+        throw new EfError(
+          `Failed to fetch ${input.url}: ${response.statusText}`,
+        );
 
       const html = await response.text();
       const dom = new JSDOM(html, {
@@ -489,14 +488,77 @@ export const fetchArticleBody: T<{ url: string }, string | undefined> =
       });
       const reader = new Readability(dom.window.document);
       const article = reader.parse();
-      if (!article) return undefined;
-      if (!article.textContent) return undefined;
+      if (!article) throw new EfError(`Could not parse article body`);
+      if (!article.textContent)
+        throw new EfError(`Could not extract article text`);
 
       return article.textContent;
     } catch (error) {
-      await tell(`An error occurred while fetching the article body: ${error}`)(
-        ctx,
-      );
-      return undefined;
+      throw error instanceof Error ? new EfError(error.message) : error;
     }
   };
+
+/**
+ * Given a {@link url} to an HTML page on a website, extract the URL of the website's favicon.
+ */
+export const fetchFaviconURL: T<{ url: URL }, URL> = run(
+  { label: (input) => `fetchFaviconURL(${JSON.stringify(input)})` },
+  (input) => async (ctx) => {
+    try {
+      const href = await fetchFaviconURL_impl(input.url.href);
+      return await defined(`URL.parse(${href})`, URL.parse(href))(ctx);
+    } catch (error) {
+      throw error instanceof Error ? new EfError(error.message) : error;
+    }
+  },
+);
+
+async function fetchFaviconURL_impl(url: string): Promise<string> {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch URL: ${response.statusText}`);
+    }
+    const html = await response.text();
+    const dom = new JSDOM(html);
+    const { document } = dom.window;
+
+    const selectors = [
+      'link[rel="icon"]',
+      'link[rel="shortcut icon"]',
+      'link[rel="apple-touch-icon"]',
+      'link[rel="apple-touch-icon-precomposed"]',
+    ];
+
+    const linkElements = document.querySelectorAll<HTMLLinkElement>(
+      selectors.join(", "),
+    );
+
+    for (const linkElement of Array.from(linkElements)) {
+      if (
+        linkElement &&
+        linkElement.href &&
+        linkElement.href.toLowerCase().endsWith(".ico")
+      ) {
+        return new URL(linkElement.href, url).href;
+      }
+    }
+
+    const defaultFaviconUrl = new URL("/favicon.ico", url).href;
+    const headResponse = await fetch(defaultFaviconUrl, { method: "HEAD" });
+    if (headResponse.ok) {
+      return defaultFaviconUrl;
+    }
+
+    throw new Error("No .ico favicon found");
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(
+        `Could not fetch .ico favicon for ${url}: ${error.message}`,
+      );
+    }
+    throw new Error(
+      `An unknown error occurred while fetching .ico favicon for ${url}`,
+    );
+  }
+}

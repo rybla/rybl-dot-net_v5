@@ -10,6 +10,7 @@ import {
   from_Reference_to_Href,
   from_Reference_to_IconRoute,
   from_Route_to_Href,
+  from_URL_to_Href,
   from_URL_to_iconHref,
   from_URL_to_iconRoute,
   get_name_of_Route,
@@ -282,13 +283,22 @@ export const analyzeWebsite: ef.T<{
 
     await ef.all({
       efs: references_external.map((ref) =>
-        ef.run({}, () => async (ctx) => {
-          await ef.useRemoteFile({
-            href: from_URL_to_iconHref(ref.value),
-            output: from_URL_to_iconRoute(ref.value),
-            input_default: config.iconRoute_placeholder,
-          })(ctx);
-        }),
+        ef.run(
+          {
+            catch: (error) => async (ctx) => {
+              await ef.tell(error.toString())(ctx);
+            },
+          },
+          () => async (ctx) => {
+            const icon_url = await ef.fetchFaviconURL({ url: ref.value })(ctx);
+            const icon_href = from_URL_to_Href(icon_url);
+            await ef.useRemoteFile({
+              href: icon_href,
+              output: from_URL_to_iconRoute(ref.value),
+              input_default: config.iconRoute_placeholder,
+            })(ctx);
+          },
+        ),
       ),
       input: {},
     })(ctx);

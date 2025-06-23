@@ -337,7 +337,9 @@ export const from_URL_to_iconHref = (url: URL): Href => {
  * Note that it doesn't add a file extension. This is file for URLs, apparently.
  */
 export const from_URL_to_iconRoute = (url: URL): Route =>
-  schemaRoute.parse(`/asset/icon/${encodeURIComponent_better(url.hostname)}`);
+  schemaRoute.parse(
+    `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}.ico`,
+  );
 
 // from_HRef_*
 
@@ -378,6 +380,9 @@ export type Backlink = {
 export const config = do_(() => {
   const port_of_server = 3000;
 
+  const route_of_icons = schemaRoute.parse("/asset/icon");
+  const route_of_images = schemaRoute.parse("/asset/image");
+
   return {
     dirpath_of_server: schemaFilepath.parse("docs"),
     port_of_server,
@@ -386,7 +391,9 @@ export const config = do_(() => {
       ? new URL("https://rybl.net")
       : new URL(`http://localhost:${port_of_server}`),
     name_of_website: "rybl.net",
-    input_iconRoute_of_website: schemaRoute.parse("/asset/icon/favicon.ico"),
+    input_iconRoute_of_website: schemaRoute.parse(
+      `${route_of_icons}/favicon.ico`,
+    ),
     iconRoute_of_website: schemaRoute.parse("/favicon.ico"),
 
     // useful URLs
@@ -401,7 +408,7 @@ export const config = do_(() => {
       "/ReferencesGraphPage.html",
     ),
 
-    route_of_profileImage: schemaRoute.parse("/asset/image/profile.png"),
+    route_of_profileImage: schemaRoute.parse(`${route_of_images}/profile.png`),
 
     dirpaths_of_watchers: ["src", "input"].map((x) => schemaFilepath.parse(x)),
 
@@ -409,7 +416,9 @@ export const config = do_(() => {
     dirpath_of_input: schemaFilepath.parse("input"),
     dirpath_of_memo: schemaFilepath.parse("memo"),
 
-    iconRoute_placeholder: schemaRoute.parse("/asset/icon/placeholder.ico"),
+    iconRoute_placeholder: schemaRoute.parse(
+      `${route_of_icons}/placeholder.ico`,
+    ),
 
     timeout_of_fetch: 2000,
     batchSize_of_postAnalysis: 10,
@@ -418,13 +427,13 @@ export const config = do_(() => {
     using_batched_posts: true,
 
     route_of_styles: schemaRoute.parse("/asset/style"),
-    route_of_icons: schemaRoute.parse("/asset/icon"),
-    route_of_images: schemaRoute.parse("/asset/image"),
+    route_of_icons,
+    route_of_images,
     route_of_nameImages: schemaRoute.parse("/asset/nameImage"),
     route_of_fonts: schemaRoute.parse("/asset/font"),
     route_of_scripts: schemaRoute.parse("/asset/script"),
 
-    route_of_favicon: schemaRoute.parse("/asset/icon/favicon.ico"),
+    route_of_favicon: schemaRoute.parse(`${route_of_icons}/favicon.ico`),
 
     dateFormats_parse: ["yyyy-mm-dd", "yyyy/mm/dd", "MMM dd, yyyy"],
     dateFormat_print: "MMM dd, yyyy",
