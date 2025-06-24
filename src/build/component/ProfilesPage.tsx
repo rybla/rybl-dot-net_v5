@@ -1,15 +1,20 @@
 import type { Ctx } from "@/ef";
-import type { PromiseElement, Website } from "@/ontology";
-import { parseMarkdown, parseMarkdown_static } from "@/build/parsing";
-import Top from "./Top";
-import Markdown from "./Markdown";
+import {
+  config,
+  type PageProxyResource,
+  type PromiseElement,
+  type Website,
+} from "@/ontology";
 import {
   applyHomomorphisms,
   classRawLink,
   stylizeLink,
 } from "../analysis/homomorphism";
+import { parseMarkdown_static } from "../parsing/common";
+import Markdown from "./Markdown";
+import Top from "./Top";
 
-export const root = parseMarkdown_static(`
+const root = parseMarkdown_static(`
 This is the __profiles__ page.
 
 The following are my personal profiles on various websites.
@@ -24,6 +29,14 @@ The following are my personal profiles on various websites.
 - [Programming Languages Lab (PLUM) at University of Maryland](https://plum-umd.github.io/people/#_people/henry_blanchette.md)
 - [Project Project at Reed College](https://blogs.reed.edu/projectproject/author/blancheh/)
 `);
+
+export const proxy: PageProxyResource = {
+  type: "PageProxy",
+  metadata: {},
+  references: [],
+  root,
+  route: config.route_of_ProfilesPage,
+};
 
 export default async function ProfilesPage(props: {
   ctx: Ctx.T;

@@ -163,7 +163,11 @@ export const addResource: ef.T<
 /**
  * A thing that exists in a {@link Website}.
  */
-export type Resource = PostResource | HtmlResource | RawResource;
+export type Resource =
+  | PostResource
+  | PageProxyResource
+  | HtmlResource
+  | RawResource;
 
 export const get_name_of_Resource = (res: Resource) =>
   res.metadata.name ?? isoRoute.unwrap(res.route);
@@ -201,6 +205,11 @@ export type PostResource = ResourceBase & {
   type: "post";
   root: mdast.Root;
   content: string;
+};
+
+export type PageProxyResource = ResourceBase & {
+  type: "PageProxy";
+  root: mdast.Root;
 };
 
 export type HtmlResource = ResourceBase & {

@@ -17,6 +17,9 @@ import remarkMath from "remark-math";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import * as mdast from "mdast";
+import * as AboutPage from "@/build/component/AboutPage";
+import * as ProfilesPage from "@/build/component/ProfilesPage";
+import { parseMarkdown_static } from "./parsing/common";
 
 export const parseWebsite: ef.T<unknown, Website> = ef.run(
   { label: "parseWebsite" },
@@ -31,7 +34,10 @@ export const parseWebsite: ef.T<unknown, Website> = ef.run(
 
     const posts = await parsePosts({})(ctx);
     for (const post of posts)
-      await addResource({ resource: post, website: website })(ctx);
+      await addResource({ resource: post, website })(ctx);
+
+    addResource({ resource: AboutPage.proxy, website });
+    addResource({ resource: ProfilesPage.proxy, website });
 
     return website;
   },
@@ -113,12 +119,3 @@ export const parseMarkdown: ef.T<{ content: string }, mdast.Root> = ef.run(
     }
   },
 );
-
-export const parseMarkdown_static = (content: string) =>
-  unified()
-    .use(remarkParse)
-    .use(remarkFrontmatter, ["yaml"])
-    .use(remarkGfm)
-    .use(remarkDirective)
-    .use(remarkMath, { singleDollarTextMath: false })
-    .parse(content);

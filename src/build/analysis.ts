@@ -186,7 +186,8 @@ export const analyzeWebsite: ef.T<{
             });
 
             switch (res.type) {
-              case "post": {
+              case "post":
+              case "PageProxy": {
                 visit(res.root, visitor_local);
 
                 if (res.metadata.abstract_markdown !== undefined) {
@@ -201,35 +202,29 @@ export const analyzeWebsite: ef.T<{
             }
 
             await ef.all({ efs: efs_res, input: undefined })(ctx);
-
-            // res.references =
-            //   input.website.referencesGraph
-            //     .get(res.route)
-            //     ?.values()
-            //     .toArray() ?? [];
           }),
         )
         .toArray();
 
-      // pages
-      visit(
-        AboutPage.root,
-        visitor({
-          route: config.route_of_AboutPage,
-          efs: efs_website,
-          registerReference: (ref) =>
-            registerReference_global(config.route_of_AboutPage, ref),
-        }),
-      );
-      visit(
-        ProfilesPage.root,
-        visitor({
-          route: config.route_of_ProfilesPage,
-          efs: efs_website,
-          registerReference: (ref) =>
-            registerReference_global(config.route_of_ProfilesPage, ref),
-        }),
-      );
+      // // pages
+      // visit(
+      //   AboutPage.proxy.root,
+      //   visitor({
+      //     route: config.route_of_AboutPage,
+      //     efs: efs_website,
+      //     registerReference: (ref) =>
+      //       registerReference_global(config.route_of_AboutPage, ref),
+      //   }),
+      // );
+      // visit(
+      //   ProfilesPage.proxy.root,
+      //   visitor({
+      //     route: config.route_of_ProfilesPage,
+      //     efs: efs_website,
+      //     registerReference: (ref) =>
+      //       registerReference_global(config.route_of_ProfilesPage, ref),
+      //   }),
+      // );
 
       await ef.all({ efs: efs_website, input: undefined })(ctx);
     },
@@ -330,7 +325,8 @@ export const analyzeWebsite: ef.T<{
             },
             () => async (ctx) => {
               switch (res.type) {
-                case "post": {
+                case "post":
+                case "PageProxy": {
                   await addReferencesSection({
                     root: res.root,
                     resources: input.website.resources,
