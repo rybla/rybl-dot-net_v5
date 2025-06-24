@@ -12,10 +12,12 @@ import {
   joinFilepaths,
   joinRoutes,
   schemaFilepath,
+  schemaHref,
   schemaRoute,
   type ExternalReferenceMetadata,
   type Filepath,
   type Href,
+  type Reference,
   type Route,
 } from "@/ontology";
 import { Readability } from "@mozilla/readability";
@@ -275,7 +277,8 @@ export const defined: <A>(
   if (a_default === undefined) {
     if (a === undefined)
       throw new EfError(`${label}: expected to be defined, but was undefined`);
-    if (a === null) throw new EfError("expected to be defined, but was null");
+    if (a === null)
+      throw new EfError(`${label}: expected to be defined, but was null`);
     return a;
   } else {
     if (a === undefined || a === null) return a_default;
@@ -504,12 +507,11 @@ export const fetchArticleBody: T<{ url: string }, string> =
 /**
  * Given a {@link url} to an HTML page on a website, extract the URL of the website's favicon.
  */
-export const fetchFaviconURL: T<{ url: URL }, URL> = run(
+export const fetchFaviconHref: T<URL, Href> = run(
   { label: (input) => `fetchFaviconURL(${JSON.stringify(input)})` },
-  (input) => async (ctx) => {
+  (url) => async (ctx) => {
     try {
-      const href = await fetchFaviconURL_impl_v2(input.url.href);
-      return await defined(`URL.parse(${href})`, URL.parse(href))(ctx);
+      return schemaHref.parse(await fetchFaviconURL_impl_v2(url.href));
     } catch (error) {
       throw error instanceof Error ? new EfError(error.message) : error;
     }

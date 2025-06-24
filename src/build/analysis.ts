@@ -8,12 +8,11 @@ import {
   config,
   from_Href_to_Reference,
   from_Reference_to_Href,
-  from_Reference_to_IconRoute,
   from_Route_to_Href,
   from_URL_to_Href,
   from_URL_to_iconHref,
-  from_URL_to_iconRoute,
   get_name_of_Route,
+  getFaviconRoute_of_Reference,
   isoRoute,
   schemaHref,
   schemaResourceMetadata,
@@ -25,7 +24,7 @@ import {
   type Website,
 } from "@/ontology";
 import { showNode } from "@/unified_util";
-import { dedup, do_ } from "@/util";
+import { dedup, do_, encodeURIComponent_better } from "@/util";
 import * as mdast from "mdast";
 import { visit, type BuildVisitor } from "unist-util-visit";
 import * as YAML from "yaml";
@@ -261,12 +260,24 @@ export const analyzeWebsite: ef.T<{
   )(undefined)(ctx);
 
   await ef.run({ label: "use icons of references" }, () => async (ctx) => {
-    const refs = dedup(references_global.values(), (x) =>
-      isoRoute.unwrap(from_Reference_to_IconRoute(x)),
+    const faviconRoutes: Map<Href, Route> = new Map(
+      await do_(async () => {
+        const faviconRoutes: [Href, Route][] = [];
+        for (const [href, ref] of references_global.entries()) {
+          const faviconRoute = await getFaviconRoute_of_Reference(ref)(ctx);
+          faviconRoutes.push([href, faviconRoute]);
+        }
+        return faviconRoutes;
+      }),
     );
 
+    const refs = dedup(references_global.entries().toArray(), ([href, ref]) => {
+      const faviconRoute = faviconRoutes.get(href)!;
+      return isoRoute.unwrap(faviconRoute);
+    });
+
     const references_external: ExternalReference[] = [];
-    for (const ref of refs) {
+    for (const [_, ref] of refs) {
       switch (ref.type) {
         case "external": {
           references_external.push(ref);
@@ -279,32 +290,39 @@ export const analyzeWebsite: ef.T<{
     }
 
     await ef.all({
-      efs: references_external.map((ref) =>
-        ef.run(
+      efs: references_external.map((ref) => () => async (ctx) => {
+        const iconRoute = await getFaviconRoute_of_Reference({
+          type: "external",
+          ...ref,
+        })(ctx);
+
+        return ef.run(
           {
             catch: (error) => async (ctx) => {
               await ef.tell(error.toString())(ctx);
               await ef.useLocalFile({
                 input: config.iconRoute_placeholder,
-                output: from_URL_to_iconRoute(ref.value),
+                output: iconRoute,
               })(ctx);
             },
           },
           () => async (ctx) => {
-            await ef.useRemoteFile({
-              label: ref.value.href,
-              input: ef.run({}, () => async (ctx) => {
-                const icon_url = await ef.fetchFaviconURL({ url: ref.value })(
-                  ctx,
-                );
-                const icon_href = from_URL_to_Href(icon_url);
+            const icon_href: Href = await ef.useMemo({
+              key: `${encodeURIComponent_better(ref.value.href)}_faviconUrl`,
+              initialize: ef.run({}, () => async (ctx) => {
+                const icon_href = await ef.fetchFaviconHref(ref.value)(ctx);
                 return icon_href;
               }),
-              output: from_URL_to_iconRoute(ref.value),
+            })(ctx);
+
+            await ef.useRemoteFile({
+              label: ref.value.href,
+              input: ef.run({}, () => async (ctx) => icon_href),
+              output: iconRoute,
             })(ctx);
           },
-        ),
-      ),
+        )(undefined)(ctx);
+      }),
       input: {},
     })(ctx);
   })(undefined)(ctx);

@@ -1,7 +1,7 @@
 import * as ef from "@/ef";
 import {
-  from_Href_to_iconRoute,
   from_Route_to_Href,
+  getFaviconRoute_of_Reference,
   isoHref,
   schemaHref,
 } from "@/ontology";
@@ -47,7 +47,7 @@ export const applyHomomorphisms =
   };
 
 export const stylizeLink: Homomorphism<{}> = ef.run(
-  {},
+  { catch: (error) => ef.tell(error.toString()) },
   (input) => async (ctx) => {
     if (input.node.type === "link") {
       const link = input.node as mdast.Link;
@@ -55,6 +55,15 @@ export const stylizeLink: Homomorphism<{}> = ef.run(
         { label: ef.label("stylizeLink", { href: link.url }) },
         () => async (ctx) => {
           const href = await ef.safeParse(schemaHref, link.url)(ctx);
+          const iconURL = await ef.defined(
+            `URL.parse("${link.url}")`,
+            URL.parse(link.url),
+          )(ctx);
+          const iconRoute = await getFaviconRoute_of_Reference({
+            type: "external",
+            value: iconURL,
+            metadata: {},
+          })(ctx);
 
           link.data = link.data ?? {};
           link.data.hProperties = link.data.hProperties ?? {};
@@ -67,9 +76,7 @@ export const stylizeLink: Homomorphism<{}> = ef.run(
                   class: "icon",
                 },
               },
-              url: isoHref.unwrap(
-                from_Route_to_Href(from_Href_to_iconRoute(href)),
-              ),
+              url: isoHref.unwrap(from_Route_to_Href(iconRoute)),
             },
             {
               type: "textDirective",

@@ -105,3 +105,112 @@ Array.prototype.filterMap = function <T, B>(
   }
   return ys;
 };
+
+/**
+ * This file contains a single function, extractFileExtensionFromURL, designed to
+ * extract the file extension from a given URL object.
+ *
+ * The function operates by first accessing the `pathname` property of the URL.
+ * The pathname provides the path portion of the URL, correctly excluding any
+ * query parameters (e.g., `?foo=bar`) or hash fragments (e.g., `#section`).
+ *
+ * Once the pathname string is obtained, the function searches for the last
+ * occurrence of a period ('.') character, which typically separates the file
+ * name from its extension.
+ *
+ * If a period is found (i.e., its index is not -1) and it is not the very last
+ * character in the pathname (to handle cases like "path/to/directory."),
+ * the function extracts and returns the substring that follows this last period.
+ *
+ * If no period is found, or if it's the last character, the function concludes
+ * that no valid extension is present in the URL's path and returns `undefined`.
+ *
+ * This approach ensures a robust extraction that correctly handles various
+ * complex URL formats.
+ */
+export function extractFileExtensionFromURL(url: URL): string | undefined {
+  const pathname = url.pathname;
+  if (pathname === undefined) return undefined;
+  const lastDotIndex = pathname.lastIndexOf(".");
+
+  if (lastDotIndex === -1 || lastDotIndex === pathname.length - 1)
+    return undefined;
+
+  return pathname.substring(lastDotIndex + 1);
+}
+
+/**
+ * This file contains a TypeScript function, extractFileExtensionFromHref, designed
+ * to robustly extract the file extension from a given URL or href string.
+ *
+ * The function operates by first parsing the input string into a URL object.
+ * This approach correctly handles various URL complexities, such as query
+ * parameters (`?key=value`) and hash fragments (`#section`), by isolating
+ * the pathname, which is the only part of the URL relevant for determining
+ * the file extension.
+ *
+ * The logic proceeds as follows:
+ * 1.  The `URL` constructor is used within a try-catch block to handle
+ * potentially malformed input strings gracefully. If the input is not a
+ * valid URL, the function returns `undefined`.
+ * 2.  From the parsed URL object, the `pathname` property is retrieved.
+ * 3.  The `lastIndexOf('.')` method is used on the pathname to find the
+ * position of the last dot, which typically precedes the file extension.
+ * 4.  Several checks are performed:
+ * - If no dot is found (`lastDotIndex === -1`), it means there's no extension,
+ * and the function returns `undefined`.
+ * - To handle hidden files on Unix-like systems (e.g., `.htaccess`), the
+ * code checks if the dot is the very first character of the pathname and
+ * if there are no other dots. In such cases, it's not considered a file
+ * extension.
+ * - A check is also made to ensure the dot is not the last character in the
+ * pathname (e.g., `path/to/file.`), which would not be a valid extension.
+ * 5.  If all checks pass, the substring following the last dot is extracted
+ * using `slice(lastDotIndex + 1)` and returned as the file extension.
+ */
+export function extractFileExtensionFromHref(href: string): string | undefined {
+  try {
+    const url = new URL(href, "http://dummybase.com");
+    const pathname = url.pathname;
+
+    const lastDotIndex = pathname.lastIndexOf(".");
+
+    if (
+      lastDotIndex === -1 ||
+      lastDotIndex === pathname.length - 1 ||
+      (pathname.startsWith(".") && !pathname.substring(1).includes("."))
+    ) {
+      return undefined;
+    }
+
+    const lastSegment = pathname.substring(pathname.lastIndexOf("/") + 1);
+    if (lastSegment.startsWith(".")) {
+      const potentialExtension = pathname.substring(lastDotIndex + 1);
+      if (potentialExtension.length > 0) {
+        return potentialExtension;
+      }
+      return undefined;
+    }
+
+    return pathname.substring(lastDotIndex + 1);
+  } catch (e) {
+    try {
+      const parts = href.split(/[?#]/)[0]!.split("/");
+      const filename = parts[parts.length - 1]!;
+      if (filename.includes(".")) {
+        const extension = filename.split(".").pop();
+        if (
+          extension &&
+          extension.length > 0 &&
+          extension !== filename &&
+          !filename.startsWith(".")
+        ) {
+          return extension;
+        }
+      }
+    } catch (e) {
+      return undefined;
+    }
+    return undefined;
+  }
+}

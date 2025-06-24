@@ -1,5 +1,10 @@
 import * as ef from "@/ef";
-import { do_, encodeURIComponent_better } from "@/util";
+import {
+  do_,
+  encodeURIComponent_better,
+  extractFileExtensionFromHref,
+  extractFileExtensionFromURL,
+} from "@/util";
 import * as mdast from "mdast";
 import { iso, type Newtype } from "newtype-ts";
 import path from "path";
@@ -283,14 +288,14 @@ export const from_Reference_to_Href = (ref: Reference): Href => {
   }
 };
 
-export const from_Reference_to_IconRoute = (ref: Reference): Route => {
-  switch (ref.type) {
-    case "external":
-      return from_URL_to_iconRoute(ref.value);
-    case "internal":
-      return config.iconRoute_of_website;
-  }
-};
+// export const from_Reference_to_IconRoute = (ref: Reference): Route => {
+//   switch (ref.type) {
+//     case "external":
+//       return from_URL_to_iconRoute(ref.value);
+//     case "internal":
+//       return config.iconRoute_of_website;
+//   }
+// };
 
 export const get_name_of_Route = (
   resources: Map<Route, Resource>,
@@ -342,28 +347,28 @@ export const from_URL_to_iconHref = (url: URL): Href => {
   return join_Href_with_Route(hostHref, schemaRoute.parse("/favicon.ico"));
 };
 
-/**
- * Note that it doesn't add a file extension. This is file for URLs, apparently.
- */
-export const from_URL_to_iconRoute = (url: URL): Route =>
-  // schemaRoute.parse(
-  //   `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}.ico`,
-  // );
-  schemaRoute.parse(
-    `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}`,
-  );
+// /**
+//  * Note that it doesn't add a file extension. This is file for URLs, apparently.
+//  */
+// export const from_URL_to_iconRoute = (url: URL): Route =>
+//   // schemaRoute.parse(
+//   //   `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}.ico`,
+//   // );
+//   schemaRoute.parse(
+//     `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}`,
+//   );
 
 // from_HRef_*
 
-export const from_Href_to_iconRoute = (href: Href): Route => {
-  const result = from_Href_to_HrefUnion(href);
-  switch (result.type) {
-    case "route":
-      return config.iconRoute_of_website;
-    case "url":
-      return from_URL_to_iconRoute(result.value);
-  }
-};
+// export const from_Href_to_iconRoute = (href: Href): Route => {
+//   const result = from_Href_to_HrefUnion(href);
+//   switch (result.type) {
+//     case "route":
+//       return config.iconRoute_of_website;
+//     case "url":
+//       return from_URL_to_iconRoute(result.value);
+//   }
+// };
 
 export const from_Href_to_Reference = (href: Href): Reference => {
   const route_or_url = from_Href_to_HrefUnion(href);
@@ -388,6 +393,45 @@ export type Backlink = {
   name: string;
   route: Route;
 };
+
+/**
+ * Get the remote href of the original favicon for an href.
+ */
+export const getFaviconHref: ef.T<URL, Href> = (url) =>
+  ef.useMemo({
+    key: `${encodeURIComponent_better(url.href)}_faviconHref`,
+    initialize: ef.run(
+      { label: `initialize getFaviconHref(${url.href})` },
+      () => ef.fetchFaviconHref(url),
+    ),
+  });
+
+export const getFaviconURL: ef.T<URL, URL> = (url) => async (ctx) => {
+  const href = await getFaviconHref(url)(ctx);
+  const href_raw = isoHref.unwrap(href);
+  return await ef.defined(`URL.parse("${href_raw}")`, URL.parse(href_raw))(ctx);
+};
+
+/**
+ * Get the route to the local cache of a favicon for a reference.
+ */
+export const getFaviconRoute_of_Reference: ef.T<Reference, Route> =
+  (ref) => async (ctx) => {
+    switch (ref.type) {
+      case "internal":
+        return config.route_of_favicon;
+      case "external": {
+        const faviconHref = await getFaviconHref(ref.value)(ctx);
+        const extname = extractFileExtensionFromHref(
+          isoHref.unwrap(faviconHref),
+        );
+        const subroute = schemaRoute.parse(
+          `/${encodeURIComponent_better(ref.value.hostname)}${extname ? `.${extname}` : ""}`,
+        );
+        return joinRoutes(config.route_of_icons, subroute);
+      }
+    }
+  };
 
 export const config = do_(() => {
   const port_of_server = 3000;
