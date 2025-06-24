@@ -6,6 +6,7 @@
     "@genkit-ai/googleai": "^1.13.0",
     "@kitajs/html": "^4.2.9",
     "@mozilla/readability": "^0.6.0",
+    "@victr/favicon-fetcher": "^4.0.0",
     "date-fns": "^4.1.0",
     "express": "^5.1.0",
     "genkit": "^1.13.0",
@@ -50,6 +51,6 @@
   "scripts": {
     "clean": "rm -rf cache && rm -rf docs",
     "build": "bun src/build.ts",
-    "serve": "bun src/serve.ts"
+    "serve": "http-server output"
   }
 }

@@ -20,6 +20,7 @@ import {
 } from "@/ontology";
 import { Readability } from "@mozilla/readability";
 import { ai } from "./ai";
+import favicon from "@victr/favicon-fetcher";
 
 const from_Route_to_Filepath = (r: Route): Filepath =>
   schemaFilepath.parse(isoRoute.unwrap(r).slice(1));
@@ -507,7 +508,7 @@ export const fetchFaviconURL: T<{ url: URL }, URL> = run(
   { label: (input) => `fetchFaviconURL(${JSON.stringify(input)})` },
   (input) => async (ctx) => {
     try {
-      const href = await fetchFaviconURL_impl(input.url.href);
+      const href = await fetchFaviconURL_impl_v2(input.url.href);
       return await defined(`URL.parse(${href})`, URL.parse(href))(ctx);
     } catch (error) {
       throw error instanceof Error ? new EfError(error.message) : error;
@@ -515,7 +516,7 @@ export const fetchFaviconURL: T<{ url: URL }, URL> = run(
   },
 );
 
-async function fetchFaviconURL_impl(url: string): Promise<string> {
+async function fetchFaviconURL_impl_v1(url: string): Promise<string> {
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -553,6 +554,21 @@ async function fetchFaviconURL_impl(url: string): Promise<string> {
     }
 
     throw new Error("No .ico favicon found");
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(
+        `Could not fetch .ico favicon for ${url}: ${error.message}`,
+      );
+    }
+    throw new Error(
+      `An unknown error occurred while fetching .ico favicon for ${url}`,
+    );
+  }
+}
+
+async function fetchFaviconURL_impl_v2(url: string): Promise<string> {
+  try {
+    return await favicon.text(url);
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(

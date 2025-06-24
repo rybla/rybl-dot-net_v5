@@ -337,8 +337,11 @@ export const from_URL_to_iconHref = (url: URL): Href => {
  * Note that it doesn't add a file extension. This is file for URLs, apparently.
  */
 export const from_URL_to_iconRoute = (url: URL): Route =>
+  // schemaRoute.parse(
+  //   `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}.ico`,
+  // );
   schemaRoute.parse(
-    `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}.ico`,
+    `${config.route_of_icons}/${encodeURIComponent_better(url.hostname)}`,
   );
 
 // from_HRef_*
