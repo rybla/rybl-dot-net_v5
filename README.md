@@ -1,4 +1,12 @@
-# rybl-dot-net_v5
+# rybl-dot-net
+
+## Development
+
+### Requirements
+
+- [bun.sh](https://bun.sh)
+
+### Setup
 
 To install dependencies:
 
@@ -6,10 +14,14 @@ To install dependencies:
 bun install
 ```
 
-To run:
+To build the website:
 
 ```bash
-bun run index.ts
+bun run build
 ```
 
-This project was created using `bun init` in bun v1.2.14. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+To serve the website locally:
+
+```bash
+bun run serve
+```
