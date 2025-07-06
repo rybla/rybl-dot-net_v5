@@ -18,38 +18,25 @@
     }
 
     &.with_nameImage {
-        & > h1 {
-            position: absolute;
-            top: 0.5em;
-            /* top: 30%; */
-            left: 50%;
-            transform: translate(-50%, 0);
-            text-align: center;
+        background-position: center;
+        background-size: cover;
+        /* background-size: 100% 100%; */
 
+        & > h1 {
+            text-align: center;
             white-space: wrap;
             width: 95%;
-
-            /* font-size: 4em; */
         }
 
         & > h1.layer1 {
-            user-select: none;
-
-            /* text-shadow: 2px 2px #005aff; */
-
-            color: white;
-
-            mix-blend-mode: difference;
+            color: transparent;
         }
 
         & > h1.layer2 {
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: black;
-
-            /* text-shadow: 2px 2px
-                color-mix(in hsl, transparent, var(--accent--color) 50%); */
-            /* color: color-mix(in hsl, transparent, black 50%); */
-            color: transparent;
+            position: absolute;
+            top: 0;
+            mix-blend-mode: difference;
+            color: white;
         }
     }
 }
