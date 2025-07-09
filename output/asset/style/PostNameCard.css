@@ -20,7 +20,6 @@
     &.with_nameImage {
         background-position: center;
         background-size: cover;
-        /* background-size: 100% 100%; */
 
         & > h1 {
             text-align: center;
